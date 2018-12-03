@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="GRID LAYOUT"
+                android:text="Tukang Dagang"
                 android:textColor="@android:color/white"
                 android:textSize="34sp" />
 
@@ -69,12 +69,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/me_time" />
+                        android:src="@drawable/jajanan" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Me"
+                        android:text="Jajanan"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -107,12 +107,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/family_time" />
+                        android:src="@drawable/busana" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Family"
+                        android:text="Busana"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -148,12 +148,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/lovely_time" />
+                        android:src="@drawable/tukang" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lovely"
+                        android:text="Tukang"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -183,15 +183,15 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="43dp"
+                        android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/team_time" />
+                        android:src="@drawable/loker" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Team"
+                        android:text="Loker"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -227,12 +227,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/friends" />
+                        android:src="@drawable/rekomendasi" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Friends"
+                        android:text="Rekomendasi"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -265,12 +265,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/calendar" />
+                        android:src="@drawable/koprasi" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Calendars"
+                        android:text="e-Koprasi"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"

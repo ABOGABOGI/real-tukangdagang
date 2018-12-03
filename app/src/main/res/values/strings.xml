@@ -6,4 +6,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="next">LANJUT</string>
+    <string name="skip">LEWATI</string>
+    <string name="start">MULAI</string>
+
+    <string name="slide_1_title">Kuliner</string>
+    <string name="slide_1_desc">Rasakan Berbagai Kuliner yang Akan Memanjakan Lidahmu</string>
+
+    <string name="slide_2_title">Jasa</string>
+    <string name="slide_2_desc">Temukan Beragam Jenis Jasa yang Terpercaya Pada Tukang Dagang</string>
+
+    <string name="slide_3_title">Lokasi</string>
+    <string name="slide_3_desc">Temukan Lokasi Tukang Dagang Secara Realtime</string>
+
+    <string name="slide_4_title">e-Koprasi</string>
+    <string name="slide_4_desc">Toko Online Koperasi, Unit Usaha Digital Juga Terhubung Dengan Toko Fisik </string>
+
 </resources>
