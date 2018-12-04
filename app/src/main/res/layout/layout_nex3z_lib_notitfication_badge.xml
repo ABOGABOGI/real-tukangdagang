@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativ_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_notifications" />
+
+    <com.nex3z.notificationbadge.NotificationBadge
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/badge"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignTop="@id/icon"
+        android:layout_marginLeft="-16dp"
+        android:layout_marginTop="-8dp"
+        android:layout_toRightOf="@id/icon"
+        app:nbBackground="@drawable/badge_background"
+        app:nbMaxTextLength="2" />
+</RelativeLayout>
+
