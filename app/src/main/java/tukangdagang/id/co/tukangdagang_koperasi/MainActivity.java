@@ -85,17 +85,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    Home accountFragment = new Home();
+    Home homeFragment = new Home();
     Favourite favouriteFragment = new Favourite();
-    Maps storeFragment = new Maps();
-    Profile cartFragment = new Profile();
+    Maps mapsFragment = new Maps();
+    Profile profileFragment = new Profile();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.navigation_apps:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, accountFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homeFragment).commit();
                 return true;
 
             case R.id.navigation_faforit:
@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.navigation_maps:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, storeFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, mapsFragment).commit();
                 return true;
 
             case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, cartFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, profileFragment).commit();
                 return true;
 
 
