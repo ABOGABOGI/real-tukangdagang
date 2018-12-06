@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".Ekoprasi"
+        <activity
+            android:name=".Ekoprasi"
             android:label="@string/koprasi"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".Login"></activity>
     </application>
 
 </manifest>
