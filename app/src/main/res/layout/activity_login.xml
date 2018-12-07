@@ -54,6 +54,14 @@
             android:background="@color/colorPrimary"
             android:text="Login"
             android:textColor="#ffff" />
+        <TextView
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/forgot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Lupa Password ?" />
 
         <View
             android:id="@+id/divider"
@@ -72,31 +80,33 @@
             android:text="Atau Login Dengan"
             android:textAlignment="center" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#005fff"
-            android:textColor="#ffff"
-            android:text="Facebook" />
 
-        <Button
-            android:id="@+id/button3"
+        <com.shaishavgandhi.loginbuttons.FacebookButton
+            android:layout_marginTop="20dp"
+            android:text="Facebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#F44336"
+            android:id="@+id/btnFb"
+            />
+        <com.shaishavgandhi.loginbuttons.GooglePlusButton
             android:text="Google"
-            android:textColor="#ffff" />
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnGoogle"
+            />
+
+
 
         <TextView
-            android:layout_marginTop="50dp"
+
+            android:layout_marginTop="70dp"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Daftar Akun" />
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
