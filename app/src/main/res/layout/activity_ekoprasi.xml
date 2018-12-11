@@ -11,13 +11,12 @@
     <LinearLayout
         android:orientation="vertical"
         android:background="@drawable/bg1"
-        android:weightSum="12"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="50dp"
             android:layout_weight="2">
 
             <TextView
@@ -44,7 +43,7 @@
               android:layout_alignParentBottom="true"
               android:text="Poin SHU 2018"/>
             <Button
-                android:id="@+id/btnOrder"
+                android:id="@+id/tvpoint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -410,6 +409,7 @@
             android:paddingLeft="@dimen/card_padding"
             android:paddingRight="@dimen/card_padding"
             android:paddingStart="@dimen/card_padding" />
+
     </LinearLayout>
 
 
