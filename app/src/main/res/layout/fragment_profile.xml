@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
             android:padding="16dp"
             android:layout_width="match_parent"
@@ -232,22 +233,21 @@
             android:layout_height="200dp" />
 
     </LinearLayout>
+
+
         <android.support.v7.widget.GridLayout
 
-            android:id="@+id/mainGrid4"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="250dp"
             android:padding="5dp"
-            app:alignmentMode="alignMargins"
             app:columnCount="1"
-            app:columnOrderPreserved="false"
-            app:rowCount="2">
+            app:rowCount="1">
+
             <!-- Column 1 -->
             <android.support.v7.widget.CardView
 
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="16dp"
@@ -256,60 +256,12 @@
                 app:layout_columnWeight="1"
                 app:layout_rowWeight="1">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="5dp"
-                    android:orientation="vertical">
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:textAlignment="center"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_marginTop="0dp"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/chart" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Berita Koprasi"
-                            android:textColor="@android:color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-
-                android:layout_width="0dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_columnWeight="1"
-                app:layout_rowWeight="1">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="5dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
+                        android:padding="5dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -319,22 +271,97 @@
                             android:layout_height="80dp"
                             android:layout_gravity="top"
                             android:src="@drawable/koprasi" />
-                        <TextView
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toko Koprasi"
-                            android:textColor="@android:color/black"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rp. 2,8 Juta"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@android:color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Total Transaksi Bulan Lalu"
+                                android:layout_marginLeft="10dp" />
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_marginTop="25dp"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/chart" />
+
                     </LinearLayout>
-
-                </LinearLayout>
-
 
 
             </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_marginTop="0dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/sticker" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rp. 1,1 Juta"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Investasi Bulan Lalu"
+                            android:layout_marginLeft="10dp" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_marginTop="25dp"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/chart" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
 
         </android.support.v7.widget.GridLayout>
+
+
     </LinearLayout>
 
 

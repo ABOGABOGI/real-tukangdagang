@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tukangdagang.id.co.tukangdagang_koperasi">
+
     <!-- if you want to load images from the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -28,9 +29,12 @@
         <activity
             android:name=".Ekoprasi"
             android:label="@string/koprasi"
-            android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".Login"
-            android:label="Login"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Login"
+            android:label="Login" />
+        <activity android:name=".BeritaKoprasi" />
+        <activity android:name=".UnitUsaha"></activity>
     </application>
 
 </manifest>

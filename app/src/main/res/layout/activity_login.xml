@@ -102,22 +102,15 @@
 
 
 
-
-
-    </LinearLayout>
-</ScrollView>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center">
         <TextView
             android:layout_height="30dp"
             android:layout_width="match_parent"
             android:text="Daftar Disini"
             android:textColor="@color/colorPrimary"
-            android:textAlignment="center"
-            android:layout_alignParentBottom="true" />
+            android:layout_marginTop="50dp"
+            android:textAlignment="center" />
 
+    </LinearLayout>
+</ScrollView>
 
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

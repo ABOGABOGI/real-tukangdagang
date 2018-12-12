@@ -28,6 +28,10 @@
     <string name="title_2">OK card</string>
     <string name="title_3">Bad card</string>
     <string name="title_4">Ugly card</string>
+    <string name="title_5">Unit Usaha Peternakan</string>
+    <string name="title_6">Unit Usaha Perdagangan</string>
+    <string name="title_7">Unit Usaha Perkebunan</string>
+    <string name="title_8">Unit Usaha Pertanian</string>
 
     <string name="text_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum.</string>
 

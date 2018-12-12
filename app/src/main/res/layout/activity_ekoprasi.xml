@@ -321,32 +321,44 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="5dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_marginTop="0dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/koprasi" />
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_marginTop="0dp"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/chart" />
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Berita Koprasi"
+                            android:layout_marginLeft="10dp"
                             android:textColor="@android:color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pengumuman, Sambutan, dan jadwal Iuran wajib"
+                            android:layout_marginLeft="10dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat"
+                            android:id="@+id/lihatBerita"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_marginLeft="10dp" />
                     </LinearLayout>
-
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -365,31 +377,43 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:padding="5dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_margin="5dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_marginTop="0dp"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="top"
+                        android:src="@drawable/sticker" />
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_marginTop="0dp"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_gravity="top"
-                            android:src="@drawable/koprasi" />
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Toko Koprasi"
+                            android:text="Toko Online Koperasi"
+                            android:layout_marginLeft="10dp"
                             android:textColor="@android:color/black"
                             android:textSize="15sp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Beli pulsa, paket data, bayar PLN dan BPJS disini."
+                            android:layout_marginLeft="10dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimary"
+                            android:text="Lihat"/>
                     </LinearLayout>
+
 
                 </LinearLayout>
 
