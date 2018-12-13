@@ -82,7 +82,7 @@
 
             android:id="@+id/mainGrid3"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:padding="5dp"
             app:alignmentMode="alignMargins"
             app:columnCount="1"
@@ -95,7 +95,7 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"

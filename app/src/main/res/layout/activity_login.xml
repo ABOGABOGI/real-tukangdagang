@@ -106,6 +106,7 @@
             android:layout_height="30dp"
             android:layout_width="match_parent"
             android:text="Daftar Disini"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="50dp"
             android:textAlignment="center" />
