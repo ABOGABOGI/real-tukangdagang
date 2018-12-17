@@ -73,15 +73,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/jajanan" />
+                        android:src="@drawable/barang" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Jajanan"
+                        android:text="Cari Barang"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -111,15 +111,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/busana" />
+                        android:src="@drawable/makanan" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Busana"
+                        android:text="Cari Makanan"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -152,12 +152,12 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/tukang" />
+                        android:src="@drawable/tukangjasa" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tukang"
+                        android:text="Cari Jasa"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="10sp"
@@ -190,15 +190,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/loker" />
+                        android:src="@drawable/maps_green" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loker"
+                        android:text="Cari Di Map"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -229,17 +229,17 @@
 
                     <ImageView
                         android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_height="49dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/rekomendasi" />
+                        android:src="@drawable/rupiah" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Rekomendasi"
+                        android:text="Cari Modal"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -269,15 +269,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/koprasi" />
+                        android:src="@drawable/store" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="e-Koprasi"
+                        android:text="Daganganku"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

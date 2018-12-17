@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -38,6 +40,7 @@ public class Profile extends Fragment implements OnChartGestureListener,
         OnChartValueSelectedListener {
 
     private LineChart mChart;
+    private Button btn_jadwal;
 
     public Profile() {
         // Required empty public constructor
@@ -50,6 +53,7 @@ public class Profile extends Fragment implements OnChartGestureListener,
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
         mChart = (LineChart) rootView.findViewById(R.id.linechart);
+        btn_jadwal = (Button) rootView.findViewById(R.id.btn_jadwal);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
@@ -114,7 +118,15 @@ public class Profile extends Fragment implements OnChartGestureListener,
 
 
 
+        //menampilkan kalender
 
+        btn_jadwal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(),CalendarActivity.class);
+                startActivity(i);
+            }
+        });
 
         // Inflate the layout for this fragment
         return rootView;
