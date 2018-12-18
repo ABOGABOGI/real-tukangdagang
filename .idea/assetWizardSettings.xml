@@ -67,7 +67,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_shopping_cart_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_touch_app_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -77,8 +77,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="0f0000" />
-                            <entry key="outputName" value="keranjang" />
+                            <entry key="color" value="fff9fc" />
+                            <entry key="outputName" value="touch" />
                             <entry key="sourceFile" value="C:\Users\rijal" />
                           </map>
                         </option>

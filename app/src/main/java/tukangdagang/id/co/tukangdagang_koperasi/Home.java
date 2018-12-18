@@ -69,8 +69,8 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
     private ImageView[] dots;
 
     ViewPager viewPager1;
-    Adapter adapter;
-    List<Model> models;
+//    Adapter adapter;
+//    List<Model> models;
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
@@ -97,15 +97,15 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
 // start coding cardview slide
 
-        models = new ArrayList<>();
-        models.add(new Model(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-        models.add(new Model(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-        models.add(new Model(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-
-        adapter = new Adapter(models,this.getContext());
-        viewPager1 = rootView.findViewById(R.id.viewPager1);
-        viewPager1.setAdapter(adapter);
-        viewPager1.setPadding(130,0,130,0);
+//        models = new ArrayList<>();
+//        models.add(new Model(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new Model(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new Model(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//
+//        adapter = new Adapter(models,this.getContext());
+//        viewPager1 = rootView.findViewById(R.id.viewPager1);
+//        viewPager1.setAdapter(adapter);
+//        viewPager1.setPadding(130,0,130,0);
 
         Integer[] colors_temp = {
                 getResources().getColor(R.color.color1),
@@ -115,33 +115,33 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
         colors = colors_temp;
 
-        viewPager1.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position< (adapter.getCount()-1) && position < (colors.length -1)){
-                    viewPager1.setBackgroundColor(
-
-                            (Integer) argbEvaluator.evaluate(
-                                    positionOffset,
-                                    colors[position],
-                                    colors[position + 1]
-                            )
-                    );
-                } else {
-                 viewPager1.setBackgroundColor(colors[colors.length - 1]);
-                }
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+//        viewPager1.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                if(position< (adapter.getCount()-1) && position < (colors.length -1)){
+//                    viewPager1.setBackgroundColor(
+//
+//                            (Integer) argbEvaluator.evaluate(
+//                                    positionOffset,
+//                                    colors[position],
+//                                    colors[position + 1]
+//                            )
+//                    );
+//                } else {
+//                 viewPager1.setBackgroundColor(colors[colors.length - 1]);
+//                }
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
 
         mDemoSlider = (SliderLayout)rootView.findViewById(R.id.slider);
 
@@ -277,14 +277,14 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         //Loop all child item of Main Grid
         for (int i = 0; i < mainGrid.getChildCount(); i++) {
             //You can see , all child item is CardView , so we just cast object to CardView
-            CardView cardView = (CardView) mainGrid.getChildAt(5);
+            final CardView cardView = (CardView) mainGrid.getChildAt(4);
             final int finalI = i;
             cardView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(),Ekoprasi.class);
+                    Intent intent = new Intent(getActivity(),CariModal.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
                     startActivity(intent);
 

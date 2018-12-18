@@ -257,7 +257,7 @@
                         android:text="Cari Jasa"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>

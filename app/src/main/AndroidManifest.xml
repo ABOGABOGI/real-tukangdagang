@@ -67,11 +67,16 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="sensorPortrait" />
-
-    <activity
+        <activity
             android:name=".CalendarActivity"
             android:label="@string/jadwal"
             android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariModal"
+            android:label="Cari Modal"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait"/>
+
     </application>
 
 </manifest>
