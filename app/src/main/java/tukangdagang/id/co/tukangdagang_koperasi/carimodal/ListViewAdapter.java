@@ -82,35 +82,35 @@ public class ListViewAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 //code later
-                if (modellist.get(postition).getTitle().equals("Battery")){
+                if (modellist.get(postition).getTitle().equals("Koprasi Bangun Bersama")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Ekoprasi.class);
                     intent.putExtra("actionBarTitle", "Battery");
                     intent.putExtra("contentTv", "This is Battery detail...");
                     mContext.startActivity(intent);
                 }
-                if (modellist.get(postition).getTitle().equals("Cpu")){
+                if (modellist.get(postition).getTitle().equals("Koprasi Tanpa Riba")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Ekoprasi.class);
                     intent.putExtra("actionBarTitle", "Cpu");
                     intent.putExtra("contentTv", "This is Cpu detail...");
                     mContext.startActivity(intent);
                 }
-                if (modellist.get(postition).getTitle().equals("Display")){
+                if (modellist.get(postition).getTitle().equals("Koprasi Tabungan Bersama")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Ekoprasi.class);
                     intent.putExtra("actionBarTitle", "Display");
                     intent.putExtra("contentTv", "This is Display detail...");
                     mContext.startActivity(intent);
                 }
-                if (modellist.get(postition).getTitle().equals("Memory")){
+                if (modellist.get(postition).getTitle().equals("Koprasi Suka Makmur")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Ekoprasi.class);
                     intent.putExtra("actionBarTitle", "Memory");
                     intent.putExtra("contentTv", "This is Memory detail...");
                     mContext.startActivity(intent);
                 }
-                if (modellist.get(postition).getTitle().equals("Sensor")){
+                if (modellist.get(postition).getTitle().equals("Koprasi Milik Kita")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Ekoprasi.class);
                     intent.putExtra("actionBarTitle", "Sensor");
