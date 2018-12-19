@@ -277,14 +277,26 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         //Loop all child item of Main Grid
         for (int i = 0; i < mainGrid.getChildCount(); i++) {
             //You can see , all child item is CardView , so we just cast object to CardView
-            final CardView cardView = (CardView) mainGrid.getChildAt(4);
             final int finalI = i;
-            cardView.setOnClickListener(new View.OnClickListener() {
+            final CardView cardView4 = (CardView) mainGrid.getChildAt(4);
+            cardView4.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
 
                     Intent intent = new Intent(getActivity(),CariModal.class);
+                    intent.putExtra("info","This is activity from card item index  "+finalI);
+                    startActivity(intent);
+
+                }
+            });
+            final CardView cardView5 = (CardView) mainGrid.getChildAt(5);
+            cardView5.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(),Daganganku.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
                     startActivity(intent);
 
