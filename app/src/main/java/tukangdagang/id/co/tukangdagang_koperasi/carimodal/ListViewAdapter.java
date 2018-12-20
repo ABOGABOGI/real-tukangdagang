@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,10 @@ import java.util.List;
 import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
+import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
 import tukangdagang.id.co.tukangdagang_koperasi.Ekoprasi;
+import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
+import tukangdagang.id.co.tukangdagang_koperasi.MapsActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 
 public class ListViewAdapter extends BaseAdapter{
@@ -37,6 +41,7 @@ public class ListViewAdapter extends BaseAdapter{
     public class ViewHolder{
         TextView mTitleTv, mDescTv;
         ImageView mIconIv;
+        Button btnDaftarKop;
     }
 
     @Override
@@ -61,7 +66,8 @@ public class ListViewAdapter extends BaseAdapter{
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.row_modal, null);
 
-            //locate the views in row.xml
+            //locate the views in row_modal.xml
+            holder.btnDaftarKop = view.findViewById(R.id.btn_dafatar_koprasi);
             holder.mTitleTv = view.findViewById(R.id.mainTitle);
             holder.mDescTv = view.findViewById(R.id.mainDesc);
             holder.mIconIv = view.findViewById(R.id.mainIcon);
@@ -77,6 +83,14 @@ public class ListViewAdapter extends BaseAdapter{
         holder.mDescTv.setText(modellist.get(postition).getDesc());
         //set the result in imageview
         holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
+
+        holder.btnDaftarKop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mContext,DaftarAnggota.class);
+                mContext.startActivity(i);
+            }
+        });
 
         //listview item clicks
         view.setOnClickListener(new View.OnClickListener() {

@@ -100,11 +100,16 @@
         <activity
             android:name=".CariJasa"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorPortrait"/>
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".RincianJasa"
             android:parentActivityName=".CariJasa"
             android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".DaftarAnggota"
+            android:parentActivityName=".CariModal"
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".InformasiUmum"></activity>
     </application>
 
 </manifest>
