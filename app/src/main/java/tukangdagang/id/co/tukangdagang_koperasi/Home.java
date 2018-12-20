@@ -278,6 +278,58 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         for (int i = 0; i < mainGrid.getChildCount(); i++) {
             //You can see , all child item is CardView , so we just cast object to CardView
             final int finalI = i;
+            final CardView cardView0 = (CardView) mainGrid.getChildAt(0);
+            cardView0.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(),CariBarang.class);
+                    intent.putExtra("info","This is activity from card item index  "+finalI);
+                    startActivity(intent);
+
+                }
+            });
+
+            final CardView cardView1 = (CardView) mainGrid.getChildAt(1);
+            cardView1.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(),CariMakanan.class);
+                    intent.putExtra("info","This is activity from card item index  "+finalI);
+                    startActivity(intent);
+
+                }
+            });
+
+            final CardView cardView2 = (CardView) mainGrid.getChildAt(2);
+            cardView2.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(),CariJasa.class);
+                    intent.putExtra("info","This is activity from card item index  "+finalI);
+                    startActivity(intent);
+
+                }
+            });
+
+            final CardView cardView3 = (CardView) mainGrid.getChildAt(3);
+            cardView3.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getActivity(),MapsActivity.class);
+                    intent.putExtra("info","This is activity from card item index  "+finalI);
+                    startActivity(intent);
+
+                }
+            });
+
             final CardView cardView4 = (CardView) mainGrid.getChildAt(4);
             cardView4.setOnClickListener(new View.OnClickListener() {
 

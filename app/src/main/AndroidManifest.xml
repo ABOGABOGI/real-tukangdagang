@@ -80,7 +80,31 @@
             android:name=".Daganganku"
             android:label="Usahaku"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariMakanan"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".RincianMakanan"
+            android:parentActivityName=".CariMakanan"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariBarang"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".RincianBarang"
+            android:parentActivityName=".CariBarang"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariJasa"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait"/>
+        <activity
+            android:name=".RincianJasa"
+            android:parentActivityName=".CariJasa"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>
