@@ -46,4 +46,35 @@
     <string name="navigation_view_item_4">Settings</string>
     <string name="navigation_view_item_5">About</string>
 
+    <!--list spinner-->
+    <string-array name="jenis_kelamin">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="provinsi">
+        <item>Jawa Barat</item>
+        <item>Jawa Timur</item>
+    </string-array>
+
+    <string-array name="kota">
+        <item>Bandung</item>
+        <item>Pekalongan</item>
+    </string-array>
+
+    <string-array name="kecamatan">
+        <item>Kiaracondong</item>
+        <item>Walini</item>
+    </string-array>
+
+    <string-array name="kodepos">
+        <item>40284</item>
+        <item>40934</item>
+    </string-array>
+
+    <string-array name="ket">
+        <item>Basic Account</item>
+        <item>Premium Account</item>
+    </string-array>
+
 </resources>

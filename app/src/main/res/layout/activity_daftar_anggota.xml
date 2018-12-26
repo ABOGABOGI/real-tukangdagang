@@ -86,12 +86,17 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:background="@drawable/round"
             android:text="Daftar"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:padding="5dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/round"
             android:text="Daftar Nanti"/>
 
     </LinearLayout>

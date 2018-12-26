@@ -8,10 +8,10 @@ public class ModelBarang {
     private String Alamat ;
     private String Berat ;
     private String Description ;
-    private int Thumbnail ;
+    private String Thumbnail ;
 
 
-    public ModelBarang(String title, String category, String harga, String alamat, String berat, String description, int thumbnail) {
+    public ModelBarang(String title, String category, String harga, String alamat, String berat, String description, String thumbnail) {
         Title = title;
         Category = category;
         Harga = harga;
@@ -46,7 +46,7 @@ public class ModelBarang {
         return Description;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return Thumbnail;
     }
 
@@ -75,7 +75,7 @@ public class ModelBarang {
     public void setDescription(String description) {
         Description = description;
     }
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         Thumbnail = thumbnail;
     }
 }

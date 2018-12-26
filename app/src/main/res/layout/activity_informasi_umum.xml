@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
     android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="match_parent"
-    tools:context=".InformasiUmum">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Informasi Umum"
+            android:layout_marginBottom="20dp"
             android:textSize="20sp"
             android:textAlignment="center"/>
 
@@ -27,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Input Nama Depan"
+                android:hint="Nama Depan"
                 android:inputType="textPersonName"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="68dp" />
@@ -42,17 +43,78 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Input Nama Belakang"
+                android:hint="Nama Belakang"
                 android:inputType="textPersonName"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="68dp" />
         </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:padding="20dp"
+            android:id="@+id/sp_jk"
+            android:entries="@array/jenis_kelamin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etalamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Alamat Lengkap"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="68dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etRtRw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="RT/RW"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="68dp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Spinner
+            android:padding="20dp"
+            android:id="@+id/sp_provinsi"
+            android:entries="@array/provinsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:padding="20dp"
+            android:id="@+id/sp_kota"
+            android:entries="@array/kota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:padding="20dp"
+            android:id="@+id/sp_kecamatan"
+            android:entries="@array/kecamatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:padding="20dp"
+            android:id="@+id/sp_kodepos"
+            android:entries="@array/kodepos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <Button
             android:layout_width="match_parent"
             android:id="@+id/btnsimpan"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            style="@style/Widget.MaterialComponents.TabLayout.Colored"
+            android:background="@drawable/round"
             android:text="Simpan"/>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

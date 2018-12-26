@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +19,8 @@ import java.util.Locale;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.RincianBarang;
 import tukangdagang.id.co.tukangdagang_koperasi.RincianMakanan;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
 
 
 public class RvBarangAdapter extends RecyclerView.Adapter<tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter.MyViewHolder> {
@@ -43,19 +47,25 @@ public class RvBarangAdapter extends RecyclerView.Adapter<tukangdagang.id.co.tuk
     }
 
     @Override
-    public void onBindViewHolder(tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.title.setText(mData.get(position).getTitle());
         holder.harga.setText(mData.get(position).getHarga());
         holder.alamat.setText(mData.get(position).getAlamat());
-        holder.gambar.setImageResource(mData.get(position).getThumbnail());
+        Glide.with(mContext)
+                .load(path + mData.get(position).getThumbnail())
+//                .crossFade()
+//                .placeholder(R.mipmap.ic_launcher)
+                .into(holder.gambar);
+
+//        holder.gambar.setImageResource(mData.get(position).getThumbnail());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(mContext,RincianBarang.class);
 
-                // passing data to the book activity
+                // passing data
                 intent.putExtra("Title",mData.get(position).getTitle());
                 intent.putExtra("Kategori",mData.get(position).getCategory());
                 intent.putExtra("Harga",mData.get(position).getHarga());

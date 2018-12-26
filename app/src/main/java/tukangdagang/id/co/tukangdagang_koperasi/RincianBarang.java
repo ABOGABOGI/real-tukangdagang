@@ -1,10 +1,15 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
 
 public class RincianBarang extends AppCompatActivity {
     private TextView tampilHarga,tampilAlamat,tampilKategori,tampilBerat,tampilDeskripsi;
@@ -30,7 +35,7 @@ public class RincianBarang extends AppCompatActivity {
         String Kategori = intent.getExtras().getString("Kategori");
         String Berat = intent.getExtras().getString("Berat");
         String Deskripsi = intent.getExtras().getString("Deskripsi");
-        int image = intent.getExtras().getInt("Thumbnail") ;
+        String image = intent.getExtras().getString("Thumbnail") ;
 
         // Setting values
 
@@ -39,7 +44,12 @@ public class RincianBarang extends AppCompatActivity {
         tampilKategori.setText(Kategori);
         tampilBerat.setText(Berat);
         tampilDeskripsi.setText(Deskripsi);
-        img.setImageResource(image);
+//        img.setImageResource(image);
+        Glide.with(this)
+                .load(path + image)
+//                .crossFade()
+//                .placeholder(R.mipmap.ic_launcher)
+                .into(img);
         getSupportActionBar().setTitle(Title);
 
 

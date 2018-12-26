@@ -99,10 +99,11 @@
                         android:orientation="vertical">
 
 
-                       <Spinner
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           tools:listitem="@tools:sample/cities"></Spinner>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/down"
+                            android:text="Basic Account"/>
                     </LinearLayout>
 
 

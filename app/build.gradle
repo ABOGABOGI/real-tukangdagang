@@ -6,6 +6,7 @@ android {
         applicationId "tukangdagang.id.co.tukangdagang_koperasi"
         minSdkVersion 15
         targetSdkVersion 28
+        useLibrary 'org.apache.http.legacy'
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -51,4 +52,7 @@ dependencies {
 
     //circle imageview
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    implementation 'com.mcxiaoke.volley:library-aar:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:7.8.0'
 }

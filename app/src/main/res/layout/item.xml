@@ -5,47 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    app:cardCornerRadius="20dp"
-    android:layout_margin="8dp"
-    android:layout_height="wrap_content">
-    <RelativeLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp">
-<ImageView
-    android:id="@+id/image"
-    android:src="@drawable/sticker"
-    android:scaleType="centerCrop"
-    android:layout_width="match_parent"
-    android:layout_height="200dp" />
-        <TextView
-            android:id="@+id/titlecard"
-            android:textColor="#262626"
-            android:layout_below="@+id/image"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="16dp"
-            android:text="Sticker"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/desc"
-            android:layout_below="@+id/titlecard"
-            android:layout_marginTop="3dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:maxLines="3"
-            android:drawablePadding="10dp"
-            android:ellipsize="end"
-            android:text="Deskripsi"
+        app:cardCornerRadius="20dp"
+        android:layout_margin="8dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <ImageView
+                android:id="@+id/image"
+                android:src="@drawable/sticker"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+            <TextView
+                android:id="@+id/titlecard"
+                android:textColor="#262626"
+                android:layout_below="@+id/image"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:text="Sticker"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-            />
-        
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/desc"
+                android:layout_below="@+id/titlecard"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:maxLines="3"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:text="Deskripsi"
 
-</android.support.v7.widget.CardView>
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>
