@@ -29,6 +29,11 @@
                 android:checked="false"
                 android:icon="@drawable/faforit"
                 android:title="@string/navigation_view_item_5" />
+            <item
+                android:id="@+id/navigation6"
+                android:checked="false"
+                android:icon="@drawable/logout"
+                android:title="@string/navigation_view_item_6" />
 
         </menu>
     </item>

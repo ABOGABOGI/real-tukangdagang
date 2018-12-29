@@ -45,6 +45,7 @@
     <string name="navigasi_kategori_2">Sub Item Navigasi</string>
     <string name="navigation_view_item_4">Settings</string>
     <string name="navigation_view_item_5">About</string>
+    <string name="navigation_view_item_6">Logout</string>
 
     <!--list spinner-->
     <string-array name="jenis_kelamin">
@@ -76,5 +77,8 @@
         <item>Basic Account</item>
         <item>Premium Account</item>
     </string-array>
+
+    <string name="facebook_app_id">1047774125408378</string>
+    <string name="facebook_login_protocol_scheme">fb1047774125408378</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.nfc.Tag;
@@ -10,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.widget.SearchView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener  {
 
@@ -31,6 +40,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private ImageView img_profile;
+    private TextView tv_email,tv_nama;
     private ActionBarDrawerToggle  actionBarDrawerToggle;
 
 
@@ -38,14 +49,34 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navigation_apps);
+
+        img_profile =headerView.findViewById(R.id.img_profile);
+        tv_nama =headerView.findViewById(R.id.tv_nama);
+        tv_email = headerView.findViewById(R.id.tv_email);
+
+        Bundle extras = getIntent().getExtras();
+        String namafb = extras.getString("first_name");
+        String emailfb = extras.getString("emailfb");
+        String imgfb = extras.getString("imgfb");
+
+        tv_nama.setText(namafb);
+        tv_email.setText(emailfb);
+
+        Glide.with(this)
+                .load(imgfb)
+//                .crossFade()
+//                .placeholder(R.mipmap.ic_launcher)
+                .into(img_profile);
 
 
 
@@ -174,6 +205,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.navigation1: {
                 Toast.makeText(getApplicationContext(), "Beranda Telah Dipilih", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.navigation6: {
+                new AlertDialog.Builder(this)
+                        .setTitle("Logout")
+                        .setMessage("Apa Anda Ingin Keluar ?")
+                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginManager.getInstance().logOut();
+                        Intent i = new Intent(MainActivity.this,Login.class);
+                        startActivity(i);
+
+                    }
+                })
+    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+    .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
                 return true;
             }
         }
