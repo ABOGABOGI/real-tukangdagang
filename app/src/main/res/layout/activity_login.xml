@@ -96,12 +96,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnGoogle"
             />
-        <com.google.android.gms.common.SignInButton
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/google"
-            />
-
 
 
 
@@ -113,22 +107,6 @@
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="50dp"
             android:textAlignment="center" />
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="fitXY"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/iv"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/text"
-            android:textColor="#000"
-            android:layout_marginTop="20dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     </LinearLayout>
 </ScrollView>

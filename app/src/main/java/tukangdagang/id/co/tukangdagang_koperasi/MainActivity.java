@@ -27,10 +27,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener  {
 
     private static final String TAG = "MainActivity";
     TextView smsCountTxt;
@@ -44,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private TextView tv_email,tv_nama;
     private ActionBarDrawerToggle  actionBarDrawerToggle;
 
+    private GoogleApiClient googleApiClient;
+
 
 
     @Override
@@ -51,6 +62,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
@@ -65,20 +86,21 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         tv_email = headerView.findViewById(R.id.tv_email);
 
         Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
         String namafb = extras.getString("first_name");
         String emailfb = extras.getString("emailfb");
         String imgfb = extras.getString("imgfb");
 
-        tv_nama.setText(namafb);
-        tv_email.setText(emailfb);
+    tv_nama.setText(namafb);
+    tv_email.setText(emailfb);
 
-        Glide.with(this)
-                .load(imgfb)
+    Glide.with(this)
+            .load(imgfb)
 //                .crossFade()
 //                .placeholder(R.mipmap.ic_launcher)
-                .into(img_profile);
+            .into(img_profile);
 
-
+}
 
         // Menginisasi Drawer Layout dan ActionBarToggle
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -101,6 +123,45 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if (opr.isDone()) {
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+
+            GoogleSignInAccount account = result.getSignInAccount();
+
+            tv_nama.setText(account.getDisplayName());
+            tv_email.setText(account.getEmail());
+//            idTextView.setText(account.getId());
+
+            Glide.with(this).load(account.getPhotoUrl()).into(img_profile);
+
+        }
+//        else {
+//            Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -213,9 +274,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         .setMessage("Apa Anda Ingin Keluar ?")
                         .setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
                         LoginManager.getInstance().logOut();
                         Intent i = new Intent(MainActivity.this,Login.class);
                         startActivity(i);
+
+                        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                if (status.isSuccess()) {
+                                    Intent i = new Intent(MainActivity.this,Login.class);
+                                    startActivity(i);
+                                } else {
+                                    Toast.makeText(getApplicationContext(),"error session", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                     }
                 })
@@ -233,5 +307,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return false;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
