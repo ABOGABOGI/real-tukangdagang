@@ -76,6 +76,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             public void onClick(View v) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent, SIGN_IN_CODE);
+
             }
         });
 
@@ -85,6 +86,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             public void onClick(View view) {
                 Intent i = new Intent(Login.this, MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -164,6 +166,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             i.putExtra("emailfb",object.getString("email"));
             i.putExtra("imgfb",profile_picture.toString());
             startActivity(i);
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
@@ -218,6 +221,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
     }
 }
 

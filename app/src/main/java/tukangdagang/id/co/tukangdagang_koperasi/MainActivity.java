@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static final String TAG = "MainActivity";
     TextView smsCountTxt;
     int pendingSMSCount = 10;
+    private long backPrassedTime;
 
     BottomNavigationView bottomNavigationView;
 
@@ -278,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         LoginManager.getInstance().logOut();
                         Intent i = new Intent(MainActivity.this,Login.class);
                         startActivity(i);
+                        finish();
 
                         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
                             @Override
@@ -285,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 if (status.isSuccess()) {
                                     Intent i = new Intent(MainActivity.this,Login.class);
                                     startActivity(i);
+                                    finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(),"error session", Toast.LENGTH_SHORT).show();
                                 }
@@ -311,6 +314,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (backPrassedTime + 2000 > System.currentTimeMillis()){
+           finish();
+            System.exit(0);
+            return;
+        }else{
+            Toast.makeText(getBaseContext(),"Tekan sekali lagi untuk keluar",Toast.LENGTH_SHORT).show();
+        }
+        backPrassedTime = System.currentTimeMillis();
 
     }
 }
