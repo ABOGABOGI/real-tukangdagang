@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -211,7 +212,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
 
             case R.id.action_notifications: {
-
+//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+                Intent inten = new Intent(MainActivity.this,Notifikasi.class);
+                startActivity(inten);
                 return true;
             }
         }
