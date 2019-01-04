@@ -1,6 +1,9 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.animation.ArgbEvaluator;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,6 +45,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import tukangdagang.id.co.tukangdagang_koperasi.slider.ChildAnimationExample;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 //
 //import id.tukangdagang.com.tukangdagangdevel._sliders.FragmentSlider;
 //import id.tukangdagang.com.tukangdagangdevel._sliders.SliderIndicator;
@@ -86,6 +91,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
+        checkNetworkConnectionStatus();
 
         //Set Event
         setSingleEvent(mainGrid);
@@ -180,6 +186,27 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
         mDemoSlider.addOnPageChangeListener(this);
 
         return rootView;
+    }
+
+    private void checkNetworkConnectionStatus() {
+        boolean wifiConnected;
+        boolean mobileConnected;
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()){ //connected with either mobile or wifi
+            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+            if (wifiConnected){ //wifi connected
+                Log.d("koneksi","konek dengan wifi");
+            }
+            else if (mobileConnected){ //mobile data connected
+                Log.d("koneksi","konek dengan mobile data");
+            }
+        }
+        else { //no internet connection
+            Toast.makeText(getActivity(),"Tidak Ada koneksi internet",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

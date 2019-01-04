@@ -1,10 +1,13 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +60,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         btnlogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogle);
         btnfb = findViewById(R.id.btnFb);
+        checkNetworkConnectionStatus();
 
 
 
@@ -198,7 +202,26 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
 
-
+    private void checkNetworkConnectionStatus() {
+        boolean wifiConnected;
+        boolean mobileConnected;
+        ConnectivityManager connMgr = (ConnectivityManager)
+                this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()){ //connected with either mobile or wifi
+            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+            if (wifiConnected){ //wifi connected
+                Log.d("koneksi","konek dengan wifi");
+            }
+            else if (mobileConnected){ //mobile data connected
+                Log.d("koneksi","konek dengan mobile data");
+            }
+        }
+        else { //no internet connection
+            Toast.makeText(this,"Tidak Ada koneksi internet",Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

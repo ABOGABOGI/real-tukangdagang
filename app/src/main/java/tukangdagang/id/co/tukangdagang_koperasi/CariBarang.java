@@ -84,13 +84,15 @@ public class CariBarang extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
 
