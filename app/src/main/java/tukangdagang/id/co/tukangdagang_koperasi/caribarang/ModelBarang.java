@@ -4,14 +4,14 @@ public class ModelBarang {
 
     private String Title;
     private String Category ;
-    private String Harga ;
+    private double Harga ;
     private String Alamat ;
     private String Berat ;
     private String Description ;
     private String Thumbnail ;
 
 
-    public ModelBarang(String title, String category, String harga, String alamat, String berat, String description, String thumbnail) {
+    public ModelBarang(String title, String category, double harga, String alamat, String berat, String description, String thumbnail) {
         Title = title;
         Category = category;
         Harga = harga;
@@ -30,7 +30,7 @@ public class ModelBarang {
         return Category;
     }
 
-    public String getHarga() {
+    public double getHarga() {
         return Harga;
     }
 
@@ -60,7 +60,7 @@ public class ModelBarang {
     }
 
 
-    public void setHarga(String harga) {
+    public void setHarga(double harga) {
         Harga = harga;
     }
 

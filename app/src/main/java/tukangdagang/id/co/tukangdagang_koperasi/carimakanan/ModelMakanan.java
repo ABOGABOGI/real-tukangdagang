@@ -2,17 +2,16 @@ package tukangdagang.id.co.tukangdagang_koperasi.carimakanan;
 
 public class ModelMakanan {
 
-
     private String Title;
     private String Category ;
-    private String Harga ;
+    private double Harga ;
     private String Alamat ;
     private String Berat ;
     private String Description ;
-    private int Thumbnail ;
+    private String Thumbnail ;
 
 
-    public ModelMakanan(String title, String category, String harga, String alamat, String berat, String description, int thumbnail) {
+    public ModelMakanan(String title, String category, double harga, String alamat, String berat, String description, String thumbnail) {
         Title = title;
         Category = category;
         Harga = harga;
@@ -31,7 +30,7 @@ public class ModelMakanan {
         return Category;
     }
 
-    public String getHarga() {
+    public double getHarga() {
         return Harga;
     }
 
@@ -47,7 +46,7 @@ public class ModelMakanan {
         return Description;
     }
 
-    public int getThumbnail() {
+    public String getThumbnail() {
         return Thumbnail;
     }
 
@@ -61,7 +60,7 @@ public class ModelMakanan {
     }
 
 
-    public void setHarga(String harga) {
+    public void setHarga(double harga) {
         Harga = harga;
     }
 
@@ -76,7 +75,8 @@ public class ModelMakanan {
     public void setDescription(String description) {
         Description = description;
     }
-    public void setThumbnail(int thumbnail) {
+    public void setThumbnail(String thumbnail) {
         Thumbnail = thumbnail;
     }
 }
+

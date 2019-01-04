@@ -151,6 +151,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             Intent i = new Intent(Login.this, MainActivity.class);
             i.putExtra("imgfb",tes);
             startActivity(i);
+            finish();
         }
         printKeyHash();
     }

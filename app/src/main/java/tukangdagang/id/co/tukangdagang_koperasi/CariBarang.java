@@ -43,6 +43,7 @@ public class CariBarang extends AppCompatActivity {
         getSupportActionBar().setTitle("Cari Barang");
         lstBarang = new ArrayList<>();
         getdata();
+        Log.d("hitungan","jao");
 
     }
 
@@ -65,7 +66,7 @@ public class CariBarang extends AppCompatActivity {
 
                                 ModelBarang modelbarang = new ModelBarang(barangobject.getString("name"),
                                         barangobject.getString("category_id"),
-                                        barangobject.getString("price"),
+                                        barangobject.getDouble("price"),
                                         barangobject.getString("city"),
                                         barangobject.getString("type"),
                                         barangobject.getString("service"),
