@@ -182,23 +182,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 onOptionsItemSelected(menuItem);
             }
         });
-        MenuItem searchViewItem = menu.findItem(R.id.action_search);
-        final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
-        searchViewAndroidActionBar.setQueryHint("Cari Tukang Dagang");
+//        MenuItem searchViewItem = menu.findItem(R.id.action_search);
+//        final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+//        searchViewAndroidActionBar.setQueryHint("Cari Tukang Dagang");
 //        searchViewAndroidActionBar.setBackgroundColor(Color.WHITE);
-        searchViewAndroidActionBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchViewAndroidActionBar.clearFocus();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        searchViewAndroidActionBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                searchViewAndroidActionBar.clearFocus();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
 
         return true;
     }
@@ -214,6 +214,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.action_notifications: {
 //                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
                 Intent inten = new Intent(MainActivity.this,Notifikasi.class);
+                startActivity(inten);
+                return true;
+            }
+            case R.id.search: {
+//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+                Intent inten = new Intent(MainActivity.this,Cari.class);
                 startActivity(inten);
                 return true;
             }

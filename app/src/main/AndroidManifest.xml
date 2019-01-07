@@ -122,6 +122,11 @@
             android:name=".Notifikasi"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
+        <activity android:name=".Cari"
+            android:theme="@style/IntroTheme"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait"
+            />
     </application>
 
 </manifest>

@@ -131,6 +131,7 @@ public class CariMakanan extends AppCompatActivity {
 
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search_koprasi);
         SearchView searchView = (SearchView)myActionMenuItem.getActionView();
+//        myActionMenuItem.expandActionView(); // Expand the search menu item in order to show by default the query
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
