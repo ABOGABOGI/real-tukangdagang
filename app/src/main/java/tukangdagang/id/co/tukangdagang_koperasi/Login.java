@@ -16,6 +16,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -45,6 +46,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private Button btnlogin,btnGoogle,btnfb;
     CallbackManager callbackManager;
     ProgressDialog mDialog;
+    private TextView linkDaftar;
 
     private GoogleApiClient googleApiClient;
     public static final int SIGN_IN_CODE = 777;
@@ -60,9 +62,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         btnlogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogle);
         btnfb = findViewById(R.id.btnFb);
+        linkDaftar = (TextView)findViewById(R.id.linkDaftar);
         checkNetworkConnectionStatus();
-
-
+        daftar();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -246,6 +248,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    private void daftar(){
+       linkDaftar.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent i = new Intent(Login.this,Register.class);
+               startActivity(i);
+           }
+       });
     }
 }
 
