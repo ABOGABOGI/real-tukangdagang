@@ -19,9 +19,8 @@ import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.RincianBarang;
-import tukangdagang.id.co.tukangdagang_koperasi.RincianMakanan;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 
 public class RvBarangAdapter extends RecyclerView.Adapter<tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter.MyViewHolder> {

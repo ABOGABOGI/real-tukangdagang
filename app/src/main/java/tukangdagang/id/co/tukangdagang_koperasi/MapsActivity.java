@@ -1,16 +1,13 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
 
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -37,7 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.JSON_URL_STORES;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL_STORES;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

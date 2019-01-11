@@ -1,10 +1,9 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
-import android.app.Notification;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.nfc.Tag;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -15,12 +14,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v7.widget.SearchView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +34,7 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener  {
 
@@ -284,6 +280,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         .setMessage("Apa Anda Ingin Keluar ?")
                         .setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+
+                        //Getting out sharedpreferences
+                        SharedPreferences preferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+                        //Getting editor
+                        SharedPreferences.Editor editor = preferences.edit();
+
+                        //Puting the value false for loggedin
+                        editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+
+                        //Putting blank value to email
+                        editor.putString(Config.EMAIL_SHARED_PREF, "");
+
+                        //Saving the sharedpreferences
+                        editor.commit();
 
                         LoginManager.getInstance().logOut();
                         Intent i = new Intent(MainActivity.this,Login.class);

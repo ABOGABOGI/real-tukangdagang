@@ -1,6 +1,5 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class RincianBarang extends AppCompatActivity {
     private TextView tampilHarga,tampilAlamat,tampilKategori,tampilBerat,tampilDeskripsi;

@@ -28,7 +28,7 @@ import java.util.List;
 import tukangdagang.id.co.tukangdagang_koperasi.caribarang.ModelBarang;
 import tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.JSON_URL;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
 
 public class CariBarang extends AppCompatActivity {
 

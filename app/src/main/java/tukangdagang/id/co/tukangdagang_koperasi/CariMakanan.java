@@ -28,12 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import tukangdagang.id.co.tukangdagang_koperasi.caribarang.ModelBarang;
-import tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.ModelMakanan;
 import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.RvMakananAdapter;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.JSON_URL;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
 
 public class CariMakanan extends AppCompatActivity {
 

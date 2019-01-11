@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +19,8 @@ import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.RincianBarang;
-import tukangdagang.id.co.tukangdagang_koperasi.RincianMakanan;
-import tukangdagang.id.co.tukangdagang_koperasi.caribarang.ModelBarang;
-import tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.params.path;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 
 public class RvMakananAdapter extends RecyclerView.Adapter<RvMakananAdapter.MyViewHolder> {
