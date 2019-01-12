@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/action_search"-->
+        <!--app:actionViewClass="android.support.v7.widget.SearchView"-->
+        <!--app:showAsAction="always|collapseActionView"-->
+        <!--android:icon="@android:drawable/ic_menu_search"-->
+        <!--android:title="Cari Tukang Dagang" />-->
+    <item
+        android:id="@+id/search"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="Notification"
+        app:actionLayout="@layout/custom_notification_layout"
+        app:showAsAction="always"/>
+
+</menu>

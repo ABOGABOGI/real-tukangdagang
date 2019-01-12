@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "972216615663",
+    "firebase_url": "https://login-91005.firebaseio.com",
+    "project_id": "login-91005",
+    "storage_bucket": "login-91005.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972216615663:android:f6f3e8c340971f69",
+        "android_client_info": {
+          "package_name": "tukangdagang.id.co.tukangdagang_koperasi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972216615663-61ron9gbf87klmv8ndqjeaegpr5laptj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tukangdagang.id.co.tukangdagang_koperasi",
+            "certificate_hash": "5c98540f00d39bb36caddfdcdc04f263f8773ea2"
+          }
+        },
+        {
+          "client_id": "972216615663-gucp6nkfqqm5mnc4tea2v8a1t3nahqhq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhzM8SnEfH3IeBS1nn4gqp7XaMJh7c8YI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972216615663-gucp6nkfqqm5mnc4tea2v8a1t3nahqhq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

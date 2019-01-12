@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Tukang Dagang - Koperasi</string>
+    <string name="koprasi">E-Koprasi</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jadwal">Atur Jadwal Iuran</string>
 
     <string name="next">LANJUT</string>
     <string name="skip">LEWATI</string>
@@ -22,5 +24,61 @@
 
     <string name="slide_4_title">e-Koprasi</string>
     <string name="slide_4_desc">Toko Online Koperasi, Unit Usaha Digital Juga Terhubung Dengan Toko Fisik </string>
+
+    <string name="title_1">Cool card</string>
+    <string name="title_2">OK card</string>
+    <string name="title_3">Bad card</string>
+    <string name="title_4">Ugly card</string>
+    <string name="title_5">Unit Usaha Peternakan</string>
+    <string name="title_6">Unit Usaha Perdagangan</string>
+    <string name="title_7">Unit Usaha Perkebunan</string>
+    <string name="title_8">Unit Usaha Pertanian</string>
+
+    <string name="text_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum.</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="openDrawer">Drawer dibuka</string>
+    <string name="closeDrawer">Drawer ditutup</string>
+    <string name="navigation_view_item_1">Beranda</string>
+    <string name="navigation_view_item_2">Profil</string>
+    <string name="navigation_view_item_3">Daftar</string>
+    <string name="navigasi_kategori_2">Sub Item Navigasi</string>
+    <string name="navigation_view_item_4">Settings</string>
+    <string name="navigation_view_item_5">About</string>
+    <string name="navigation_view_item_6">Logout</string>
+
+    <!--list spinner-->
+    <string-array name="jenis_kelamin">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="provinsi">
+        <item>Jawa Barat</item>
+        <item>Jawa Timur</item>
+    </string-array>
+
+    <string-array name="kota">
+        <item>Bandung</item>
+        <item>Pekalongan</item>
+    </string-array>
+
+    <string-array name="kecamatan">
+        <item>Kiaracondong</item>
+        <item>Walini</item>
+    </string-array>
+
+    <string-array name="kodepos">
+        <item>40284</item>
+        <item>40934</item>
+    </string-array>
+
+    <string-array name="ket">
+        <item>Basic Account</item>
+        <item>Premium Account</item>
+    </string-array>
+
+    <string name="facebook_app_id">1047774125408378</string>
+    <string name="facebook_login_protocol_scheme">fb1047774125408378</string>
 
 </resources>

@@ -15,21 +15,122 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            app:columnCount="2">
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="10dp"
+                app:cardElevation="8dp"
+                app:layout_columnWeight="1"
+            >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/rupiah"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="RP. 25000"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="10dp"
+
+                app:cardElevation="8dp"
+                app:layout_columnWeight="1"
+>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:textAlignment="center">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/down"
+                            android:text="Basic Account"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.v7.widget.GridLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_weight="2">
 
-            <TextView
-                android:id="@+id/textGrid"
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:id="@+id/custom_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Tukang Dagang"
-                android:textColor="@android:color/white"
-                android:textSize="34sp" />
-
+                android:gravity="center"
+                />
         </RelativeLayout>
+
 
         <android.support.v7.widget.GridLayout
 
@@ -37,6 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2.5"
+            android:layout_marginTop="30dp"
             android:padding="5dp"
             app:alignmentMode="alignMargins"
             app:columnCount="3"
@@ -51,8 +153,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -69,15 +171,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/jajanan" />
+                        android:src="@drawable/barang" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Jajanan"
+                        android:text="Cari Barang"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -88,9 +190,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -107,15 +209,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/busana" />
+                        android:src="@drawable/makanan" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Busana"
+                        android:text="Cari Makanan"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -129,9 +231,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -148,15 +250,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/tukang" />
+                        android:src="@drawable/tukangjasa" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tukang"
+                        android:text="Cari Jasa"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -168,8 +270,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -186,15 +288,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/loker" />
+                        android:src="@drawable/maps_green" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Loker"
+                        android:text="Cari Di Map"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -208,9 +310,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -225,17 +327,17 @@
 
                     <ImageView
                         android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_height="49dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/rekomendasi" />
+                        android:src="@drawable/rupiah" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Rekomendasi"
+                        android:text="Cari Modal"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -246,9 +348,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="5dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:layout_columnWeight="1"
@@ -265,15 +367,15 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/koprasi" />
+                        android:src="@drawable/store" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="e-Koprasi"
+                        android:text="Daganganku"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -282,7 +384,21 @@
 
 
         </android.support.v7.widget.GridLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:foregroundGravity="center"
+            android:id="@+id/viewPager1"
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            </android.support.v4.view.ViewPager>
 
+
+</RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

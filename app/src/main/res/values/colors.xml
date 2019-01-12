@@ -9,6 +9,7 @@
     <color name="bg_screen2">#43b4e9</color>
     <color name="bg_screen3">#02cece</color>
     <color name="bg_screen4">#71e2b5</color>
+    <color name="trp">#0071e2b5</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen1">#FFFFF0</color>
@@ -35,4 +36,7 @@
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
     </array>
+    <color name="color1">#7e455e</color>
+    <color name="color2">#796e25</color>
+    <color name="color3">#59717c</color>
 </resources>

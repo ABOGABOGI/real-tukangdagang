@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="tukangdagang.id.co.tukangdagang_koperasi">
 
+    <!-- if you want to load images from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Facebook API Key -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/IntroTheme"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/IntroTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Ekoprasi"
+            android:label="@string/koprasi"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Login"
+            android:label="Login"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".BeritaKoprasi"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".UnitUsaha"
+            android:screenOrientation="sensorPortrait" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CalendarActivity"
+            android:label="@string/jadwal"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariModal"
+            android:label="Cari Modal"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Daganganku"
+            android:label="Usahaku"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariMakanan"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".RincianMakanan"
+            android:parentActivityName=".CariMakanan"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariBarang"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".RincianBarang"
+            android:parentActivityName=".CariBarang"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".CariJasa"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".RincianJasa"
+            android:parentActivityName=".CariJasa"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".DaftarAnggota"
+            android:parentActivityName=".CariModal"
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".InformasiUmum" />
+        <activity
+            android:name=".Notifikasi"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Cari"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/IntroTheme" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>

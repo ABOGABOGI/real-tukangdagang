@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/navigation1"
+            android:checked="false"
+            android:icon="@drawable/apps"
+            android:title="@string/navigation_view_item_1" />
+        <item
+            android:id="@+id/navigation2"
+            android:checked="false"
+            android:icon="@drawable/profile"
+            android:title="@string/navigation_view_item_2" />
+
+    </group>
+
+
+    <item
+        android:id="@+id/navigasi_kategori_2"
+        android:title="@string/navigasi_kategori_2">
+        <menu>
+            <item
+                android:id="@+id/navigation4"
+                android:checked="false"
+                android:icon="@drawable/jasa"
+                android:title="@string/navigation_view_item_4" />
+            <item
+                android:id="@+id/navigation5"
+                android:checked="false"
+                android:icon="@drawable/faforit"
+                android:title="@string/navigation_view_item_5" />
+            <item
+                android:id="@+id/navigation6"
+                android:checked="false"
+                android:icon="@drawable/logout"
+                android:title="@string/navigation_view_item_6" />
+
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardview_id"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="7dp"
+    cardview:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+<CheckBox
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+      <TextView
+          android:id="@+id/title"
+          android:textColor="#2d2d2d"
+          android:layout_marginTop="5dp"
+          android:textSize="16sp"
+          android:layout_marginLeft="40dp"
+          android:layout_width="250dp"
+          android:layout_height="wrap_content"
+          android:text="Ini adalah descripsi produk "/>
+
+      <ImageView
+          android:id="@+id/gambar"
+          android:layout_width="80dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginRight="10dp"
+          android:layout_alignParentRight="true"
+          android:layout_height="80dp"
+          android:scaleType="centerCrop"
+          android:background="#2d2d2d"/>
+  </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/harga"
+            android:textColor="#0040ff"
+            android:textSize="13sp"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Harga"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="60dp"
+                style="@style/AndroidImageSlider_Corner_Oval_Orange"
+                android:text="1"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+            <ImageView
+                android:id="@+id/hapus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@android:drawable/ic_menu_delete"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#ededed"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal"/>
+            <TextView
+                android:id="@+id/subtotal"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal"/>
+            <Button
+                android:id="@+id/btnbayar"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bayar"
+                style="@style/Base.Widget.AppCompat.Button.Colored"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
+
+
