@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,9 +89,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         String namafb = extras.getString("first_name");
         String emailfb = extras.getString("emailfb");
         String imgfb = extras.getString("imgfb");
-
+//
     tv_nama.setText(namafb);
     tv_email.setText(emailfb);
+
+//            //Fetching email from shared preferences
+//            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//            String email = sharedPreferences.getString(Config.EMAIL_SHARED_PREF,"Not Available");
+//            String nama = sharedPreferences.getString(Config.NAME_SHARED_PREF,"Not Available");
+//            Log.d("fbb",email);
+//            //Showing the current logged in email to textview
+//            tv_nama.setText(nama);
+//            tv_email.setText(email);
 
     Glide.with(this)
             .load(imgfb)
@@ -149,6 +159,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             tv_nama.setText(account.getDisplayName());
             tv_email.setText(account.getEmail());
 //            idTextView.setText(account.getId());
+//            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+//            String email = sharedPreferences.getString(Config.EMAIL_SHARED_PREF,"Not Available");
+//            String nama = sharedPreferences.getString(Config.NAME_SHARED_PREF,"Not Available");
+//            Log.d("fbb",email);
+//            //Showing the current logged in email to textview
+//            tv_nama.setText(nama);
+//            tv_email.setText(email);
 
             Glide.with(this).load(account.getPhotoUrl()).into(img_profile);
 
@@ -291,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                         //Putting blank value to email
                         editor.putString(Config.EMAIL_SHARED_PREF, "");
+                        editor.putString(Config.NAME_SHARED_PREF, "");
 
                         //Saving the sharedpreferences
                         editor.commit();
@@ -340,8 +358,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public void onBackPressed() {
 
         if (backPrassedTime + 2000 > System.currentTimeMillis()){
-           finish();
+
             System.exit(0);
+            finish();
             return;
         }else{
             Toast.makeText(getBaseContext(),"Tekan sekali lagi untuk keluar",Toast.LENGTH_SHORT).show();

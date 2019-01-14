@@ -38,10 +38,14 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URI;
@@ -127,8 +131,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-               public void onSuccess(LoginResult loginResult) {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
 
                 mDialog = new ProgressDialog(Login.this);
                 mDialog.setMessage("Menerima data..");
@@ -154,18 +158,18 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 request.executeAsync();
 
 
-                    }
+            }
 
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(Login.this, "Login Cancel", Toast.LENGTH_LONG).show();
-                    }
+            @Override
+            public void onCancel() {
+                Toast.makeText(Login.this, "Login Cancel", Toast.LENGTH_LONG).show();
+            }
 
-                    @Override
-                    public void onError(FacebookException exception) {
-                        Toast.makeText(Login.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(Login.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
 
         //jika sudah login fb
         if(AccessToken.getCurrentAccessToken() !=null){
@@ -183,11 +187,67 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void getdata(JSONObject object) {
         try{
             URI profile_picture = new URI("https://graph.facebook.com/"+object.getString("id")+"/picture?width=250&height=250");
-             Intent i = new Intent(Login.this, MainActivity.class);
+            Intent i = new Intent(Login.this, MainActivity.class);
 //            nilai_email = object.getString("email");
+            final String nilai_emailfb = object.getString("email");
+            final String nilai_namafb = object.getString("first_name")+" "+object.getString("last_name");
             i.putExtra("first_name",object.getString("first_name")+" "+object.getString("last_name"));
             i.putExtra("emailfb",object.getString("email"));
             i.putExtra("imgfb",profile_picture.toString());
+
+            //////////////////////////////////////////////////////////////////////
+
+            //Creating a string request
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //If we are getting success from server
+                            if(response.equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                                //Creating a shared preference
+                                SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                                //Creating editor to store values to shared preferences
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                //Adding values to editor
+                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                                editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailfb);
+                                editor.putString(Config.NAME_SHARED_PREF, nilai_namafb);
+
+                                //Saving values to editor
+                                editor.commit();
+
+                            }else{
+                                //If the server response is not success
+                                //Displaying an error message on toast
+                                Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //You can handle error here if you want
+                        }
+                    }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<>();
+                    //Adding parameters to request
+                    params.put(Config.KEY_EMAIL, nilai_emailfb);
+                    params.put("first_name", nilai_namafb);
+                    params.put("loginwith", "fb");
+
+                    //returning parameter
+                    return params;
+                }
+            };
+
+            //Adding the string request to the queue
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+            /////////////////////////////////////////////////////////////////////
             startActivity(i);
             finish();
         } catch (JSONException e) {
@@ -251,11 +311,86 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if (opr.isDone()) {
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
+            GoogleSignInAccount account = result.getSignInAccount();
+
+            final String nilai_emailGg = account.getEmail();
+            final String nilai_namaGg = account.getDisplayName();
+            ////////////////////////////////////////////////////
+
+            //Creating a string request
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            //If we are getting success from server
+                            if(response.equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                                //Creating a shared preference
+                                SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                                //Creating editor to store values to shared preferences
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                //Adding values to editor
+                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                                editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailGg);
+                                editor.putString(Config.NAME_SHARED_PREF, nilai_namaGg);
+
+                                //Saving values to editor
+                                editor.commit();
+
+                            }else{
+                                //If the server response is not success
+                                //Displaying an error message on toast
+                                Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //You can handle error here if you want
+                        }
+                    }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String,String> params = new HashMap<>();
+                    //Adding parameters to request
+                    params.put(Config.KEY_EMAIL, nilai_emailGg);
+                    params.put("first_name", nilai_namaGg);
+                    params.put("loginwith", "google");
+
+                    //returning parameter
+                    return params;
+                }
+            };
+
+            //Adding the string request to the queue
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+            ///////////////////////////////////////////////////
             goMainScreen();
         } else {
-            Toast.makeText(this, "Login Gagal", Toast.LENGTH_SHORT).show();
+            Log.d("gagal","Login gagal");
         }
     }
 
@@ -266,13 +401,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         finish();
     }
     private void daftar(){
-       linkDaftar.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               Intent i = new Intent(Login.this,Register.class);
-               startActivity(i);
-           }
-       });
+        linkDaftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Login.this,Register.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -351,5 +486,3 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
 }
-
-
