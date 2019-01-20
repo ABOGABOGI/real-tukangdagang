@@ -117,7 +117,9 @@
             android:name=".DaftarAnggota"
             android:parentActivityName=".CariModal"
             android:screenOrientation="sensorPortrait" />
-        <activity android:name=".InformasiUmum" />
+        <activity android:name=".InformasiUmum"
+            android:parentActivityName=".DaftarAnggota"
+            android:screenOrientation="sensorPortrait"/>
         <activity
             android:name=".Notifikasi"
             android:parentActivityName=".MainActivity"
@@ -127,7 +129,8 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/IntroTheme" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".Uploadktp"></activity>
     </application>
 
 </manifest>

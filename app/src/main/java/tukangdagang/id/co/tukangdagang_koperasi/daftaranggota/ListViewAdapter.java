@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import tukangdagang.id.co.tukangdagang_koperasi.InformasiUmum;
 import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+import tukangdagang.id.co.tukangdagang_koperasi.Uploadktp;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -85,41 +87,13 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View view) {
                 //code later
                 if (modellist.get(postition).getTitle().equals("Informasi Umum")){
+                    Intent intent = new Intent(mContext, InformasiUmum.class);
+                    mContext.startActivity(intent);
+
+                } if (modellist.get(postition).getTitle().equals("Upload")){
                     //start NewActivity with title for actionbar and text for textview
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
-                    View mView = inflater.inflate(R.layout.activity_informasi_umum, null);
-                    final EditText mEmail = (EditText) mView.findViewById(R.id.etnama_depan);
-                    final EditText mPassword = (EditText) mView.findViewById(R.id.etnama_belakang);
-                    Button btnSimpan = (Button) mView.findViewById(R.id.btnsimpan);
-
-
-//                mBuilder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//                mBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        dialogInterface.dismiss();
-//                    }
-//                });
-                    mBuilder.setView(mView);
-                    final AlertDialog dialog = mBuilder.create();
-                    dialog.show();
-                    btnSimpan.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                                Toast.makeText(mContext,
-                                        "Sukses",
-                                        Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-
+                    Intent intent = new Intent(mContext, Uploadktp.class);
+                    mContext.startActivity(intent);
                 }
 
             }
