@@ -21,6 +21,7 @@ import java.util.Locale;
 import tukangdagang.id.co.tukangdagang_koperasi.InformasiUmum;
 import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+import tukangdagang.id.co.tukangdagang_koperasi.Refferal;
 import tukangdagang.id.co.tukangdagang_koperasi.Uploadktp;
 
 public class ListViewAdapter extends BaseAdapter {
@@ -93,6 +94,11 @@ public class ListViewAdapter extends BaseAdapter {
                 } if (modellist.get(postition).getTitle().equals("Upload")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Uploadktp.class);
+                    mContext.startActivity(intent);
+                }
+                if (modellist.get(postition).getTitle().equals("Kode Referal(Optional)")){
+                    //start NewActivity with title for actionbar and text for textview
+                    Intent intent = new Intent(mContext, Refferal.class);
                     mContext.startActivity(intent);
                 }
 
