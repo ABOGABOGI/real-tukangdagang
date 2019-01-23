@@ -1,6 +1,7 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class BeritaKoprasi extends AppCompatActivity {
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
+    private TextView namakoperasi;
 
     private static final String TAG = "BeritaKoprasi";
 
@@ -33,6 +35,12 @@ public class BeritaKoprasi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berita_koprasi);
+        namakoperasi = findViewById(R.id.namakoperasi);
+
+        Intent intent = getIntent();
+        String Nkoperasi = intent.getExtras().getString("namakoperasi");
+
+        namakoperasi.setText(Nkoperasi);
 
         mViewPager = (ViewPager) findViewById(R.id.cardviewslider2);
 

@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,8 @@ import tukangdagang.id.co.tukangdagang_koperasi.Ekoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.MapsActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class ListViewAdapter extends BaseAdapter{
 
@@ -39,9 +44,10 @@ public class ListViewAdapter extends BaseAdapter{
     }
 
     public class ViewHolder{
-        TextView mTitleTv, mDescTv;
+        TextView mTitleTv, mDescTv,cm_alamat;
         ImageView mIconIv;
         Button btnDaftarKop;
+        RatingBar ratingKoperasi;
     }
 
     @Override
@@ -71,6 +77,8 @@ public class ListViewAdapter extends BaseAdapter{
             holder.mTitleTv = view.findViewById(R.id.mainTitle);
             holder.mDescTv = view.findViewById(R.id.mainDesc);
             holder.mIconIv = view.findViewById(R.id.mainIcon);
+            holder.cm_alamat = view.findViewById(R.id.cm_alamat);
+            holder.ratingKoperasi = view.findViewById(R.id.ratingKoperasi);
 
             view.setTag(holder);
 
@@ -81,8 +89,16 @@ public class ListViewAdapter extends BaseAdapter{
         //set the results into textviews
         holder.mTitleTv.setText(modellist.get(postition).getTitle());
         holder.mDescTv.setText(modellist.get(postition).getDesc());
+        holder.ratingKoperasi.setRating(Float.valueOf(modellist.get(postition).getRating()));
+        holder.cm_alamat.setText(String.valueOf(modellist.get(postition).getAlamat()));
         //set the result in imageview
-        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
+//        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
+
+        Glide.with(mContext)
+                .load(path + modellist.get(postition).getIcon())
+
+                .into(holder.mIconIv);
+
 
         holder.btnDaftarKop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,42 +112,10 @@ public class ListViewAdapter extends BaseAdapter{
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //code later
-                if (modellist.get(postition).getTitle().equals("Koprasi Bangun Bersama")){
-                    //start NewActivity with title for actionbar and text for textview
-                    Intent intent = new Intent(mContext, BeritaKoprasi.class);
-                    intent.putExtra("actionBarTitle", "Battery");
-                    intent.putExtra("contentTv", "This is Battery detail...");
-                    mContext.startActivity(intent);
-                }
-                if (modellist.get(postition).getTitle().equals("Koprasi Tanpa Riba")){
-                    //start NewActivity with title for actionbar and text for textview
-                    Intent intent = new Intent(mContext, BeritaKoprasi.class);
-                    intent.putExtra("actionBarTitle", "Cpu");
-                    intent.putExtra("contentTv", "This is Cpu detail...");
-                    mContext.startActivity(intent);
-                }
-                if (modellist.get(postition).getTitle().equals("Koprasi Tabungan Bersama")){
-                    //start NewActivity with title for actionbar and text for textview
-                    Intent intent = new Intent(mContext, BeritaKoprasi.class);
-                    intent.putExtra("actionBarTitle", "Display");
-                    intent.putExtra("contentTv", "This is Display detail...");
-                    mContext.startActivity(intent);
-                }
-                if (modellist.get(postition).getTitle().equals("Koprasi Suka Makmur")){
-                    //start NewActivity with title for actionbar and text for textview
-                    Intent intent = new Intent(mContext, BeritaKoprasi.class);
-                    intent.putExtra("actionBarTitle", "Memory");
-                    intent.putExtra("contentTv", "This is Memory detail...");
-                    mContext.startActivity(intent);
-                }
-                if (modellist.get(postition).getTitle().equals("Koprasi Milik Kita")){
-                    //start NewActivity with title for actionbar and text for textview
-                    Intent intent = new Intent(mContext, BeritaKoprasi.class);
-                    intent.putExtra("actionBarTitle", "Sensor");
-                    intent.putExtra("contentTv", "This is Sensor detail...");
-                    mContext.startActivity(intent);
-                }
+                Intent intent = new Intent(mContext, BeritaKoprasi.class);
+                intent.putExtra("namakoperasi", modellist.get(postition).getTitle());
+//                intent.putExtra("contentTv", "This is Battery detail...");
+                mContext.startActivity(intent);
             }
         });
 
