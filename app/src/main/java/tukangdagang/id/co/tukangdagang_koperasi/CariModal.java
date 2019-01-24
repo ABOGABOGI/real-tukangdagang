@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,10 +72,15 @@ public class CariModal extends AppCompatActivity {
     }
 
     private void getdata(){
+        final ProgressDialog progressDialog = new ProgressDialog(CariModal.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.dismiss();
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -113,6 +119,7 @@ public class CariModal extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
                     }
                 });
 

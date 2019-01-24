@@ -431,6 +431,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         //Getting values from edit texts
         final String nilai_email = email.getText().toString().trim();
         final String nilai_password = password.getText().toString().trim();
+        final ProgressDialog progressDialog = new ProgressDialog(Login.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
 
         //Creating a string request
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
@@ -439,11 +444,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     public void onResponse(String response) {
                         //If we are getting success from server
                         if(response.equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                            progressDialog.dismiss();
                             //Creating a shared preference
                             SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                             //Creating editor to store values to shared preferences
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+
 
                             //Adding values to editor
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
@@ -459,12 +466,14 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             //If the server response is not success
                             //Displaying an error message on toast
                             Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                            progressDialog.dismiss();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         //You can handle error here if you want
                     }
                 }){

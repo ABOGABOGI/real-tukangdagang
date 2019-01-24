@@ -97,6 +97,7 @@ public class DaftarAnggota extends AppCompatActivity {
                                 //You can handle error here if you want
                                 Toast.makeText(getApplicationContext(),"Error : "+error.toString(),Toast.LENGTH_SHORT).show();
                                 Log.d("tee",error.toString());
+                                progressDialog.dismiss();
                             }
                         }){
                     @Override
