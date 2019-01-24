@@ -15,15 +15,6 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light">-->
-        <!--<item name="android:textColorPrimary">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorPrimary">@android:color/transparent</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="windowActionBarOverlay">false</item>-->
-    <!--</style>-->
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -33,6 +24,21 @@
     <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
+
+
+
+        <style name="buttonstyle1" parent="Theme.AppCompat.Light">
+            <item name="colorControlHighlight">#0ae1d2</item>
+            <item name="colorButtonNormal">#0ec1ce</item>
+        </style>
+
+
+        <!--<style name="buttonstyle3" parent="Theme.AppCompat.Light">-->
+            <!--<item name="colorControlHighlight">@color/orange</item>-->
+            <!--<item name="colorButtonNormal">@color/green</item>-->
+
+        <!--</style>-->
+
 
 
 </resources>

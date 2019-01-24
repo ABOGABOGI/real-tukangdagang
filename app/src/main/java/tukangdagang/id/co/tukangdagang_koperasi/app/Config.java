@@ -2,12 +2,15 @@ package tukangdagang.id.co.tukangdagang_koperasi.app;
 
 public class Config {
     public static final String JSON_URL = "https://35utech.com/td/public/product";
+    public static final String URL_KOPERASI = "https://35utech.com/td/public/koperasi";
     public static final String JSON_URL_STORES = "https://35utech.com/td/public/stores";
     public static final String path = "https://35utech.com/td/resources/images/";
     public static final String URLDaftar = "http://35utech.com/td/public/register";
+    public static final String URLLoginWith = "http://35utech.com/td/public/loginwith";
+    public static final String URLUpload = "http://35utech.com/td/public/uploadktp";
 
     //URL to our login.php file
-    public static final String LOGIN_URL = "http://192.168.48.1/insert/login.php";
+    public static final String LOGIN_URL = "http://35utech.com/td/public/login";
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_EMAIL = "email";
@@ -22,6 +25,7 @@ public class Config {
 
     //This would be used to store the email of current logged in user
     public static final String EMAIL_SHARED_PREF = "email";
+    public static final String NAME_SHARED_PREF = "nama";
 
     //We will use this to store the boolean in sharedpreference to track user is loggedin or not
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";

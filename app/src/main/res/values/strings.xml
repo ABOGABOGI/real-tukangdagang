@@ -53,20 +53,6 @@
         <item>Perempuan</item>
     </string-array>
 
-    <string-array name="provinsi">
-        <item>Jawa Barat</item>
-        <item>Jawa Timur</item>
-    </string-array>
-
-    <string-array name="kota">
-        <item>Bandung</item>
-        <item>Pekalongan</item>
-    </string-array>
-
-    <string-array name="kecamatan">
-        <item>Kiaracondong</item>
-        <item>Walini</item>
-    </string-array>
 
     <string-array name="kodepos">
         <item>40284</item>

@@ -1,6 +1,7 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -26,21 +27,26 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.PublicKey;
+
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL_STORES;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     LatLng center, latLng;
-    String title;
+    public String judul,judul1,id1;
 
 
 
@@ -64,25 +70,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL_STORES,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
                         try {
                             JSONObject obj = new JSONObject(response);
-                            JSONArray barangArray = obj.getJSONArray("result");
+                            final JSONArray barangArray = obj.getJSONArray("result");
                             Log.d("hai",response);
                             for (int i = 0; i < barangArray.length(); i++) {
 
+
                                 JSONObject barangobject = barangArray.getJSONObject(i);
-                                String link = barangobject.getString("lat") ;
-                                Log.d("asd", link);
-                                title = barangobject.getString("name") ;
+//                                String link = barangobject.getString("lat") ;
+//                                Log.d("asd", link);
+                                judul = barangobject.getString("nama_koperasi") ;
 
-                                LatLng alamat = new LatLng(Double.parseDouble(barangobject.getString("lat")), Double.parseDouble(barangobject.getString("lng")));
 
-                                mMap.addMarker(new MarkerOptions().position(alamat).title(title));
+                                LatLng alamat = new LatLng(Double.parseDouble(barangobject.getString("lat_koperasi")), Double.parseDouble(barangobject.getString("lng_koperasi")));
+
+                                mMap.addMarker(new MarkerOptions().position(alamat).title(judul));
+//                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.koprasi)));
+
+
+                                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                                    @Override
+                                    public void onInfoWindowClick(Marker marker) {
+                                        for (int i = 0; i < barangArray.length(); i++){
+                                            JSONObject barangobject = null;
+                                            try {
+                                                barangobject = barangArray.getJSONObject(i);
+                                                judul1 = barangobject.getString("nama_koperasi") ;
+                                                id1 = barangobject.getString("id") ;
+//                                                Toast.makeText(getApplicationContext(),String.valueOf(marker.getTitle()),Toast.LENGTH_SHORT).show();
+                                                if(judul1.equals(marker.getTitle())){
+                                                    Intent intent = new Intent(MapsActivity.this,BeritaKoprasi.class);
+                                                    intent.putExtra("namakoperasi", String.valueOf(judul1));
+                                                    startActivity(intent);
+//                                                    Toast.makeText(getApplicationContext(), finalI1,Toast.LENGTH_SHORT).show();
+                                                            }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+
+                                        }
+//
+
+
+
+                                    }
+                                });
 
 
 
@@ -91,6 +132,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mMap.getUiSettings().isCompassEnabled();
                                 mMap.getUiSettings().isZoomControlsEnabled();
                                 mMap.getUiSettings().isRotateGesturesEnabled();
+
+
 
 
                             }
@@ -104,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
 
