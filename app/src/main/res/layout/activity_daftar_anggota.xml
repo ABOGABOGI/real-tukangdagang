@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DaftarAnggota">
-<LinearLayout
+
+    <LinearLayout
     android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <ListView
         android:id="@+id/list_daftar_anggota"
         android:layout_width="match_parent"
@@ -41,10 +43,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/spokok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="100.000"/>
+                android:text="0"/>
 
         </LinearLayout>
 
@@ -69,6 +72,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/swajib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -89,15 +93,16 @@
             android:textColor="@color/white"
             android:id="@+id/daftar"
             android:padding="5dp"
-            android:background="@drawable/round"
+            android:theme="@style/buttonstyle1"
             android:text="Daftar"/>
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/daftarnanti"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/white"
-            android:background="@drawable/round"
+            android:theme="@style/buttonstyle1"
             android:text="Daftar Nanti"/>
 
     </LinearLayout>

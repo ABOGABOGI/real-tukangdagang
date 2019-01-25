@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import tukangdagang.id.co.tukangdagang_koperasi.DataNomor;
 import tukangdagang.id.co.tukangdagang_koperasi.InformasiUmum;
 import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
@@ -99,6 +100,10 @@ public class ListViewAdapter extends BaseAdapter {
                 if (modellist.get(postition).getTitle().equals("Kode Referal(Optional)")){
                     //start NewActivity with title for actionbar and text for textview
                     Intent intent = new Intent(mContext, Refferal.class);
+                    mContext.startActivity(intent);
+                }if (modellist.get(postition).getTitle().equals("Nomor")){
+                    //start NewActivity with title for actionbar and text for textview
+                    Intent intent = new Intent(mContext, DataNomor.class);
                     mContext.startActivity(intent);
                 }
 

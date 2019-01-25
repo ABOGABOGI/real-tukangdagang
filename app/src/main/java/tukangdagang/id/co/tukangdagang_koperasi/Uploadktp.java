@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -50,6 +51,11 @@ import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance2;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance3;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_upload;
+
 public class Uploadktp extends AppCompatActivity {
 Button btnUpload;
 ImageView imgUpload,imgUpload2,imgUpload3;
@@ -62,7 +68,10 @@ int nn = 0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uploadktp);
+        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setTitle("Upload KTP");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         btnUpload = (Button) findViewById(R.id.btnUpload);
@@ -72,9 +81,9 @@ int nn = 0;
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-        String photo = sharedPreferences.getString("imagePreferance", "photo");
-        String photo2 = sharedPreferences.getString("imagePreferance2", "photo");
-        String photo3 = sharedPreferences.getString("imagePreferance3", "photo");
+        String photo = sharedPreferences.getString(n_imagePreferance, "photo");
+        String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
+        String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
         assert photo != null;
         assert photo2 != null;
         assert photo3 != null;
@@ -127,87 +136,30 @@ int nn = 0;
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
-
-
-//            String email = sharedPreferences.getString(Config.EMAIL_SHARED_PREF,"Not Available");
-//            String nama = sharedPreferences.getString(Config.NAME_SHARED_PREF,"Not Available");
-//            Log.d("fbb",email);
-//            //Showing the current logged in email to textview
-//                TextView tv_nama;
-//                tv_nama = findViewById(R.id.textView10);
-//                tv_nama.setText(nama);
-//
-//                final ProgressDialog progressDialog = new ProgressDialog(Uploadktp.this);
-//                progressDialog.setMessage("Loading...");
-//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                progressDialog.show();
-//
-//                //post image to server
-//                StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLUpload,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                //If we are getting success from server
-//                                Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT).show();
-//                                btnUpload.setEnabled(false);
-//                                progressDialog.dismiss();
-//                                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                editor.putString("imagePreferance", null);
-//                                editor.putString("imagePreferance2", null);
-//                                editor.putString("imagePreferance3", null);
-//                                editor.commit();
-//
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                //You can handle error here if you want
-//                                Toast.makeText(getApplicationContext(),"Error : "+error.toString(),Toast.LENGTH_SHORT).show();
-//                                Log.d("tee",error.toString());
-//                            }
-//                        }){
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String,String> params = new HashMap<>();
-//                        bitmap = ((BitmapDrawable) imgUpload.getDrawable()).getBitmap();
-//                        bitmap2 = ((BitmapDrawable) imgUpload2.getDrawable()).getBitmap();
-//                        bitmap3 = ((BitmapDrawable) imgUpload3.getDrawable()).getBitmap();
-//                        String imageData = imageToString(bitmap);
-//                        String imageData2 = imageToString(bitmap2);
-//                        String imageData3 = imageToString(bitmap3);
-//                        Log.d("nilai",imageData);
-//                        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-//                        String photo = sharedPreferences.getString("imagePreferance", "photo");
-//                        String photo2 = sharedPreferences.getString("imagePreferance2", "photo");
-//                        String photo3 = sharedPreferences.getString("imagePreferance3", "photo");
-//                        //Adding parameters to request
-//                        params.put("image", photo);
-//                        params.put("image2", photo2);
-//                        params.put("image3", photo3);
-//
-//                        //returning parameter
-//                        return params;
-//                    }
-//                };
-//                //Adding the string request to the queue
-//                RequestQueue requestQueue = Volley.newRequestQueue(Uploadktp.this);
-//                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-//                        10000,
-//                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//                requestQueue.add(stringRequest);
-                Intent inten = new Intent(Uploadktp.this,DaftarAnggota.class);
-                startActivity(inten);
-                finish();
-
+                String photo = sharedPreferences.getString(n_imagePreferance, "photo");
+                String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
+                String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
+                if(!photo.equals("photo") && !photo2.equals("photo") && !photo3.equals("photo")) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(n_status_upload, "1");
+                    editor.commit();
+                    onBackPressed();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Data belum lengkap,Pastikan data di isi semua",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
 
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     private void openImage(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Options");
@@ -245,21 +197,21 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                    imgUpload.setImageBitmap(bitmap);
                    bitmap = ((BitmapDrawable) imgUpload.getDrawable()).getBitmap();
                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                   editor.putString("imagePreferance", imageToString(bitmap));
+                   editor.putString(n_imagePreferance, imageToString(bitmap));
                    editor.commit();
 
                }else if(nn==2){
                    imgUpload2.setImageBitmap(bitmap);
                    bitmap = ((BitmapDrawable) imgUpload2.getDrawable()).getBitmap();
                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                   editor.putString("imagePreferance2", imageToString(bitmap));
+                   editor.putString(n_imagePreferance2, imageToString(bitmap));
                    editor.commit();
                }
                else if(nn==3){
                    imgUpload3.setImageBitmap(bitmap);
                    bitmap = ((BitmapDrawable) imgUpload3.getDrawable()).getBitmap();
                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                   editor.putString("imagePreferance3", imageToString(bitmap));
+                   editor.putString(n_imagePreferance3, imageToString(bitmap));
                    editor.commit();
                }
            } catch (FileNotFoundException e) {
@@ -275,19 +227,19 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                             imgUpload.setImageBitmap(bitmap);
                             bitmap = ((BitmapDrawable) imgUpload.getDrawable()).getBitmap();
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("imagePreferance", imageToString(bitmap));
+                            editor.putString(n_imagePreferance, imageToString(bitmap));
                             editor.commit();
                         }else if(nn==2){
                             imgUpload2.setImageBitmap(bitmap);
                             bitmap = ((BitmapDrawable) imgUpload2.getDrawable()).getBitmap();
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("imagePreferance2", imageToString(bitmap));
+                            editor.putString(n_imagePreferance2, imageToString(bitmap));
                             editor.commit();
                         }else if(nn==3){
                             imgUpload3.setImageBitmap(bitmap);
                             bitmap = ((BitmapDrawable) imgUpload3.getDrawable()).getBitmap();
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("imagePreferance3", imageToString(bitmap));
+                            editor.putString(n_imagePreferance3, imageToString(bitmap));
                             editor.commit();
                         }
                     } catch (FileNotFoundException e) {
@@ -308,4 +260,5 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         return encodedImage;
 
     }
+
 }

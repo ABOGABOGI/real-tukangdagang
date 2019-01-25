@@ -360,6 +360,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         if (backPrassedTime + 2000 > System.currentTimeMillis()){
 
             System.exit(0);
+            super.onBackPressed();
             finish();
             return;
         }else{

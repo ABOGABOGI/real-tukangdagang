@@ -58,6 +58,10 @@ import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_nomor;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_upload;
+
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private Button btnlogin,btnGoogle,btnfb;
@@ -214,6 +218,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailfb);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namafb);
+                                editor.putString(n_status_nomor, "0");
+                                editor.putString(n_info_status, "0");
+                                editor.putString(n_status_upload, "0");
+
 
                                 //Saving values to editor
                                 editor.commit();
@@ -354,6 +362,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailGg);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namaGg);
+                                editor.putString(n_status_nomor, "0");
+                                editor.putString(n_info_status, "0");
+                                editor.putString(n_status_upload, "0");
 
                                 //Saving values to editor
                                 editor.commit();
@@ -455,6 +466,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             //Adding values to editor
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                             editor.putString(Config.EMAIL_SHARED_PREF, nilai_email);
+
+                            editor.putString(n_status_nomor, "0");
+                            editor.putString(n_info_status, "0");
+                            editor.putString(n_status_upload, "0");
+
 
                             //Saving values to editor
                             editor.commit();

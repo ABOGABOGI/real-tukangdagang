@@ -92,6 +92,8 @@ public class CariMakanan extends AppCompatActivity {
                                 JSONObject makananobject = makananArray.getJSONObject(i);
                                 String link = makananobject.getString("code") ;
                                 Log.d("asd", link);
+                                Log.d("nihil",response);
+
 
 
                                 ModelMakanan modelmakanan = new ModelMakanan(makananobject.getString("name"),

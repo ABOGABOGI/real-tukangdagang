@@ -152,7 +152,7 @@
             android:id="@+id/btnsimpan"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:background="@drawable/round"
+            android:theme="@style/buttonstyle1"
             android:text="Simpan"/>
     </LinearLayout>
 </ScrollView>

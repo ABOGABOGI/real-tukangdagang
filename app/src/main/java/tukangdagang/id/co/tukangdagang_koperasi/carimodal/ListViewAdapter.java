@@ -104,6 +104,7 @@ public class ListViewAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(mContext,DaftarAnggota.class);
+                i.putExtra("idkoperasi", modellist.get(postition).getId());
                 mContext.startActivity(i);
             }
         });
@@ -114,6 +115,7 @@ public class ListViewAdapter extends BaseAdapter{
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BeritaKoprasi.class);
                 intent.putExtra("namakoperasi", modellist.get(postition).getTitle());
+
 //                intent.putExtra("contentTv", "This is Battery detail...");
                 mContext.startActivity(intent);
             }
