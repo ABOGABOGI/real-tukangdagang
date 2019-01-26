@@ -3,19 +3,13 @@ package tukangdagang.id.co.tukangdagang_koperasi.slidercardview;
 
 public class CardItem {
 
-    private int mTextResource;
-    private int mTitleResource;
+    private String mImgResource;
 
-    public CardItem(int title, int text) {
-        mTitleResource = title;
-        mTextResource = text;
+    public CardItem(String img) {
+        mImgResource = img;
     }
 
-    public int getText() {
-        return mTextResource;
-    }
-
-    public int getTitle() {
-        return mTitleResource;
+    public String getImg() {
+        return mImgResource;
     }
 }

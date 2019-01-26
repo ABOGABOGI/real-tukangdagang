@@ -5,10 +5,12 @@ public class Config {
     public static final String URL_KOPERASI = "https://35utech.com/td/public/koperasi";
     public static final String JSON_URL_STORES = "https://35utech.com/td/public/stores";
     public static final String path = "https://35utech.com/td/resources/images/";
+    public static final String pathKoperasi = "https://35utech.com/td/public/upload/gambarkoperasi/";
     public static final String URLDaftar = "http://35utech.com/td/public/register";
     public static final String URLLoginWith = "http://35utech.com/td/public/loginwith";
     public static final String URLUpload = "http://35utech.com/td/public/uploadktp";
     public static final String URL_ID_KOPERASI = "http://35utech.com/td/public/IdKoperasi";
+    public static final String URL_IMG_KOPERASI = "http://35utech.com/td/public/ImgKoperasi";
 
     //URL to our login.php file
     public static final String LOGIN_URL = "http://35utech.com/td/public/login";

@@ -51,6 +51,7 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingBottom="30dp"
+            android:paddingTop="50dp"
             android:paddingEnd="@dimen/card_padding"
             android:paddingLeft="@dimen/card_padding"
             android:paddingRight="@dimen/card_padding"

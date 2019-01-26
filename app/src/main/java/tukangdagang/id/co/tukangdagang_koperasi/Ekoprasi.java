@@ -31,10 +31,10 @@ public class Ekoprasi extends AppCompatActivity {
         lihatBerita =(TextView) findViewById(R.id.lihatBerita);
 
         mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem(R.string.title_1, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));
+        mCardAdapter.addCardItem(new CardItem("jkjkjkj"));
+//        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
+//        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
+//        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));
         mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
                 dpToPixels(2, this));
 
