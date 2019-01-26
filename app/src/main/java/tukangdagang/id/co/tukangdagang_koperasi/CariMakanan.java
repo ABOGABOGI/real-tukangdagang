@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -72,6 +73,10 @@ public class CariMakanan extends AppCompatActivity {
     }
 
     private void getdata(){
+        final ProgressDialog progressDialog = new ProgressDialog(CariMakanan.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -80,12 +85,15 @@ public class CariMakanan extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray makananArray = obj.getJSONArray("result");
+                            progressDialog.dismiss();
 
                             for (int i = 0; i < makananArray.length(); i++) {
 
                                 JSONObject makananobject = makananArray.getJSONObject(i);
                                 String link = makananobject.getString("code") ;
                                 Log.d("asd", link);
+                                Log.d("nihil",response);
+
 
 
                                 ModelMakanan modelmakanan = new ModelMakanan(makananobject.getString("name"),
@@ -109,6 +117,7 @@ public class CariMakanan extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            progressDialog.dismiss();
                         }
                     }
                 },
@@ -117,6 +126,7 @@ public class CariMakanan extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
+                        progressDialog.dismiss();
                     }
                 });
 

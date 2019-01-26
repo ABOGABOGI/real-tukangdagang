@@ -1,5 +1,8 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,32 +10,141 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_alamat;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_jk;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_kecamatan;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_kodepos;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_kota;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nama_belakang;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nama_depan;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_provinsi;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_rtrw;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
+
 public class InformasiUmum extends AppCompatActivity {
 
-    private Spinner provinsi_Spinner;
-    private Spinner kota_Spinner;
-    private Spinner kecamatan_Spinner;
-
+    private Spinner provinsi_Spinner,kota_Spinner,kecamatan_Spinner,sp_jk;
     private ArrayAdapter<Provinsi> provinsiArrayAdapter;
     private ArrayAdapter<Kota> kotaArrayAdapter;
     private ArrayAdapter<Kecamatan> kecamatanArrayAdapter;
-
     private ArrayList<Provinsi> provinsi;
     private ArrayList<Kota> kota;
     private ArrayList<Kecamatan> kecamatan;
+    Button btnsimpan;
+    EditText etnama_depan,etnama_belakang,etalamat,etRtRw,etKodepos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_informasi_umum);
+        ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setTitle("Informasi Umum");
-
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        btnsimpan = findViewById(R.id.btnsimpan);
+        etnama_depan = findViewById(R.id.etnama_depan);
+        etnama_belakang = findViewById(R.id.etnama_belakang);
+        sp_jk = findViewById(R.id.sp_jk);
+        etalamat = findViewById(R.id.etalamat);
+        etRtRw = findViewById(R.id.etRtRw);
+        etKodepos = findViewById(R.id.etKodepos);
         initializeUI();
+        simpan();
+        setdata();
     }
+
+    public void setdata(){
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        String info_status = sharedPreferences.getString(n_info_status, null);
+        if (info_status.equals("1")) {
+            String info_nama_depan = sharedPreferences.getString(n_info_nama_depan, null);
+            String info_nama_belakang = sharedPreferences.getString(n_info_nama_belakang, null);
+            String info_jk = sharedPreferences.getString(n_info_jk, null);
+            String info_alamat = sharedPreferences.getString(n_info_alamat, null);
+            String info_rtrw = sharedPreferences.getString(n_info_rtrw, null);
+            String info_kodepos = sharedPreferences.getString(n_info_kodepos, null);
+            String info_provinsi = sharedPreferences.getString(n_info_provinsi, null);
+            String info_kota = sharedPreferences.getString(n_info_kota, null);
+            String info_kecamatan = sharedPreferences.getString(n_info_kecamatan, null);
+            etnama_depan.setText(info_nama_depan);
+            etnama_belakang.setText(info_provinsi);
+            ArrayAdapter<String> array_spinner=(ArrayAdapter<String>)sp_jk.getAdapter();
+            sp_jk.setSelection(array_spinner.getPosition(info_jk));
+            etalamat.setText(info_alamat);
+            etRtRw.setText(info_rtrw);
+            etKodepos.setText(info_kodepos);
+            ArrayAdapter<String> array_provinsi=(ArrayAdapter<String>)provinsi_Spinner.getAdapter();
+            provinsi_Spinner.setSelection(array_provinsi.getPosition(info_provinsi));
+            ArrayAdapter<String> array_kota=(ArrayAdapter<String>)kota_Spinner.getAdapter();
+            kota_Spinner.setSelection(array_kota.getPosition(info_kota));
+            ArrayAdapter<String> array_kecamatan=(ArrayAdapter<String>)kecamatan_Spinner.getAdapter();
+            kecamatan_Spinner.setSelection(array_kecamatan.getPosition(info_kecamatan));
+
+
+        }
+    }
+
+    private void simpan() {
+        btnsimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!etnama_depan.getText().toString().equals("") &&
+                        !etnama_depan.getText().toString().equals("") &&
+                        !etalamat.getText().toString().equals("") &&
+                        !etRtRw.getText().toString().equals("") &&
+                        !etKodepos.getText().toString().equals("") &&
+                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Provinsi") &&
+                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Kota") &&
+                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Kecamatan") ) {
+
+                    SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String n_nama_depan = etnama_depan.getText().toString();
+                    String n_nama_belakang = etnama_belakang.getText().toString();
+                    String n_jk = sp_jk.getSelectedItem().toString();
+                    String n_alamat = etalamat.getText().toString();
+                    String n_rtrw = etRtRw.getText().toString();
+                    String n_kodepos = etKodepos.getText().toString();
+                    String n_provinsi = provinsi_Spinner.getSelectedItem().toString();
+                    String n_kota = kota_Spinner.getSelectedItem().toString();
+                    String n_kecamatan = kecamatan_Spinner.getSelectedItem().toString();
+                    editor.putString(n_info_nama_depan, n_nama_depan);
+                    editor.putString(n_info_nama_belakang, n_nama_belakang);
+                    editor.putString(n_info_jk, n_jk);
+                    editor.putString(n_info_alamat, n_alamat);
+                    editor.putString(n_info_rtrw, n_rtrw);
+                    editor.putString(n_info_kodepos, n_kodepos);
+                    editor.putString(n_info_provinsi, n_provinsi);
+                    editor.putString(n_info_kota, n_kota);
+                    editor.putString(n_info_kecamatan, n_kecamatan);
+                    editor.putString(n_info_status, "1");
+                    editor.commit();
+                    onSupportNavigateUp();
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"Data belum lengkap,Pastikan data di isi semua",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
 
     private void initializeUI() {
         provinsi_Spinner = (Spinner) findViewById(R.id.sp_provinsi);
@@ -98,7 +210,6 @@ public class InformasiUmum extends AppCompatActivity {
 
         }
     };
-
     private AdapterView.OnItemSelectedListener kota_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -128,7 +239,6 @@ public class InformasiUmum extends AppCompatActivity {
 
         }
     };
-
     private AdapterView.OnItemSelectedListener kecamatan_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -2252,7 +2362,6 @@ public class InformasiUmum extends AppCompatActivity {
 
 
     }
-
     private void createLists2() {
         Provinsi provinsi31 = new Provinsi(31, "DKI JAKARTA");
         Provinsi provinsi32 = new Provinsi(32, "JAWA BARAT");
@@ -4367,7 +4476,6 @@ public class InformasiUmum extends AppCompatActivity {
 
 
     }
-
     private void createLists3() {
         Provinsi provinsi36 = new Provinsi(36, "BANTEN");
         Provinsi provinsi51 = new Provinsi(51, "BALI");
@@ -5571,8 +5679,6 @@ public class InformasiUmum extends AppCompatActivity {
         kecamatan.add(new Kecamatan(5020,  kota6372, "BANJAR BARU SELATAN"));
 
     }
-
-
     private void createLists4() {
         Provinsi provinsi64 = new Provinsi(64, "KALIMANTAN TIMUR");
         Provinsi provinsi65 = new Provinsi(65, "KALIMANTAN UTARA");
@@ -7990,7 +8096,6 @@ public class InformasiUmum extends AppCompatActivity {
 //            return another.getCountryID()-this.getCountryID();//descending  order
         }
     }
-
     private class Kota implements Comparable<Kota> {
 
         private int kotaID;
@@ -8026,7 +8131,6 @@ public class InformasiUmum extends AppCompatActivity {
 //            return another.getStateID()-this.getStateID();//descending order
         }
     }
-
     private class Kecamatan implements Comparable<Kecamatan> {
 
         private int kecamatanID;
