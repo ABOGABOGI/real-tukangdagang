@@ -19,9 +19,6 @@ import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
-import tukangdagang.id.co.tukangdagang_koperasi.Ekoprasi;
-import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
-import tukangdagang.id.co.tukangdagang_koperasi.MapsActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;

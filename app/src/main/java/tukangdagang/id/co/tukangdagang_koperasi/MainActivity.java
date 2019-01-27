@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -259,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     Home homeFragment = new Home();
     Favourite favouriteFragment = new Favourite();
     Keranjang keranjangFragment = new Keranjang();
-    Profile profileFragment = new Profile();
+    Simpanan simpananFragment = new Simpanan();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -279,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, profileFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, simpananFragment).commit();
                 return true;
 
 
