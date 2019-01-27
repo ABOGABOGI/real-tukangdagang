@@ -9,14 +9,35 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.carimodal.ListViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
+
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
 public class BeritaKoprasi extends AppCompatActivity {
     private ViewPager mViewPager;
@@ -39,25 +60,61 @@ public class BeritaKoprasi extends AppCompatActivity {
 
         Intent intent = getIntent();
         String Nkoperasi = intent.getExtras().getString("namakoperasi");
+        final String Idkoperasi = intent.getExtras().getString("idkoperasi");
 
         namakoperasi.setText(Nkoperasi);
 
         mViewPager = (ViewPager) findViewById(R.id.cardviewslider2);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_IMG_KOPERASI,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-        mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem(R.string.title_5, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_6, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_7, R.string.text_1));
-        mCardAdapter.addCardItem(new CardItem(R.string.title_8, R.string.text_1));
-        mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
-                dpToPixels(2, this));
 
-        mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-        mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray koperasiArray = obj.getJSONArray("result");
+                            Log.d("resul",response);
+                            mCardAdapter = new CardPagerAdapter();
+                            for (int i = 0; i < koperasiArray.length(); i++) {
+                                JSONObject koperasiobject = koperasiArray.getJSONObject(i);
+//                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
+                                mCardAdapter.addCardItem(new CardItem(koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi")));
+                            }
+                            mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
+                                    dpToPixels(2, BeritaKoprasi.this));
 
-        mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-        mViewPager.setOffscreenPageLimit(3);
+                            mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+                            mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+
+                            mViewPager.setAdapter(mCardAdapter);
+                            mViewPager.setPageTransformer(false, mCardShadowTransformer);
+                            mViewPager.setOffscreenPageLimit(3);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map< String, String > getParams() throws AuthFailureError {
+                Map < String, String > params = new HashMap< >();
+                params.put("idkoperasi", Idkoperasi);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
 
         getImages();
     }

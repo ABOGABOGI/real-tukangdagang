@@ -1,13 +1,18 @@
 package tukangdagang.id.co.tukangdagang_koperasi.slidercardview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +22,14 @@ import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.UnitUsaha;
 
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
+
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     private List<CardView> mViews;
     private List<CardItem> mData;
+    Context mContext;
     private float mBaseElevation;
 
     public CardPagerAdapter() {
@@ -60,36 +69,16 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         bind(mData.get(position), view);
         CardView cardView = (CardView) view.findViewById(R.id.cardViewA);
         View.OnClickListener onClickListener = null;
-        switch (position) {
-            case 0:
 
                 onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(view.getContext(),UnitUsaha.class);
-
-                        view.getContext().startActivity(intent);
+//                        Intent intent = new Intent(view.getContext(),UnitUsaha.class);
+//
+//                        view.getContext().startActivity(intent);
 
                     }
                 };
-
-                break;
-            case 1:
-
-                onClickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(view.getContext(),UnitUsaha.class);
-
-                        view.getContext().startActivity(intent);
-                    }
-                };
-
-
-                break;
-
-
-        }
 
         cardView.setOnClickListener(onClickListener);
 
@@ -109,10 +98,16 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     }
 
     private void bind(CardItem item, View view) {
-        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
-        TextView contentTextView = (TextView) view.findViewById(R.id.contentTextView);
-        titleTextView.setText(item.getTitle());
-        contentTextView.setText(item.getText());
+//        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
+        ImageView img = (ImageView) view.findViewById(R.id.img);
+//        titleTextView.setText(pathKoperasi + item.getImg());
+//        Glide.with(view.getContext())
+//                .load("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg")
+//                .into(img);
+        Picasso.with(view.getContext())
+                .load(pathKoperasi + item.getImg())
+                .into(img);
+//        img.setImageResource(R.drawable.poster);
     }
 
 }

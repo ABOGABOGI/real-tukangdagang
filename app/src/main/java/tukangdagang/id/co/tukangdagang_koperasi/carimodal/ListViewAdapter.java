@@ -115,6 +115,7 @@ public class ListViewAdapter extends BaseAdapter{
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, BeritaKoprasi.class);
                 intent.putExtra("namakoperasi", modellist.get(postition).getTitle());
+                intent.putExtra("idkoperasi", modellist.get(postition).getId());
 
 //                intent.putExtra("contentTv", "This is Battery detail...");
                 mContext.startActivity(intent);
