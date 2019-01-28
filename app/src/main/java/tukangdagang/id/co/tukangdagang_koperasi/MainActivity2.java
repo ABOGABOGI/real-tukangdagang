@@ -164,7 +164,7 @@ public class MainActivity2 extends AppCompatActivity implements BottomNavigation
 
 
 
-    Home homeFragment = new Home();
+    Home2 homeFragment = new Home2();
     Simpanan simpananFragment = new Simpanan();
     Pinjaman pinjamanFragment = new Pinjaman();
     Profile profileFragment = new Profile();

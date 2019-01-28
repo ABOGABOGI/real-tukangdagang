@@ -247,6 +247,11 @@ public class Simpanan extends Fragment implements OnChartGestureListener,
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    @Override
+    public void onResume(){
+        super.onResume();
+        ((MainActivity2) getActivity()).setActionBarTitle("Simpanan");
+    }
 }
 
 

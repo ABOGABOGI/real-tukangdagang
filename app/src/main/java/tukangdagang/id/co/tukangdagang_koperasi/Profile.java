@@ -236,6 +236,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     public void onResume(){
         super.onResume();
         ((MainActivity2) getActivity()).setActionBarTitle("Profile");
+
     }
 
     @Override
