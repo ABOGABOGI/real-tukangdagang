@@ -28,11 +28,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import tukangdagang.id.co.tukangdagang_koperasi.carimodal.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
-import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter2;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
@@ -41,7 +42,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
 public class BeritaKoprasi extends AppCompatActivity {
     private ViewPager mViewPager;
-    private CardPagerAdapter mCardAdapter;
+    private CardPagerAdapter2 mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
@@ -75,11 +76,11 @@ public class BeritaKoprasi extends AppCompatActivity {
                             JSONObject obj = new JSONObject(response);
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
-                            mCardAdapter = new CardPagerAdapter();
+                            mCardAdapter = new CardPagerAdapter2();
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi")));
+                                mCardAdapter.addCardItem(new CardItem(Config.pathKoperasi + koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi"),koperasiobject.getString("id")));
                             }
                             mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
                                     dpToPixels(2, BeritaKoprasi.this));

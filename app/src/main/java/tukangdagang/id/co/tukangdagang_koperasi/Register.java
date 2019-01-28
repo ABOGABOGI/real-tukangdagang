@@ -1,5 +1,6 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,37 +49,51 @@ public class Register extends AppCompatActivity {
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String n_username  = noHp.getText().toString();
+                String n_email = email.getText().toString();
+                String n_nama = nama.getText().toString();
+                String n_pwd = pwd.getText().toString();
+                String n_pwd_ulang = ulangpwd.getText().toString();
+                if(n_username.equals("") || n_email.equals("") || n_nama.equals("") || n_pwd.equals("")|| n_pwd_ulang.equals("")){
+                    Toast.makeText(getApplicationContext(),"Data Belum Lengkap",Toast.LENGTH_SHORT).show();
+                }else {
+                    if (validate()) {
+                        final ProgressDialog progressDialog = new ProgressDialog(Register.this);
+                        progressDialog.setMessage("Loading...");
+                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        progressDialog.show();
 
-                if(validate()){
-
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, URLDaftar, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            if (response.contains("success")) {
-                                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLDaftar, new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                if (response.contains("success")) {
+                                    Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
                             }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("username", String.valueOf(noHp.getText()));
-                            params.put("email", String.valueOf(email.getText()));
-                            params.put("first_name", String.valueOf(nama.getText()));
-                            params.put("password", String.valueOf(pwd.getText()));
-                            return params;
-                        }
-                    };
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("username", String.valueOf(noHp.getText()));
+                                params.put("email", String.valueOf(email.getText()));
+                                params.put("first_name", String.valueOf(nama.getText()));
+                                params.put("password", String.valueOf(pwd.getText()));
+                                return params;
+                            }
+                        };
 
-                    RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
-                    requestQueue.add(stringRequest);
-                }else{
-                    Toast.makeText(getApplicationContext(),"Password Yang anda Input Tidak sama",Toast.LENGTH_SHORT).show();
+                        RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
+                        requestQueue.add(stringRequest);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Password Yang anda Input Tidak sama", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -90,7 +105,7 @@ public class Register extends AppCompatActivity {
         String pass=pwd.getText().toString();
         String cpass=ulangpwd.getText().toString();
         if(!pass.equals(cpass)){
-            Toast.makeText(Register.this,"Password Not matching",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Register.this,"Password tidak sama",Toast.LENGTH_SHORT).show();
             temp=false;
         }
         return temp;

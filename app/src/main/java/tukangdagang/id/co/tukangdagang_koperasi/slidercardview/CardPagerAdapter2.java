@@ -19,14 +19,14 @@ import tukangdagang.id.co.tukangdagang_koperasi.R;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 
-public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
+public class CardPagerAdapter2 extends PagerAdapter implements CardAdapter {
 
     private List<CardView> mViews;
     private List<CardItem> mData;
     Context mContext;
     private float mBaseElevation;
 
-    public CardPagerAdapter() {
+    public CardPagerAdapter2() {
         mData = new ArrayList<>();
         mViews = new ArrayList<>();
     }
@@ -58,21 +58,21 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final View view = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.adapter, container, false);
+                .inflate(R.layout.adapter2, container, false);
         container.addView(view);
         bind(mData.get(position), view);
         CardView cardView = (CardView) view.findViewById(R.id.cardViewA);
         View.OnClickListener onClickListener = null;
 
-                onClickListener = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                        Intent intent = new Intent(view.getContext(),UnitUsaha.class);
 //
 //                        view.getContext().startActivity(intent);
 
-                    }
-                };
+            }
+        };
 
         cardView.setOnClickListener(onClickListener);
 
@@ -92,9 +92,9 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     }
 
     private void bind(CardItem item, View view) {
-        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
+//        TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
         ImageView img = (ImageView) view.findViewById(R.id.img);
-        titleTextView.setText(item.getTitle());
+//        titleTextView.setText(item.getTitle());
 //        Glide.with(view.getContext())
 //                .load("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg")
 //                .into(img);
