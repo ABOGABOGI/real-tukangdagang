@@ -1,28 +1,21 @@
 package tukangdagang.id.co.tukangdagang_koperasi.slidercardview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tukangdagang.id.co.tukangdagang_koperasi.Ekoprasi;
-import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
-import tukangdagang.id.co.tukangdagang_koperasi.UnitUsaha;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {

@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nohp;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nokk;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_noktp;
+
 public class DataNomor extends AppCompatActivity {
 Button btn_simpan_no;
 EditText etnoKTP,etKK,etHP;
@@ -33,11 +37,11 @@ EditText etnoKTP,etKK,etHP;
 
     private void setdata() {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        String status_nomor = sharedPreferences.getString("status_nomor", null);
+        String status_nomor = sharedPreferences.getString(Config.n_status_nomor, "");
         if (status_nomor.equals("1")) {
-            String info_noktp = sharedPreferences.getString("info_noktp", null);
-            String info_nokk = sharedPreferences.getString("info_nokk", null);
-            String info_nohp = sharedPreferences.getString("info_nohp", null);
+            String info_noktp = sharedPreferences.getString(n_info_noktp, "");
+            String info_nokk = sharedPreferences.getString(n_info_nokk, "");
+            String info_nohp = sharedPreferences.getString(n_info_nohp, "");
             etnoKTP.setText(info_noktp);
             etKK.setText(info_nokk);
             etHP.setText(info_nohp);

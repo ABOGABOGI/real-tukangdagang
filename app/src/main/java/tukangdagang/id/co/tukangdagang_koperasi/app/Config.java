@@ -9,8 +9,10 @@ public class Config {
     public static final String URLDaftar = "http://35utech.com/td/public/register";
     public static final String URLLoginWith = "http://35utech.com/td/public/loginwith";
     public static final String URLUpload = "http://35utech.com/td/public/uploadktp";
+    public static final String URLGantipwd = "http://35utech.com/td/public/Gantipwd";
     public static final String URL_ID_KOPERASI = "http://35utech.com/td/public/IdKoperasi";
     public static final String URL_IMG_KOPERASI = "http://35utech.com/td/public/ImgKoperasi";
+    public static final String URL_PROFILE = "http://35utech.com/td/public/getProfile";
 
     //URL to our login.php file
     public static final String LOGIN_URL = "http://35utech.com/td/public/login";
@@ -29,6 +31,7 @@ public class Config {
     //This would be used to store the email of current logged in user
     public static final String EMAIL_SHARED_PREF = "email";
     public static final String NAME_SHARED_PREF = "nama";
+    public static final String IMAGE_SHARED_PREF = "gambar";
     public static final String n_info_nama_depan = "info_nama_depan";
     public static final String n_info_nama_belakang = "info_nama_belakang";
     public static final String n_info_jk = "info_jk";

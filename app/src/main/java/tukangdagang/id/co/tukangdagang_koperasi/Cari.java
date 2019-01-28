@@ -5,15 +5,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.pagerAdapter;
 
-public class Cari extends AppCompatActivity implements Keranjang.OnFragmentInteractionListener,Favourite.OnFragmentInteractionListener,Profile.OnFragmentInteractionListener  {
+public class Cari extends AppCompatActivity implements Keranjang.OnFragmentInteractionListener,Favourite.OnFragmentInteractionListener,Simpanan.OnFragmentInteractionListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

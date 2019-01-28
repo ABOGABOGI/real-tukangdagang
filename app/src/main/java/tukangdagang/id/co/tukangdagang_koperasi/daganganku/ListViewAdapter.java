@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.MainActivity;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
-import tukangdagang.id.co.tukangdagang_koperasi.daganganku.Model;
 
 public class ListViewAdapter extends BaseAdapter {
 

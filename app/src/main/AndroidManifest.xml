@@ -131,7 +131,9 @@
         <activity android:name=".Register" />
         <activity android:name=".Uploadktp" />
         <activity android:name=".Refferal" />
-        <activity android:name=".DataNomor"></activity>
+        <activity android:name=".DataNomor" />
+        <activity android:name=".MainActivity2" />
+        <activity android:name=".Gantipwd"></activity>
     </application>
 
 </manifest>

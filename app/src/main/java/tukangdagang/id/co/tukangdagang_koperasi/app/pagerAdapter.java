@@ -5,9 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import tukangdagang.id.co.tukangdagang_koperasi.Favourite;
-import tukangdagang.id.co.tukangdagang_koperasi.Keranjang;
-import tukangdagang.id.co.tukangdagang_koperasi.Profile;
 import tukangdagang.id.co.tukangdagang_koperasi.fragment.faCarijasa;
 import tukangdagang.id.co.tukangdagang_koperasi.fragment.faCaripedagang;
 import tukangdagang.id.co.tukangdagang_koperasi.fragment.faCariproduk;

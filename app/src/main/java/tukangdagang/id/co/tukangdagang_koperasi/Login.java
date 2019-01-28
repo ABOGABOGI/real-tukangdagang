@@ -178,7 +178,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         //jika sudah login fb
         if(AccessToken.getCurrentAccessToken() !=null){
             String tes = "https://graph.facebook.com/"+AccessToken.getCurrentAccessToken().getUserId()+"/picture?width=250&height=250";
-            Intent i = new Intent(Login.this, MainActivity.class);
+            Intent i = new Intent(Login.this, MainActivity2.class);
             i.putExtra("imgfb",tes);
             startActivity(i);
             finish();
@@ -191,13 +191,16 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void getdata(JSONObject object) {
         try{
             URI profile_picture = new URI("https://graph.facebook.com/"+object.getString("id")+"/picture?width=250&height=250");
-            Intent i = new Intent(Login.this, MainActivity.class);
+            Intent i = new Intent(Login.this, MainActivity2.class);
 //            nilai_email = object.getString("email");
             final String nilai_emailfb = object.getString("email");
             final String nilai_namafb = object.getString("first_name")+" "+object.getString("last_name");
+            final String nilai_imgfb = profile_picture.toString();
+            Log.d("gambarfb",nilai_imgfb);
             i.putExtra("first_name",object.getString("first_name")+" "+object.getString("last_name"));
             i.putExtra("emailfb",object.getString("email"));
             i.putExtra("imgfb",profile_picture.toString());
+
 
             //////////////////////////////////////////////////////////////////////
 
@@ -218,6 +221,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailfb);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namafb);
+                                editor.putString(Config.IMAGE_SHARED_PREF, nilai_imgfb);
                                 editor.putString(n_status_nomor, "0");
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
@@ -246,6 +250,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     params.put(Config.KEY_EMAIL, nilai_emailfb);
                     params.put("first_name", nilai_namafb);
                     params.put("loginwith", "fb");
+                    params.put("gambar", nilai_imgfb);
 
                     //returning parameter
                     return params;
@@ -343,6 +348,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
             final String nilai_emailGg = account.getEmail();
             final String nilai_namaGg = account.getDisplayName();
+            final String nilai_imgGg = account.getPhotoUrl().toString();
+            Log.d("gambargg",nilai_imgGg);
             ////////////////////////////////////////////////////
 
             //Creating a string request
@@ -362,6 +369,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailGg);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namaGg);
+                                editor.putString(Config.IMAGE_SHARED_PREF, nilai_imgGg);
                                 editor.putString(n_status_nomor, "0");
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
@@ -389,6 +397,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     params.put(Config.KEY_EMAIL, nilai_emailGg);
                     params.put("first_name", nilai_namaGg);
                     params.put("loginwith", "google");
+                    params.put("gambar", nilai_imgGg);
 
                     //returning parameter
                     return params;
@@ -406,7 +415,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity2.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
@@ -432,8 +441,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         //If we will get true
         if(loggedIn){
-            //We will start the Profile Activity
-            Intent intent = new Intent(Login.this, MainActivity.class);
+            //We will start the Simpanan Activity
+            Intent intent = new Intent(Login.this, MainActivity2.class);
             startActivity(intent);
         }
     }
@@ -476,7 +485,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             editor.commit();
 
                             //Starting profile activity
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, MainActivity2.class);
                             startActivity(intent);
                         }else{
                             //If the server response is not success
