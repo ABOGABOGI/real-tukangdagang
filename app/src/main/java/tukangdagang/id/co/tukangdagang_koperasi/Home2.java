@@ -46,6 +46,8 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
@@ -76,7 +78,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         setSingleEvent(mainGrid);
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_IMG_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -90,7 +92,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi")));
+                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi")));
                             }
                             mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
                                     dpToPixels(2, getActivity()));
@@ -114,13 +116,6 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                         Toast.makeText(getContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
                     }
                 }) {
-            @Override
-            protected Map< String, String > getParams() throws AuthFailureError {
-                Map < String, String > params = new HashMap< >();
-                params.put("idkoperasi", "1");
-
-                return params;
-            }
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
