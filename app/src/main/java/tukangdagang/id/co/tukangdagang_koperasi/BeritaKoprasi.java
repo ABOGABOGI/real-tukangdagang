@@ -80,7 +80,7 @@ public class BeritaKoprasi extends AppCompatActivity {
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(Config.pathKoperasi + koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi"),koperasiobject.getString("id")));
+                                mCardAdapter.addCardItem(new CardItem(Config.pathKoperasi + koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi"),koperasiobject.getString("id"),""));
                             }
                             mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
                                     dpToPixels(2, BeritaKoprasi.this));

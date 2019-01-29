@@ -113,13 +113,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 //        viewPager1.setAdapter(adapter);
 //        viewPager1.setPadding(130,0,130,0);
 
-        Integer[] colors_temp = {
-                getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color2),
-                getResources().getColor(R.color.color3)
-        };
 
-        colors = colors_temp;
 
 //        viewPager1.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //            @Override

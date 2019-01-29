@@ -93,7 +93,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi")));
+                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi"),koperasiobject.getString("id")));
                             }
                             try {
                                 mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
