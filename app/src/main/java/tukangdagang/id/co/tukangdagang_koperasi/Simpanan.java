@@ -3,13 +3,12 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -28,28 +27,18 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Simpanan extends Fragment implements OnChartGestureListener,
+public class Simpanan extends AppCompatActivity  implements OnChartGestureListener,
         OnChartValueSelectedListener {
-
     private LineChart mChart;
-    private Button btn_jadwal;
-
-    public Simpanan() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_simpanan, container, false);
-
-        mChart = (LineChart) rootView.findViewById(R.id.linechart);
-        btn_jadwal = (Button) rootView.findViewById(R.id.btn_jadwal);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_simpanan);
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Simpanan");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        mChart = (LineChart) findViewById(R.id.linechart);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
@@ -113,21 +102,7 @@ public class Simpanan extends Fragment implements OnChartGestureListener,
         mChart.invalidate();
 
 
-
-        //menampilkan kalender
-
-        btn_jadwal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(),CalendarActivity.class);
-                startActivity(i);
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return rootView;
     }
-
     private ArrayList<String> setXAxisValues(){
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("10");
@@ -248,11 +223,8 @@ public class Simpanan extends Fragment implements OnChartGestureListener,
         void onFragmentInteraction(Uri uri);
     }
     @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Simpanan");
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
-
-
-

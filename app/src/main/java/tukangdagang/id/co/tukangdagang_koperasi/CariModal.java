@@ -47,26 +47,8 @@ public class CariModal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cari_modal);
-
         ActionBar actionBar = getSupportActionBar();
 
-//        title = new String[]{"Koprasi Bangun Bersama", "Koprasi Tanpa Riba", "Koprasi Tabungan Bersama", "Koprasi Suka Makmur", "Koprasi Milik Kita"};
-//        description = new String[]{"Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta"};
-//        icon = new int[]{R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi};
-//
-//        listView = findViewById(R.id.listKoprasi);
-//
-//        for (int i =0; i<title.length; i++){
-//            Model model = new Model(title[i], description[i], icon[i]);
-//            //bind all strings in an array
-//            arrayList.add(model);
-//        }
-//
-//        //pass results to listViewAdapter class
-//        adapter = new ListViewAdapter(this, arrayList);
-//
-//        //bind the adapter to the listview
-//        listView.setAdapter(adapter);
         getdata();
 
     }
@@ -103,7 +85,6 @@ public class CariModal extends AppCompatActivity {
                                 arrayList.add(model);
                             }
                             listView = findViewById(R.id.listKoprasi);
-//                            myAdapter = new RvMakananAdapter(CariMakanan.this, lstMakanan);
                             adapter = new ListViewAdapter(CariModal.this,arrayList);
 
 
@@ -118,7 +99,7 @@ public class CariModal extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_LONG).show();
                         progressDialog.dismiss();
                     }
                 });

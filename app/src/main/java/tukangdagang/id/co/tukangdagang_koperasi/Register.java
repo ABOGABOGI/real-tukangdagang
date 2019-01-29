@@ -74,7 +74,7 @@ public class Register extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
                             }
                         }) {

@@ -116,7 +116,7 @@ public class ListViewAdapter extends BaseAdapter {
 //            modellist.addAll(arrayList);
 //        }
 //        else {
-//            for (Model model : arrayList){
+//            for (ModelDaftarsimpanan model : arrayList){
 //                if (model.getTitle().toLowerCase(Locale.getDefault())
 //                        .contains(charText)){
 //                    modellist.add(model);

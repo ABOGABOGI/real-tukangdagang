@@ -128,18 +128,26 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/IntroTheme" />
-        <activity android:name=".Register"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Uploadktp"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Refferal"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".DataNomor"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".MainActivity2"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Gantipwd"
-            android:screenOrientation="sensorPortrait"></activity>
+        <activity
+            android:name=".Register"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Uploadktp"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Refferal"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".DataNomor"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".MainActivity2"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Gantipwd"
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".Daftarsimpanan" />
+        <activity android:name=".Simpanan"></activity>
     </application>
 
 </manifest>

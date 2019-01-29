@@ -258,7 +258,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     Home homeFragment = new Home();
     Favourite favouriteFragment = new Favourite();
     Keranjang keranjangFragment = new Keranjang();
-    Simpanan simpananFragment = new Simpanan();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -275,10 +274,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.navigation_keranjang:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, keranjangFragment).commit();
-                return true;
-
-            case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, simpananFragment).commit();
                 return true;
 
 

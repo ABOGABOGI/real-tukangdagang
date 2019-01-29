@@ -58,6 +58,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
+    Context mContext;
 
 
     public Home2() {
@@ -94,8 +95,12 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
                                 mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi")));
                             }
-                            mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-                                    dpToPixels(2, getActivity()));
+                            try {
+                                mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
+                                        dpToPixels(2, getActivity()));
+                            }catch (Error e){
+                                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_LONG).show();
+                            }
 
                             mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
                             mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
@@ -113,7 +118,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                     }
                 }) {
         };

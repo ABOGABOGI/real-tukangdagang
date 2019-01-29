@@ -75,7 +75,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
     ViewPager viewPager1;
 //    Adapter adapter;
-//    List<Model> models;
+//    List<ModelDaftarsimpanan> models;
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
@@ -104,9 +104,9 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 // start coding cardview slide
 
 //        models = new ArrayList<>();
-//        models.add(new Model(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-//        models.add(new Model(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-//        models.add(new Model(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarsimpanan(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarsimpanan(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarsimpanan(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
 //
 //        adapter = new Adapter(models,this.getContext());
 //        viewPager1 = rootView.findViewById(R.id.viewPager1);

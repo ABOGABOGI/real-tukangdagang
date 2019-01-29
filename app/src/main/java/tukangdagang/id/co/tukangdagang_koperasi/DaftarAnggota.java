@@ -293,7 +293,7 @@ public class DaftarAnggota extends AppCompatActivity {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
                                                     //You can handle error here if you want
-                                                    Toast.makeText(getApplicationContext(), "Error : " + error.toString(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                                                     Log.d("tee", error.toString());
                                                     progressDialog.dismiss();
                                                 }

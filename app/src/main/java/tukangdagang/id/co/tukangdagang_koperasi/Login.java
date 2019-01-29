@@ -441,7 +441,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         //If we will get true
         if(loggedIn){
-            //We will start the Simpanan Activity
+            //We will start the SimpananF Activity
             Intent intent = new Intent(Login.this, MainActivity2.class);
             startActivity(intent);
         }
@@ -504,6 +504,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data",Toast.LENGTH_LONG).show();
                             //You can handle error here if you want
                         }
                     }) {

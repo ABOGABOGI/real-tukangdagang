@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -165,36 +167,36 @@ public class MainActivity2 extends AppCompatActivity implements BottomNavigation
 
 
 
-    Home2 homeFragment = new Home2();
-    Simpanan simpananFragment = new Simpanan();
-    Pinjaman pinjamanFragment = new Pinjaman();
-    Profile profileFragment = new Profile();
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
 
+        Fragment selectedFragment = null;
+
         switch (item.getItemId()) {
             case R.id.navigation_apps:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, homeFragment).commit();
-                return true;
 
+                selectedFragment = new Home2();
+                break;
             case R.id.navigation_simpanan:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, simpananFragment).commit();
-                return true;
-
+                selectedFragment = new Daftarsimpanan();
+                break;
             case R.id.navigation_pinjaman:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, pinjamanFragment).commit();
-                return true;
-
+                selectedFragment = new Pinjaman();
+                break;
             case R.id.navigation_profile:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, profileFragment).commit();
-                return true;
-
-
+                selectedFragment = new Profile();
+                break;
         }
+        if(selectedFragment !=null) {
+            FragmentTransaction transaction =
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.replace(R.id.container, selectedFragment, selectedFragment.getTag());
+            transaction.commit();
+        }
+        return true;
 
-        return false;
     }
 
     @Override
