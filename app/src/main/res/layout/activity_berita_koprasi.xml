@@ -8,38 +8,65 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@drawable/bg1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <RelativeLayout
+        <com.github.florent37.arclayout.ArcLayout
+            android:id="@+id/diagonalLayout"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:elevation="10dip"
+            app:arc_cropDirection="cropOutside"
+            app:arc_position="bottom"
+            app:arc_height="20dp"
+            >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/walpaper"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/namakoperasi"
-                android:layout_marginBottom="100dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="#ffff"
-                android:textFontWeight="bold"
-                android:textSize="25sp"
-                android:layout_alignParentBottom="true"
-                android:text="Koprasi Tukang Dagang"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/koprasi"
-               android:layout_marginTop="120dp"
-                android:layout_centerHorizontal="true"/>
-        </RelativeLayout>
+
+                    <ImageView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="10dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/koprasi"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/namakoperasi"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="#ffffff"
+                        android:layout_gravity="center"
+                        android:textFontWeight="bold"
+                        android:textSize="25sp"
+                        android:text="Koprasi Tukang Dagang"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </com.github.florent37.arclayout.ArcLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:textFontWeight="bold"
         android:paddingLeft="16dp"
         android:textColor="@color/design_default_color_primary_dark"
@@ -47,11 +74,9 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/cardviewslider2"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="200dp"
             android:clipToPadding="false"
             android:overScrollMode="never"
-            android:paddingBottom="30dp"
-            android:paddingTop="50dp"
             android:paddingEnd="@dimen/card_padding"
             android:paddingLeft="@dimen/card_padding"
             android:paddingRight="@dimen/card_padding"
@@ -61,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:text="Anggota Koperasi"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="30dp"/>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
