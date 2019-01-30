@@ -2,22 +2,23 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,10 +26,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import org.json.JSONArray;
@@ -36,20 +35,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import tukangdagang.id.co.tukangdagang_koperasi.slider.ChildAnimationExample;
 import tukangdagang.id.co.tukangdagang_koperasi.slider.CustomSliderView;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
+import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
-public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener,SwipeRefreshLayout.OnRefreshListener {
 
     private SliderLayout mDemoSlider;
     GridLayout mainGrid;
@@ -58,7 +55,9 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
+    ImageView imLoading;
     Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     public Home2() {
@@ -73,17 +72,34 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         // Inflate the layout for this fragment
         mDemoSlider = (SliderLayout)rootView.findViewById(R.id.slider);
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
         slider();
+        imLoading = rootView.findViewById(R.id.loadingView);
         checkNetworkConnectionStatus();
         //Set Event
         setSingleEvent(mainGrid);
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
+        getdata();
+        return rootView;
+    }
+
+    private void getdata() {
+
+
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -118,6 +134,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                     }
                 }) {
@@ -126,9 +144,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
-
-        return rootView;
     }
+
     public static float dpToPixels(int dp, Context context) {
         return dp * (context.getResources().getDisplayMetrics().density);
     }
@@ -187,6 +204,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         }
         else { //no internet connection
             Toast.makeText(getActivity(),"Tidak Ada koneksi internet",Toast.LENGTH_LONG).show();
+            imLoading.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -213,7 +232,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(),CariModal.class);
+                    Intent intent = new Intent(getActivity(),CariPinjaman.class);
                     startActivity(intent);
 
                 }
@@ -252,6 +271,12 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    @Override
+    public void onRefresh() {
+        getdata();
+    }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

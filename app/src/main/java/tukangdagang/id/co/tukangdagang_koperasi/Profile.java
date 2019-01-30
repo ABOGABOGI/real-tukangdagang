@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,21 +46,21 @@ import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
+import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.NAME_SHARED_PREF;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.SHARED_PREF_NAME;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_PROFILE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_noktp;
 
-public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener{
+public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener,SwipeRefreshLayout.OnRefreshListener{
 
     Button btn_logout,btn_gantipwd;
     TextView scnama,info_email;
     ImageView avatar;
     private GoogleApiClient googleApiClient;
     String idprofile = "";
+    ImageView imLoading;
+    Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
     public Profile() {
         // Required empty public constructor
     }
@@ -79,6 +81,9 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         scnama= rootView.findViewById(R.id.scnama);
         info_email= rootView.findViewById(R.id.info_email);
         avatar= rootView.findViewById(R.id.avatar);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = rootView.findViewById(R.id.loadingView);
 
         getdata();
         gantipwd();
@@ -92,12 +97,19 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     private void getdata() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PROFILE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -137,6 +149,8 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 }) {
             @Override
@@ -226,6 +240,11 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        getdata();
     }
 
     public interface OnFragmentInteractionListener {

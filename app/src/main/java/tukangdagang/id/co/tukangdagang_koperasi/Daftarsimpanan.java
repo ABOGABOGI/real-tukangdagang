@@ -1,13 +1,17 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,13 +32,14 @@ import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.AdapterDaftarsimpanan;
 import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.ModelDaftarsimpanan;
 
+import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Daftarsimpanan extends Fragment {
+public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView listView;
     AdapterDaftarsimpanan adapter;
@@ -42,6 +47,9 @@ public class Daftarsimpanan extends Fragment {
     String[] description;
     int[] icon;
     ArrayList<ModelDaftarsimpanan> arrayList = new ArrayList<ModelDaftarsimpanan>();
+    ImageView imLoading;
+    Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public Daftarsimpanan() {
         // Required empty public constructor
@@ -51,22 +59,29 @@ public class Daftarsimpanan extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_daftarsimpanan, container, false);
         // Inflate the layout for this fragment
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = rootView.findViewById(R.id.loadingView);
         getdata();
         
-        return inflater.inflate(R.layout.fragment_daftarsimpanan, container, false);
+        return rootView;
     }
 
     private void getdata() {
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -103,12 +118,19 @@ public class Daftarsimpanan extends Fragment {
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onRefresh() {
+        getdata();
+
     }
 
     public interface OnFragmentInteractionListener {

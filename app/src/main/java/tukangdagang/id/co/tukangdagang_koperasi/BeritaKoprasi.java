@@ -2,12 +2,17 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,19 +41,23 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter2;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
+import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
-public class BeritaKoprasi extends AppCompatActivity {
+public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private ViewPager mViewPager;
     private CardPagerAdapter2 mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
     private TextView namakoperasi;
+    String Idkoperasi;
 
     private static final String TAG = "BeritaKoprasi";
+    ImageView imLoading;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
@@ -58,18 +67,38 @@ public class BeritaKoprasi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_berita_koprasi);
         namakoperasi = findViewById(R.id.namakoperasi);
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Detail Koperasi");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         String Nkoperasi = intent.getExtras().getString("namakoperasi");
-        final String Idkoperasi = intent.getExtras().getString("idkoperasi");
+        Idkoperasi = intent.getExtras().getString("idkoperasi");
 
         namakoperasi.setText(Nkoperasi);
 
         mViewPager = (ViewPager) findViewById(R.id.cardviewslider2);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = findViewById(R.id.loadingView);
+        getdata();
+        getImages();
+    }
+
+    private void getdata() {
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_IMG_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
 
                         try {
@@ -102,6 +131,9 @@ public class BeritaKoprasi extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
+
                     }
                 }) {
             @Override
@@ -116,9 +148,8 @@ public class BeritaKoprasi extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
-
-        getImages();
     }
+
     public static float dpToPixels(int dp, Context context) {
         return dp * (context.getResources().getDisplayMetrics().density);
     }
@@ -168,5 +199,15 @@ public class BeritaKoprasi extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);
         recyclerView.setAdapter(adapter);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        getdata();
     }
 }

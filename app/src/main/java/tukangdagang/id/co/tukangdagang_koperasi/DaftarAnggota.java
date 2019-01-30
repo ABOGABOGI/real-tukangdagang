@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.RvMakananAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.Model;
 
+import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
@@ -68,7 +72,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_nomor;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_upload;
 
-public class DaftarAnggota extends AppCompatActivity {
+public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     ListView listView;
     ListViewAdapter adapter;
     Button daftar,daftarnanti;
@@ -77,6 +81,8 @@ public class DaftarAnggota extends AppCompatActivity {
     String Idkoperasi;
     ArrayList < Model > arrayList = new ArrayList < Model > ();
     TextView spokok, swajib;
+    ImageView imLoading;
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +97,9 @@ public class DaftarAnggota extends AppCompatActivity {
         daftarnanti = findViewById(R.id.daftarnanti);
         spokok = findViewById(R.id.spokok);
         swajib = findViewById(R.id.swajib);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = findViewById(R.id.loadingView);
         getdata();
         daftar();
         daftarnanti();
@@ -360,19 +369,22 @@ public class DaftarAnggota extends AppCompatActivity {
         });
     }
     public void getdata() {
-        final ProgressDialog progressDialog = new ProgressDialog(DaftarAnggota.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ID_KOPERASI,
                 new Response.Listener < String > () {
                     @Override
                     public void onResponse(String response) {
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray makananArray = obj.getJSONArray("result");
-                            progressDialog.dismiss();
 
                             JSONObject makananobject = makananArray.getJSONObject(0);
                             String pokok = makananobject.getString("simpanan_pokok");
@@ -386,7 +398,6 @@ public class DaftarAnggota extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            progressDialog.dismiss();
                         }
                     }
                 },
@@ -394,6 +405,9 @@ public class DaftarAnggota extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getApplicationContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
+
                     }
                 }) {
             @Override
@@ -411,6 +425,8 @@ public class DaftarAnggota extends AppCompatActivity {
     }
 
 
-
-
+    @Override
+    public void onRefresh() {
+        getdata();
+    }
 }
