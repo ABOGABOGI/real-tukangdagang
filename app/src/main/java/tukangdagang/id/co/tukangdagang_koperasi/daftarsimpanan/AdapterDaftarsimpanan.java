@@ -70,7 +70,7 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
             holder = new ViewHolder();
             view = inflater.inflate(R.layout.list_daftarsimpanan, null);
 
-            //locate the views in row_modal.xml
+            //locate the views in row_cari_pinjamanpinjaman.xml
             holder.mTitleTv = view.findViewById(R.id.mainTitle);
             holder.mDescTv = view.findViewById(R.id.mainDesc);
             holder.mIconIv = view.findViewById(R.id.mainIcon);

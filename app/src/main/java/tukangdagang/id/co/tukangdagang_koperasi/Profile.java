@@ -49,6 +49,8 @@ import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.LOGINWITH_SHARED_PREF;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_PROFILE;
 
 public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener,SwipeRefreshLayout.OnRefreshListener{
@@ -97,6 +99,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     private void getdata() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+        final String sLoginwith = sharedPreferences.getString(LOGINWITH_SHARED_PREF, "");
         imLoading.setBackgroundResource(R.drawable.animasi_loading);
         AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
                 .getBackground();
@@ -157,6 +160,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
             protected Map< String, String > getParams() throws AuthFailureError {
                 Map < String, String > params = new HashMap< >();
                 params.put("email", email);
+                params.put("loginwith", sLoginwith);
 
                 return params;
             }

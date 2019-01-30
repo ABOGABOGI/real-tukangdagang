@@ -18,9 +18,6 @@ import java.util.List;
 
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
-
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 

@@ -23,14 +23,17 @@ public class Config {
 
     //If server response is equal to this that means login is successful
     public static final String LOGIN_SUCCESS = "success";
+    public static final String LOGIN_FAILURE = "failure";
 
     //Keys for Sharedpreferences
     //This would be the name of our shared preferences
     public static final String SHARED_PREF_NAME = "myloginapp";
 
     //This would be used to store the email of current logged in user
+    public static final String PROFILE_ID = "id_profile";
     public static final String EMAIL_SHARED_PREF = "email";
     public static final String NAME_SHARED_PREF = "nama";
+    public static final String LOGINWITH_SHARED_PREF = "loginwith";
     public static final String IMAGE_SHARED_PREF = "gambar";
     public static final String n_info_nama_depan = "info_nama_depan";
     public static final String n_info_nama_belakang = "info_nama_belakang";

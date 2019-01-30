@@ -1,6 +1,5 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
-import android.app.ProgressDialog;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -29,8 +28,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.ListViewAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;

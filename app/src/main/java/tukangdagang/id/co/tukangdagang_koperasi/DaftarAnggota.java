@@ -51,6 +51,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.Model;
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance;
@@ -67,6 +68,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nohp;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nokk;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_noktp;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_provinsi;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_refferal;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_rtrw;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_nomor;
@@ -82,6 +84,8 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
     ArrayList < Model > arrayList = new ArrayList < Model > ();
     TextView spokok, swajib;
     ImageView imLoading;
+    String pokok ="test";
+    String wajib ="";
     private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +150,7 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Log.d("popok",pokok + wajib);
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 String info_status = sharedPreferences.getString(n_info_status, null);
                 String status_nomor = sharedPreferences.getString(n_status_nomor, null);
@@ -212,6 +217,8 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                             String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
                                             String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
                                             String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+                                            String id_profile = sharedPreferences.getString(PROFILE_ID, "");
+                                            String info_refferal = sharedPreferences.getString(n_info_refferal, "");
                                             //Adding parameters to request
                                             params.put("nama_depan", info_nama_depan);
                                             params.put("nama_belakang", info_nama_belakang);
@@ -231,6 +238,10 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                             params.put("email", email);
                                             params.put("idkoperasi", Idkoperasi);
                                             params.put("isdraft", "1");
+                                            params.put("simpanan_wajib", wajib);
+                                            params.put("simpanan_pokok", pokok);
+                                            params.put("id_profile", id_profile);
+                                            params.put("refferal", info_refferal);
 
                                             //returning parameter
                                             return params;
@@ -328,6 +339,8 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                             String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
                                             String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
                                             String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+                                            String id_profile = sharedPreferences.getString(PROFILE_ID, "");
+                                            String info_refferal = sharedPreferences.getString(n_info_refferal, "");
                                             //Adding parameters to request
                                             params.put("nama_depan", info_nama_depan);
                                             params.put("nama_belakang", info_nama_belakang);
@@ -347,6 +360,10 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                             params.put("email", email);
                                             params.put("idkoperasi", Idkoperasi);
                                             params.put("isdraft", "0");
+                                            params.put("simpanan_wajib", wajib);
+                                            params.put("simpanan_pokok", pokok);
+                                            params.put("id_profile", id_profile);
+                                            params.put("refferal", info_refferal);
 
                                             //returning parameter
                                             return params;
@@ -387,8 +404,8 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                             JSONArray makananArray = obj.getJSONArray("result");
 
                             JSONObject makananobject = makananArray.getJSONObject(0);
-                            String pokok = makananobject.getString("simpanan_pokok");
-                            String wajib = makananobject.getString("simpanan_wajib");
+                            pokok = makananobject.getString("simpanan_pokok");
+                            wajib = makananobject.getString("simpanan_wajib");
                             Log.d("asd", pokok);
                             Log.d("nihil", response);
                             Locale localeID = new Locale("in", "ID");
@@ -404,7 +421,7 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                         imLoading.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
 

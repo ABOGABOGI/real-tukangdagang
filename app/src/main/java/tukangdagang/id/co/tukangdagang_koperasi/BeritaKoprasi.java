@@ -34,17 +34,13 @@ import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.ListViewAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter2;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 import static android.view.View.VISIBLE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
 public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private ViewPager mViewPager;
