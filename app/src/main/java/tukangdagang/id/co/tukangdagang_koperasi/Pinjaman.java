@@ -32,7 +32,7 @@ public class Pinjaman extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Pinjaman");
+        ((MainActivity2) getActivity()).setActionBarTitle("Pinjaman Aktif");
     }
 
 }
