@@ -7,16 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".CariPinjaman">
     <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="70dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
     <ListView
         android:id="@+id/listDaftarsimpanan"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

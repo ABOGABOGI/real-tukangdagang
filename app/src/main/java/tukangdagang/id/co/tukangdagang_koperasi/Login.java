@@ -194,15 +194,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void getdata(JSONObject object) {
         try{
             URI profile_picture = new URI("https://graph.facebook.com/"+object.getString("id")+"/picture?width=250&height=250");
-            Intent i = new Intent(Login.this, MainActivity2.class);
 //            nilai_email = object.getString("email");
             final String nilai_emailfb = object.getString("email");
             final String nilai_namafb = object.getString("first_name")+" "+object.getString("last_name");
             final String nilai_imgfb = profile_picture.toString();
             Log.d("gambarfb",nilai_imgfb);
-            i.putExtra("first_name",object.getString("first_name")+" "+object.getString("last_name"));
-            i.putExtra("emailfb",object.getString("email"));
-            i.putExtra("imgfb",profile_picture.toString());
 
 
             //////////////////////////////////////////////////////////////////////
@@ -237,9 +233,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
 
-
                                 //Saving values to editor
                                 editor.commit();
+                                Intent i = new Intent(Login.this, MainActivity2.class);
+                                startActivity(i);
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -270,7 +267,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
             /////////////////////////////////////////////////////////////////////
-            startActivity(i);
             finish();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -397,6 +393,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
                                 //Saving values to editor
                                 editor.commit();
+                                goMainScreen();
 
                             }catch (JSONException e) {
                                     e.printStackTrace();
@@ -428,7 +425,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
             ///////////////////////////////////////////////////
-            goMainScreen();
+
         } else {
             Log.d("gagal","Login gagal");
         }

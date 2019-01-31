@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -37,7 +38,7 @@ import com.google.android.gms.common.api.Status;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-public class MainActivity2 extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener  {
+public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient.OnConnectionFailedListener  {
 
     TextView smsCountTxt;
     int pendingSMSCount = 10;
@@ -50,6 +51,13 @@ public class MainActivity2 extends AppCompatActivity implements BottomNavigation
     private TextView tv_email,tv_nama;
 
     private GoogleApiClient googleApiClient;
+
+    final Fragment fragment1 = new Home2();
+    final Fragment fragment2 = new Pinjaman();
+    final Fragment fragment3 = new Daftarsimpanan();
+    final Fragment fragment4 = new Profile();
+    final FragmentManager fm = getSupportFragmentManager();
+    Fragment active = fragment1;
 
 
 
@@ -69,12 +77,46 @@ public class MainActivity2 extends AppCompatActivity implements BottomNavigation
                 .build();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navigation_apps);
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        fm.beginTransaction().add(R.id.container, fragment4, "4").hide(fragment4).commit();
+        fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
+        fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
+        fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
 
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_apps:
+                    fm.beginTransaction().hide(active).show(fragment1).commit();
+                    active = fragment1;
+                    return true;
+
+                case R.id.navigation_pinjaman:
+                    fm.beginTransaction().hide(active).show(fragment2).commit();
+                    active = fragment2;
+                    return true;
+
+                case R.id.navigation_simpanan:
+                    fm.beginTransaction().hide(active).show(fragment3).commit();
+                    active = fragment3;
+                    return true;
+
+
+                case R.id.navigation_profile:
+                    fm.beginTransaction().hide(active).show(fragment4).commit();
+                    active = fragment4;
+                    return true;
+            }
+            return false;
+        }
+    };
+
 
     @Override
     protected void onStart() {
@@ -165,39 +207,6 @@ public class MainActivity2 extends AppCompatActivity implements BottomNavigation
     }
 
 
-
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
-        Fragment selectedFragment = null;
-
-        switch (item.getItemId()) {
-            case R.id.navigation_apps:
-
-                selectedFragment = new Home2();
-                break;
-            case R.id.navigation_simpanan:
-                selectedFragment = new Daftarsimpanan();
-                break;
-            case R.id.navigation_pinjaman:
-                selectedFragment = new Pinjaman();
-                break;
-            case R.id.navigation_profile:
-                selectedFragment = new Profile();
-                break;
-        }
-        if(selectedFragment !=null) {
-            FragmentTransaction transaction =
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            transaction.replace(R.id.container, selectedFragment, selectedFragment.getTag());
-            transaction.commit();
-        }
-        return true;
-
-    }
 
     @Override
     public void onBackPressed() {

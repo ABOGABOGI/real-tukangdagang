@@ -36,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.slider.CustomSliderView;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
@@ -44,7 +46,9 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer
 
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_SLIDER;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path_slider;
 
 public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener,SwipeRefreshLayout.OnRefreshListener {
 
@@ -74,7 +78,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
-        slider();
+//        slider();
         imLoading = rootView.findViewById(R.id.loadingView);
         checkNetworkConnectionStatus();
         //Set Event
@@ -82,6 +86,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
         getdata();
+        getdata2();
         return rootView;
     }
 
@@ -151,45 +156,78 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
     }
 
-    public static float dpToPixels(int dp, Context context) {
-        return dp * (context.getResources().getDisplayMetrics().density);
-    }
 
-    private void slider() {
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("1", "https://static.vecteezy.com/system/resources/previews/000/103/286/non_2x/free-flat-design-vector-background.jpg");
-        url_maps.put("2", "http://idseducation.com/wp-content/uploads/2018/09/thumbnail-5.jpg");
-        url_maps.put("3", "https://think360studio.com/wp-content/uploads/2016/03/flat-design.jpg");
-        url_maps.put("4", "https://www.musthafa.net/wp-content/uploads/2017/02/flatdesign.jpg");
 
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("1",R.drawable.sticker);
-        file_maps.put("2",R.drawable.sticker);
-        file_maps.put("3",R.drawable.sticker);
-        file_maps.put("4",R.drawable.sticker);
+    private void getdata2() {
 
-        for(String name : url_maps.keySet()){
-            CustomSliderView textSliderView = new CustomSliderView(getContext());
-            // initialize a SliderLayout
-            textSliderView
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_SLIDER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray koperasiArray = obj.getJSONArray("result");
+                            Log.d("deno",response);
+                            mCardAdapter = new CardPagerAdapter();
+                            HashMap<String,String> url_maps = new HashMap<String, String>();
+                            for (int i = 0; i < koperasiArray.length(); i++) {
+                                JSONObject koperasiobject = koperasiArray.getJSONObject(i);
+                                url_maps.put(koperasiobject.getString("id"), path_slider+koperasiobject.getString("gambar_utama"));
+                            }
+//
+//                            url_maps.put("1", "https://static.vecteezy.com/system/resources/previews/000/103/286/non_2x/free-flat-design-vector-background.jpg");
+//                            url_maps.put("2", "http://idseducation.com/wp-content/uploads/2018/09/thumbnail-5.jpg");
+//                                url_maps.put("3", "https://think360studio.com/wp-content/uploads/2016/03/flat-design.jpg");
+//                                url_maps.put("4", "https://www.musthafa.net/wp-content/uploads/2017/02/flatdesign.jpg");
+
+                                for(String name : url_maps.keySet()){
+                                    CustomSliderView textSliderView = new CustomSliderView(getContext());
+                                    // initialize a SliderLayout
+                                    textSliderView
 //                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
+                                            .image(url_maps.get(name))
+                                            .setScaleType(BaseSliderView.ScaleType.Fit);
+//                                            .setOnSliderClickListener(this);
 
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
+                                    //add your extra information
+                                    textSliderView.bundle(new Bundle());
+                                    textSliderView.getBundle()
+                                            .putString("extra",name);
 
-            mDemoSlider.addSlider(textSliderView);
-        }
+                                    mDemoSlider.addSlider(textSliderView);
+                                }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+        };
         mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new DescriptionAnimation());
         mDemoSlider.setDuration(4000);
         mDemoSlider.addOnPageChangeListener(this);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
     }
+
+
+    public static float dpToPixels(int dp, Context context) {
+        return dp * (context.getResources().getDisplayMetrics().density);
+    }
+
+
 
     private void checkNetworkConnectionStatus() {
         boolean wifiConnected;

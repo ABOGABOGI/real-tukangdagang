@@ -89,7 +89,6 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
 
         getdata();
         gantipwd();
-
         logout();
         return rootView;
     }
