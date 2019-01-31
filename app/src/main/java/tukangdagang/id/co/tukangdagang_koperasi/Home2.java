@@ -124,6 +124,11 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                             mViewPager.setAdapter(mCardAdapter);
                             mViewPager.setPageTransformer(false, mCardShadowTransformer);
                             mViewPager.setOffscreenPageLimit(3);
+                            mViewPager.setClipToPadding(false);
+                            mViewPager.setPadding(0,0,0,0);
+                            mViewPager.setPageMargin(5);
+
+
 
 
                         } catch (JSONException e) {

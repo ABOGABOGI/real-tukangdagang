@@ -84,6 +84,11 @@ public class CardPagerAdapter2 extends PagerAdapter implements CardAdapter {
         mViews.set(position, cardView);
         return view;
     }
+    @Override
+    public float getPageWidth(final int position) {
+        return 0.6f;
+    }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
