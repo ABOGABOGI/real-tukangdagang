@@ -41,6 +41,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer
 
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_TAMPIL_ANGGOTA;
 
 public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private ViewPager mViewPager;
@@ -155,40 +156,84 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
 
     //coding recycler Angota
     private void getImages(){
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Havasu Falls");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_TAMPIL_ANGGOTA,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("Trondheim");
+                        try {
+                            Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray anggotaArray = obj.getJSONArray("result");
+                            Log.d("resultanggota",response);
+                            for (int i = 0; i < anggotaArray.length(); i++) {
+                                JSONObject anggotaobject = anggotaArray.getJSONObject(i);
+                                mImageUrls.add(anggotaobject.getString("avatar"));
+                                mNames.add(anggotaobject.getString("nama"));
+                            }
 
-        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("Portugal");
+                            initRecyclerView();
 
-        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-        mNames.add("Rocky Mountain National Park");
+//
+//
+//        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
+//        mNames.add("Havasu Falls");
+//
+//        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
+//        mNames.add("Trondheim");
+//
+//        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
+//        mNames.add("Portugal");
+//
+//        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
+//        mNames.add("Rocky Mountain National Park");
+//
+//
+//        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
+//        mNames.add("Mahahual");
+//
+//        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
+//        mNames.add("Frozen Lake");
+//
+//
+//        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
+//        mNames.add("White Sands Desert");
+//
+//        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
+//        mNames.add("Austrailia");
+//
+//        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
+//        mNames.add("Washington");
+//
+//        initRecyclerView();
 
 
-        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-        mNames.add("Mahahual");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                            new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
 
-        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-        mNames.add("Frozen Lake");
+                        }
+                    }) {
+                        @Override
+                        protected Map< String, String > getParams() throws AuthFailureError {
+                            Map < String, String > params = new HashMap< >();
+                            params.put("idkoperasi", Idkoperasi);
+                            return params;
+                        }
+                    };
+
+                    RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
 
-        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-        mNames.add("White Sands Desert");
-
-        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-        mNames.add("Austrailia");
-
-        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-        mNames.add("Washington");
-
-        initRecyclerView();
-
-    }
+                }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: init recyclerview");
@@ -199,6 +244,8 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);
         recyclerView.setAdapter(adapter);
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -208,5 +255,6 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRefresh() {
         getdata();
+        getImages();
     }
 }

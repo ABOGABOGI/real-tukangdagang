@@ -14,6 +14,7 @@ public class Config {
     public static final String URLGantipwd = "http://35utech.com/td/public/Gantipwd";
     public static final String URL_ID_KOPERASI = "http://35utech.com/td/public/IdKoperasi";
     public static final String URL_IMG_KOPERASI = "http://35utech.com/td/public/ImgKoperasi";
+    public static final String URL_TAMPIL_ANGGOTA = "http://35utech.com/td/public/tampilanggota";
     public static final String URL_PROFILE = "http://35utech.com/td/public/getProfile";
 
     //URL to our login.php file

@@ -237,6 +237,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.commit();
                                 Intent i = new Intent(Login.this, MainActivity2.class);
                                 startActivity(i);
+                                finish();
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -461,6 +462,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             //We will start the SimpananF Activity
             Intent intent = new Intent(Login.this, MainActivity2.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -520,6 +522,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                     //Starting profile activity
                                     Intent intent = new Intent(Login.this, MainActivity2.class);
                                     startActivity(intent);
+                                    finish();
 
 
 

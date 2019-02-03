@@ -44,11 +44,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
-
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(holder.image);
+if (mImageUrls.get(position).equals("")) {
+    Glide.with(mContext)
+            .asBitmap()
+            .load(R.drawable.profile)
+            .into(holder.image);
+}else{
+    Glide.with(mContext)
+            .asBitmap()
+            .load(mImageUrls.get(position))
+            .into(holder.image);
+}
 
         holder.name.setText(mNames.get(position));
 

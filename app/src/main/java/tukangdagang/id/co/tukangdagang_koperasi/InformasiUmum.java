@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
@@ -32,7 +33,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_rtrw;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
 
 public class InformasiUmum extends AppCompatActivity {
-
+    int index = 0;
     private Spinner provinsi_Spinner,kota_Spinner,kecamatan_Spinner,sp_jk;
     private ArrayAdapter<Provinsi> provinsiArrayAdapter;
     private ArrayAdapter<Kota> kotaArrayAdapter;
@@ -59,15 +60,17 @@ public class InformasiUmum extends AppCompatActivity {
         etRtRw = findViewById(R.id.etRtRw);
         etKodepos = findViewById(R.id.etKodepos);
         initializeUI();
-        simpan();
         setdata();
+        simpan();
     }
 
     public void setdata(){
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String info_status = sharedPreferences.getString(n_info_status, null);
         if (info_status.equals("1")) {
-            String info_nama_depan = sharedPreferences.getString(n_info_nama_depan, null);
+            String info_nama_depan = sharedPreferences.getString(n_info_nama_depan, "");
+            String info_idprovinsi = sharedPreferences.getString("idprovinsi", "0");
+            String info_idkota = sharedPreferences.getString("idkota", "0");
             String info_nama_belakang = sharedPreferences.getString(n_info_nama_belakang, null);
             String info_jk = sharedPreferences.getString(n_info_jk, null);
             String info_alamat = sharedPreferences.getString(n_info_alamat, null);
@@ -77,18 +80,24 @@ public class InformasiUmum extends AppCompatActivity {
             String info_kota = sharedPreferences.getString(n_info_kota, null);
             String info_kecamatan = sharedPreferences.getString(n_info_kecamatan, null);
             etnama_depan.setText(info_nama_depan);
-            etnama_belakang.setText(info_provinsi);
+            etnama_belakang.setText(info_nama_belakang);
             ArrayAdapter<String> array_spinner=(ArrayAdapter<String>)sp_jk.getAdapter();
             sp_jk.setSelection(array_spinner.getPosition(info_jk));
             etalamat.setText(info_alamat);
             etRtRw.setText(info_rtrw);
             etKodepos.setText(info_kodepos);
-            ArrayAdapter<String> array_provinsi=(ArrayAdapter<String>)provinsi_Spinner.getAdapter();
-            provinsi_Spinner.setSelection(array_provinsi.getPosition(info_provinsi));
-            ArrayAdapter<String> array_kota=(ArrayAdapter<String>)kota_Spinner.getAdapter();
-            kota_Spinner.setSelection(array_kota.getPosition(info_kota));
-            ArrayAdapter<String> array_kecamatan=(ArrayAdapter<String>)kecamatan_Spinner.getAdapter();
-            kecamatan_Spinner.setSelection(array_kecamatan.getPosition(info_kecamatan));
+
+            ArrayAdapter<Provinsi> array_provinsi=(ArrayAdapter<Provinsi>)provinsi_Spinner.getAdapter();
+            provinsi_Spinner.setSelection((int) array_provinsi.getItemId(Integer.parseInt(info_idprovinsi)));
+
+
+            ArrayAdapter<Kota> array_kota=(ArrayAdapter<Kota>)kota_Spinner.getAdapter();
+            kota_Spinner.setSelection((int) array_kota.getItemId(Integer.parseInt(info_idkota)));
+
+            //            ArrayAdapter<String> array_kota=(ArrayAdapter<String>)kota_Spinner.getAdapter();
+//            kota_Spinner.setSelection(array_kota.getPosition(info_kota));
+//            ArrayAdapter<String> array_kecamatan=(ArrayAdapter<String>)kecamatan_Spinner.getAdapter();
+//            kecamatan_Spinner.setSelection(array_kecamatan.getPosition(info_kecamatan));
 
 
         }
@@ -185,8 +194,15 @@ public class InformasiUmum extends AppCompatActivity {
             if (position > 0) {
                 final Provinsi provinsi = (Provinsi) provinsi_Spinner.getItemAtPosition(position);
                 Log.d("SpinnerCountry", "onItemSelected: Provinsi: "+provinsi.getProvinsiID());
-                ArrayList<Kota> tempKota = new ArrayList<>();
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("idprovinsi", String.valueOf(provinsi_Spinner.getAdapter().getItemId(position)));
+                editor.commit();
+                Log.d("ngetest", String.valueOf(provinsi_Spinner.getAdapter().getItemId(position)));
 
+
+                ArrayList<Kota> tempKota = new ArrayList<>();
+//
                 tempKota.add(new Kota(0, new Provinsi(0, "Pilih Provinsi"), "Pilih Kota"));
 
                 for (Kota singleKota : kota) {
@@ -198,6 +214,12 @@ public class InformasiUmum extends AppCompatActivity {
                 kotaArrayAdapter = new ArrayAdapter<Kota>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, tempKota);
                 kotaArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 kota_Spinner.setAdapter(kotaArrayAdapter);
+//                String info_idkota = sharedPreferences.getString("idkota", "0");
+//                String info_idprovinsi = sharedPreferences.getString("idprovinsi", "0");
+//
+//                    ArrayAdapter<Kota> array_kota = (ArrayAdapter<Kota>) kota_Spinner.getAdapter();
+//                    kota_Spinner.setSelection((int) array_kota.getItemId(Integer.parseInt(info_idkota)));
+//
             }
 
             kecamatanArrayAdapter = new ArrayAdapter<Kecamatan>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, new ArrayList<Kecamatan>());
@@ -218,6 +240,13 @@ public class InformasiUmum extends AppCompatActivity {
                 Log.d("SpinnerCountry", "onItemSelected: Kota: "+kota.getKotaID());
                 ArrayList<Kecamatan> tempKecamatan = new ArrayList<>();
 
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("idkota", String.valueOf(kota_Spinner.getAdapter().getItemId(position)));
+                editor.commit();
+
+                Log.d("ngetestkota", String.valueOf(kota_Spinner.getAdapter().getItemId(position)));
+
                 Provinsi provinsi = new Provinsi(0, "Pilih Provinsi");
                 Kota firstKota = new Kota(0, provinsi, "Pilih Kota");
                 tempKecamatan.add(new Kecamatan(0, firstKota, "Pilih Kecamatan"));
@@ -231,6 +260,7 @@ public class InformasiUmum extends AppCompatActivity {
                 kecamatanArrayAdapter = new ArrayAdapter<Kecamatan>(getApplicationContext(), R.layout.simple_spinner_dropdown_item, tempKecamatan);
                 kecamatanArrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
                 kecamatan_Spinner.setAdapter(kecamatanArrayAdapter);
+
             }
         }
 
@@ -242,7 +272,7 @@ public class InformasiUmum extends AppCompatActivity {
     private AdapterView.OnItemSelectedListener kecamatan_listener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+//            Log.d("ngetest2", String.valueOf(kecamatan_Spinner.getAdapter().getCount()));
         }
 
         @Override
