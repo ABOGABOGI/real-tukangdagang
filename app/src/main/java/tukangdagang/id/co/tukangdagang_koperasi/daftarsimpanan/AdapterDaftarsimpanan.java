@@ -85,7 +85,7 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
         holder.mTitleTv.setText(modellist.get(postition).getTitle());
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-        holder.mDescTv.setText("1 Tahun | "+formatRupiah.format((double) Double.valueOf(modellist.get(postition).getJumlah())));
+        holder.mDescTv.setText(modellist.get(postition).getWaktu()+" Hari | "+formatRupiah.format((double) Double.valueOf(modellist.get(postition).getJumlah())));
 
         //set the result in imageview
 //        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());

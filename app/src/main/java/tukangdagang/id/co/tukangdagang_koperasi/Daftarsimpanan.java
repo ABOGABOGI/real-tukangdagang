@@ -2,6 +2,7 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.AdapterDaftarsimpanan;
@@ -34,6 +38,8 @@ import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.ModelDaftarsimpan
 
 import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 
 
 /**
@@ -76,7 +82,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.URL_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_DAFTAR_SIMPANAN,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -87,6 +93,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
                             JSONObject obj = new JSONObject(response);
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
+                            arrayList.clear();
                             for (int i = 0; i < koperasiArray.length(); i++) {
 
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
@@ -94,10 +101,10 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
 
 
                                 ModelDaftarsimpanan model = new ModelDaftarsimpanan(koperasiobject.getString("nama_koperasi"),
-                                        koperasiobject.getString("simpanan_pokok"),
+                                        koperasiobject.getString("jumlah"),
                                         koperasiobject.getString("logo_koperasi"),
-                                        koperasiobject.getString("id"),
-                                        koperasiobject.getString("rating_koperasi")
+                                        koperasiobject.getString("no_anggota"),
+                                        koperasiobject.getString("hari")
                                 );
 
                                 arrayList.add(model);
@@ -121,7 +128,16 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
                         imLoading.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                });
+                }){
+            @Override
+            protected Map< String, String > getParams() throws AuthFailureError {
+                Map < String, String > params = new HashMap< >();
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                String idprofile = sharedPreferences.getString(PROFILE_ID, "");
+                params.put("idprofile", idprofile);
+                return params;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);

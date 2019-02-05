@@ -167,6 +167,8 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
                             JSONObject obj = new JSONObject(response);
                             JSONArray anggotaArray = obj.getJSONArray("result");
                             Log.d("resultanggota",response);
+                            mImageUrls.clear();
+                            mNames.clear();
                             for (int i = 0; i < anggotaArray.length(); i++) {
                                 JSONObject anggotaobject = anggotaArray.getJSONObject(i);
                                 mImageUrls.add(anggotaobject.getString("avatar"));
@@ -220,5 +222,6 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRefresh() {
         getdata();
+        getImages();
     }
 }

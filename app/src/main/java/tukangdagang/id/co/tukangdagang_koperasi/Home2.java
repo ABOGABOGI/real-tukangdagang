@@ -61,6 +61,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     private ShadowTransformer mFragmentCardShadowTransformer;
     ImageView imLoading;
     Context mContext;
+    String sukses ="0";
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
@@ -159,43 +160,48 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
 
     private void getdata2() {
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_SLIDER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("deno",response);
-                            mCardAdapter = new CardPagerAdapter();
                             HashMap<String,String> url_maps = new HashMap<String, String>();
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
                                 url_maps.put(koperasiobject.getString("id"), path_slider+koperasiobject.getString("gambar_utama"));
                             }
-//
-//                            url_maps.put("1", "https://static.vecteezy.com/system/resources/previews/000/103/286/non_2x/free-flat-design-vector-background.jpg");
-//                            url_maps.put("2", "http://idseducation.com/wp-content/uploads/2018/09/thumbnail-5.jpg");
-//                                url_maps.put("3", "https://think360studio.com/wp-content/uploads/2016/03/flat-design.jpg");
-//                                url_maps.put("4", "https://www.musthafa.net/wp-content/uploads/2017/02/flatdesign.jpg");
-
-                                for(String name : url_maps.keySet()){
-                                    CustomSliderView textSliderView = new CustomSliderView(getContext());
-                                    // initialize a SliderLayout
-                                    textSliderView
+                                if(sukses.equals("0")) {
+                                    for (String name : url_maps.keySet()) {
+                                        CustomSliderView textSliderView = new CustomSliderView(getContext());
+                                        // initialize a SliderLayout
+                                        textSliderView
 //                    .description(name)
-                                            .image(url_maps.get(name))
-                                            .setScaleType(BaseSliderView.ScaleType.Fit);
+                                                .image(url_maps.get(name))
+                                                .setScaleType(BaseSliderView.ScaleType.Fit);
 //                                            .setOnSliderClickListener(this);
 
-                                    //add your extra information
-                                    textSliderView.bundle(new Bundle());
-                                    textSliderView.getBundle()
-                                            .putString("extra",name);
+                                        //add your extra information
+                                        textSliderView.bundle(new Bundle());
+                                        textSliderView.getBundle()
+                                                .putString("extra", name);
 
-                                    mDemoSlider.addSlider(textSliderView);
+                                        mDemoSlider.addSlider(textSliderView);
+                                        sukses="1";
+                                    }
+
                                 }
 
 
@@ -208,6 +214,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 }) {
         };
@@ -318,6 +326,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     @Override
     public void onRefresh() {
         getdata();
+        getdata2();
     }
 
 
