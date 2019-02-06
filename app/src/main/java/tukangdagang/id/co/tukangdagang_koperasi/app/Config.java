@@ -4,6 +4,7 @@ public class Config {
     public static final String JSON_URL = "https://35utech.com/td/public/product";
     public static final String URL_KOPERASI = "https://35utech.com/td/public/koperasi";
     public static final String URL_DAFTAR_SIMPANAN = "https://35utech.com/td/public/daftarsimpanan";
+    public static final String URL_DAFTAR_PINJAMAN = "https://35utech.com/td/public/daftarpinjaman";
     public static final String URL_SLIDER = "https://35utech.com/td/public/slide";
     public static final String JSON_URL_STORES = "https://35utech.com/td/public/stores";
     public static final String path = "https://35utech.com/td/public/upload/logokoperasi/";
