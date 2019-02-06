@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 <ScrollView
+    android:id="@+id/halaman_pinjaman"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
@@ -31,6 +32,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:src="@drawable/koprasi"
             android:layout_gravity="center"/>
         <TextView
             android:id="@+id/nama_koperasi"
@@ -46,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
-            android:text="Rp. 5.000.000"
+            android:text="Rp0"
             android:textSize="25dp"
             android:layout_gravity="center"
             android:textStyle="bold"/>
@@ -70,7 +72,7 @@
             android:textSize="18dp"
             android:layout_marginLeft="10dp"
             android:textColor="#000000"
-            android:text="Rp.5.640.000"/>
+            android:text="Rp0"/>
 
 
     </LinearLayout>
@@ -147,7 +149,7 @@
                     android:textColor="#ffffff"
                     app:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="12 Bulan"/>
+                    android:text="0 Bulan"/>
                 <TextView
                     android:id="@+id/jatuh_tempo"
                     android:layout_width="wrap_content"
@@ -156,7 +158,7 @@
                     android:textColor="#ffffff"
                     app:layout_gravity="center"
                     android:layout_marginRight="20dp"
-                    android:text="5 Hari Lagi"/>
+                    android:text="0 Hari Lagi"/>
 
                 <TextView
                     android:id="@+id/tagihan"
@@ -165,7 +167,7 @@
                     android:layout_marginTop="10dp"
                     android:textColor="#ffffff"
                     app:layout_gravity="center"
-                    android:text="Rp. 470.000"/>
+                    android:text="Rp0"/>
 
             </android.support.v7.widget.GridLayout>
 
@@ -199,7 +201,7 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:text="Rp.940.000"/>
+        android:text="Rp0"/>
 
     <Button
         android:id="@+id/btn_daftar_pinjaman"
@@ -212,6 +214,38 @@
 
 </ScrollView>
   </android.support.v4.widget.SwipeRefreshLayout>
+    <RelativeLayout
+        android:id="@+id/datakosong"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/nodata"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="300dp"
+                android:src="@drawable/nodata"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:text="Anda belum memiliki pinjaman" />
+            <Button
+                android:id="@+id/btn_cari_pinjaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="Cari Pinjaman"
+                android:layout_marginTop="20dp"
+                android:theme="@style/buttonstyle1" />
+        </LinearLayout>
+    </RelativeLayout>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -219,6 +253,7 @@
         android:background="@drawable/animasi_loading"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -56,6 +57,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
     ImageView imLoading;
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
+    RelativeLayout halamanSimpanan,halamanKosong;
 
     public Daftarsimpanan() {
         // Required empty public constructor
@@ -70,6 +72,9 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         imLoading = rootView.findViewById(R.id.loadingView);
+        halamanSimpanan = rootView.findViewById(R.id.halaman_simpanan);
+        halamanKosong = rootView.findViewById(R.id.datakosong);
+
         getdata();
         
         return rootView;
@@ -94,6 +99,11 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
                             arrayList.clear();
+                            String dataSimpanan = String.valueOf(koperasiArray.length());
+                            if(dataSimpanan.equals("0")){
+                                halamanSimpanan.setVisibility(View.GONE);
+                                halamanKosong.setVisibility(VISIBLE);
+                            }
                             for (int i = 0; i < koperasiArray.length(); i++) {
 
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);

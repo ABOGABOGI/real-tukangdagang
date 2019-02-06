@@ -1,6 +1,7 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +54,9 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     ImageView imLoading, logoKoperasi;
     TextView namaKoperasi,totalPinjaman,totalBayar,tenor,jatuhTempo,tagihan,sisaBayar;
-    Button btnDaftarPinjaman;
+    Button btnDaftarPinjaman,btnCariPinjaman;
+    ScrollView halamanPinjaman;
+    RelativeLayout halamankosong;
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -78,10 +83,23 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         tagihan = rootView.findViewById(R.id.tagihan);
         sisaBayar = rootView.findViewById(R.id.sisa_bayar);
         btnDaftarPinjaman = rootView.findViewById(R.id.btn_daftar_pinjaman);
+        halamanPinjaman = rootView.findViewById(R.id.halaman_pinjaman);
+        halamankosong = rootView.findViewById(R.id.datakosong);
+        btnCariPinjaman = rootView.findViewById(R.id.btn_cari_pinjaman);
+        cariPinjaman();
         getdata();
         return rootView;
     }
 
+    private void cariPinjaman() {
+        btnCariPinjaman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 
     private void getdata() {
@@ -106,7 +124,12 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                             NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 //                            arrayList.clear();
 //                            for (int i = 0; i < pinjamanArray.length(); i++) {
-
+                                Log.d("nilaip", String.valueOf(pinjamanArray.length()));
+                                String dataPinjaman = String.valueOf(pinjamanArray.length());
+                                if(dataPinjaman.equals("0")){
+                                    halamanPinjaman.setVisibility(View.GONE);
+                                    halamankosong.setVisibility(VISIBLE);
+                                }
                                 JSONObject pinjamanobject = pinjamanArray.getJSONObject(0);
                                 Log.d("asd", response);
                                namaKoperasi.setText(pinjamanobject.getString("nama_koperasi"));
