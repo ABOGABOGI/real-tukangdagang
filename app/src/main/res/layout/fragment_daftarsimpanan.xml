@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
     android:layout_width="match_parent"
-    android:background="#ffff"
     android:layout_height="match_parent"
-    tools:context=".CariPinjaman">
+    tools:context=".Daftarsimpanan">
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_marginBottom="70dp"
@@ -52,7 +51,7 @@
                     android:textSize="20dp"
                     android:text="Anda belum memiliki simpanan" />
                 <Button
-                    android:id="@+id/btn_cari_pinjaman"
+                    android:id="@+id/btn_cari_koperasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="50dp"

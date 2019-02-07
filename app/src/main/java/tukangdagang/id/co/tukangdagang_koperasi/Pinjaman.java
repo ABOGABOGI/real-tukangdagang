@@ -87,8 +87,19 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         halamankosong = rootView.findViewById(R.id.datakosong);
         btnCariPinjaman = rootView.findViewById(R.id.btn_cari_pinjaman);
         cariPinjaman();
+        daftarPinjaman();
         getdata();
         return rootView;
+    }
+
+    private void daftarPinjaman() {
+        btnDaftarPinjaman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),Daftarpinjaman.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void cariPinjaman() {
@@ -144,7 +155,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                                 sisaBayar.setText(formatRupiah.format((double) Double.valueOf(pinjamanobject.getString("jumlah_sisa"))));
 
 
-//                                ModelDaftarsimpanan model = new ModelDaftarsimpanan(pinjamanobject.getString("nama_koperasi"),
+//                                ModelDaftarpinjaman model = new ModelDaftarpinjaman(pinjamanobject.getString("nama_koperasi"),
 //                                        pinjamanobject.getString("jumlah"),
 //                                        pinjamanobject.getString("logo_koperasi"),
 //                                        pinjamanobject.getString("no_anggota"),
@@ -154,7 +165,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 //                                arrayList.add(model);
 //                            }
 //                            listView = getActivity().findViewById(R.id.listDaftarsimpanan);
-//                            adapter = new AdapterDaftarsimpanan(getContext(),arrayList);
+//                            adapter = new AdapterDaftarpinjaman(getContext(),arrayList);
 //
 //
 //                            listView.setAdapter(adapter);

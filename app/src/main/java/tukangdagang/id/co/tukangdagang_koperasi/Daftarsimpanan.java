@@ -2,6 +2,7 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -58,6 +60,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout halamanSimpanan,halamanKosong;
+    Button btn_cari_koperasi;
 
     public Daftarsimpanan() {
         // Required empty public constructor
@@ -74,10 +77,22 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         imLoading = rootView.findViewById(R.id.loadingView);
         halamanSimpanan = rootView.findViewById(R.id.halaman_simpanan);
         halamanKosong = rootView.findViewById(R.id.datakosong);
+        btn_cari_koperasi = rootView.findViewById(R.id.btn_cari_koperasi);
+        Carikoperasi();
 
         getdata();
         
         return rootView;
+    }
+
+    private void Carikoperasi() {
+        btn_cari_koperasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getdata() {
