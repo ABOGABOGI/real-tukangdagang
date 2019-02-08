@@ -101,8 +101,12 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, Simpanan.class);
-                intent.putExtra("namakoperasi", modellist.get(postition).getTitle());
-                intent.putExtra("idkoperasi", modellist.get(postition).getId());
+                intent.putExtra("nama", modellist.get(postition).getNama());
+                intent.putExtra("avatar", modellist.get(postition).getAvatar());
+                intent.putExtra("noAnggota", modellist.get(postition).getId());
+                intent.putExtra("pokok", modellist.get(postition).getPokok());
+                intent.putExtra("wajib", modellist.get(postition).getWajib());
+                intent.putExtra("sukarela", modellist.get(postition).getSukarela());
 
 //                intent.putExtra("contentTv", "This is Battery detail...");
                 mContext.startActivity(intent);

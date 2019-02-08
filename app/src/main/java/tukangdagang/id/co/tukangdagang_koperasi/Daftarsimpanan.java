@@ -129,7 +129,12 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
                                         koperasiobject.getString("jumlah"),
                                         koperasiobject.getString("logo_koperasi"),
                                         koperasiobject.getString("no_anggota"),
-                                        koperasiobject.getString("hari")
+                                        koperasiobject.getString("hari"),
+                                        koperasiobject.getString("nama_pendaftar"),
+                                        koperasiobject.getString("avatar"),
+                                        koperasiobject.getString("simpanan_pokok"),
+                                        koperasiobject.getString("simpanan_wajib"),
+                                        koperasiobject.getString("simpanan_sukarela")
                                 );
 
                                 arrayList.add(model);
