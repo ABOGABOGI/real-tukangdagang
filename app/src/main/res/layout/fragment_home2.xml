@@ -222,21 +222,17 @@
 
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/cardviewslider2"
-            android:layout_width="wrap_content"
-            android:layout_height="210dp"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:paddingBottom="30dp"
-            android:paddingTop="0dp"
-            android:layout_marginBottom="50dp"
-            android:paddingEnd="@dimen/card_padding"
-            android:paddingLeft="@dimen/card_padding"
-            android:paddingRight="@dimen/card_padding"
-            android:paddingStart="@dimen/card_padding" />
 
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="70dp"
+            android:orientation="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
 
 
     </LinearLayout>

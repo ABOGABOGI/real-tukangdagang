@@ -80,7 +80,7 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
         swipeRefreshLayout.setOnRefreshListener(this);
         imLoading = findViewById(R.id.loadingView);
         getdata();
-        getImages();
+        getAnggota();
     }
 
     private void getdata() {
@@ -155,7 +155,7 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     }
 
     //coding recycler Angota
-    private void getImages(){
+    private void getAnggota(){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_TAMPIL_ANGGOTA,
                 new Response.Listener<String>() {
@@ -222,6 +222,6 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     @Override
     public void onRefresh() {
         getdata();
-        getImages();
+        getAnggota();
     }
 }

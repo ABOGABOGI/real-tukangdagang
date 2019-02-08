@@ -15,6 +15,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,10 +45,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
+import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
+import tukangdagang.id.co.tukangdagang_koperasi.home2.HomeAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slider.CustomSliderView;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
@@ -55,6 +62,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_SLIDER;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_TAMPIL_ANGGOTA;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path_slider;
 
@@ -75,6 +83,11 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
     private ImageView toolbarTitle;
+    //vars
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mIdkoperasi = new ArrayList<>();
+    private static final String TAG = "Home";
 
     public Home2() {
         // Required empty public constructor
@@ -89,7 +102,6 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
         toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
         //set toolbar
-//        getActivity().setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         //menghilangkan titlebar bawaan
         if (toolbar != null) {
@@ -101,16 +113,15 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
-//        slider();
         imLoading = rootView.findViewById(R.id.loadingView);
         checkNetworkConnectionStatus();
         //Set Event
         setSingleEvent(mainGrid);
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
-        getdata();
-        getdata2();
+        getSlider();
         tampilCari();
+        getCardSlider();
         return rootView;
     }
 
@@ -124,75 +135,73 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         });
     }
 
-    private void getdata() {
+//    private void getdata() {
+//
+//
+//        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+//        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+//                .getBackground();
+//        //Menjalankan File Animasi
+//        frameAnimation.start();
+//        imLoading.setVisibility(VISIBLE);
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        imLoading.setVisibility(View.GONE);
+//                        swipeRefreshLayout.setRefreshing(false);
+//
+//                        try {
+//                            JSONObject obj = new JSONObject(response);
+//                            JSONArray koperasiArray = obj.getJSONArray("result");
+//                            Log.d("resul",response);
+//                            mCardAdapter = new CardPagerAdapter();
+//                            for (int i = 0; i < koperasiArray.length(); i++) {
+//                                JSONObject koperasiobject = koperasiArray.getJSONObject(i);
+////                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
+//                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi"),koperasiobject.getString("id")));
+//                            }
+//                            try {
+//                                mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
+//                                        dpToPixels(2, getActivity()));
+//                            }catch (Error e){
+//                                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_LONG).show();
+//                            }
+//
+//                            mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+//                            mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
+//
+//                            mViewPager.setAdapter(mCardAdapter);
+//                            mViewPager.setPageTransformer(false, mCardShadowTransformer);
+//                            mViewPager.setOffscreenPageLimit(3);
+//                            mViewPager.setClipToPadding(false);
+//                            mViewPager.setPadding(0,0,0,0);
+//                            mViewPager.setPageMargin(5);
+//
+//
+//
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        imLoading.setVisibility(View.GONE);
+//                        swipeRefreshLayout.setRefreshing(false);
+//                        Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+//                    }
+//                }) {
+//        };
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//        requestQueue.add(stringRequest);
+//
+//    }
 
-
-        imLoading.setBackgroundResource(R.drawable.animasi_loading);
-        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
-                .getBackground();
-        //Menjalankan File Animasi
-        frameAnimation.start();
-        imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        imLoading.setVisibility(View.GONE);
-                        swipeRefreshLayout.setRefreshing(false);
-
-                        try {
-                            JSONObject obj = new JSONObject(response);
-                            JSONArray koperasiArray = obj.getJSONArray("result");
-                            Log.d("resul",response);
-                            mCardAdapter = new CardPagerAdapter();
-                            for (int i = 0; i < koperasiArray.length(); i++) {
-                                JSONObject koperasiobject = koperasiArray.getJSONObject(i);
-//                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi"),koperasiobject.getString("id")));
-                            }
-                            try {
-                                mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-                                        dpToPixels(2, getActivity()));
-                            }catch (Error e){
-                                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_LONG).show();
-                            }
-
-                            mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-                            mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
-
-                            mViewPager.setAdapter(mCardAdapter);
-                            mViewPager.setPageTransformer(false, mCardShadowTransformer);
-                            mViewPager.setOffscreenPageLimit(3);
-                            mViewPager.setClipToPadding(false);
-                            mViewPager.setPadding(0,0,0,0);
-                            mViewPager.setPageMargin(5);
-
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        imLoading.setVisibility(View.GONE);
-                        swipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
-                    }
-                }) {
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
-
-    }
-
-
-
-    private void getdata2() {
+    private void getSlider() {
         imLoading.setBackgroundResource(R.drawable.animasi_loading);
         AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
                 .getBackground();
@@ -263,10 +272,64 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
     }
 
+    //coding recycler Koperasi
+    private void getCardSlider(){
 
-    public static float dpToPixels(int dp, Context context) {
-        return dp * (context.getResources().getDisplayMetrics().density);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray anggotaArray = obj.getJSONArray("result");
+                            Log.d("resultanggota",response);
+                            mImageUrls.clear();
+                            mNames.clear();
+                            for (int i = 0; i < anggotaArray.length(); i++) {
+                                JSONObject anggotaobject = anggotaArray.getJSONObject(i);
+                                mImageUrls.add(anggotaobject.getString("logo_koperasi"));
+                                mNames.add(anggotaobject.getString("nama_koperasi"));
+                                mIdkoperasi.add(anggotaobject.getString("id"));
+                            }
+
+                            initRecyclerView();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+
+                    }
+                }) {
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
     }
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(layoutManager);
+        HomeAdapter adapter = new HomeAdapter(getContext(), mNames, mImageUrls,mIdkoperasi);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+//    public static float dpToPixels(int dp, Context context) {
+//        return dp * (context.getResources().getDisplayMetrics().density);
+//    }
 
 
 
@@ -358,8 +421,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
     @Override
     public void onRefresh() {
-        getdata();
-        getdata2();
+        getSlider();
+        getCardSlider();
     }
 
 
