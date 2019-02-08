@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +65,8 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     ImageView imLoading;
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Toolbar toolbar;
+    private ImageView toolbarTitle;
     public Profile() {
         // Required empty public constructor
     }
@@ -71,8 +75,18 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        //bind view
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
+        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+        //set toolbar
+//        getActivity().setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //menghilangkan titlebar bawaan
+        if (toolbar != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -254,12 +268,12 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Profile");
-
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        ((MainActivity2) getActivity()).setActionBarTitle("Profile");
+//
+//    }
 
     @Override
     public void onStart() {

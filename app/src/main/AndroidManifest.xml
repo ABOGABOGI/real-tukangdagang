@@ -141,6 +141,7 @@
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".MainActivity2"
+            android:theme="@style/IntroTheme"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".Gantipwd"
@@ -148,8 +149,10 @@
         <activity
             android:name=".Simpanan"
             android:screenOrientation="sensorPortrait" />
-        <activity android:name=".Daftarpinjaman" />
-        <activity android:name=".Tampilpinjaman"></activity>
+        <activity android:name=".Daftarpinjaman"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".Tampilpinjaman"
+            android:screenOrientation="sensorPortrait"></activity>
     </application>
 
 </manifest>

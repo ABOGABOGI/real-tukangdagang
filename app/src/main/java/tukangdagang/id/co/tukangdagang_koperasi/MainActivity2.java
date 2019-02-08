@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +44,6 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
     TextView smsCountTxt;
     int pendingSMSCount = 10;
     private long backPrassedTime;
-
     BottomNavigationView bottomNavigationView;
 
     private NavigationView navigationView;
@@ -65,8 +65,10 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo_warna);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setIcon(R.drawable.logo_warna);
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -148,63 +150,63 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
         }
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
-
-        View actionView = MenuItemCompat.getActionView(menuItem);
-        smsCountTxt = (TextView) actionView.findViewById(R.id.notification_badge);
-
-        setupBadge();
-
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOptionsItemSelected(menuItem);
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_notifications: {
-//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
-                Intent inten = new Intent(MainActivity2.this,Notifikasi.class);
-                startActivity(inten);
-                return true;
-            }
-            case R.id.search: {
-//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
-                Intent inten = new Intent(MainActivity2.this,Cari.class);
-                startActivity(inten);
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void setupBadge() {
-
-        if (smsCountTxt != null) {
-            if (pendingSMSCount == 0) {
-                if (smsCountTxt.getVisibility() != View.GONE) {
-                    smsCountTxt.setVisibility(View.GONE);
-                }
-            } else {
-                smsCountTxt.setText(String.valueOf(Math.min(pendingSMSCount, 99)));
-                if (smsCountTxt.getVisibility() != View.VISIBLE) {
-                    smsCountTxt.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+//        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
+//
+//        View actionView = MenuItemCompat.getActionView(menuItem);
+//        smsCountTxt = (TextView) actionView.findViewById(R.id.notification_badge);
+//
+//        setupBadge();
+//
+//        actionView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onOptionsItemSelected(menuItem);
+//            }
+//        });
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        switch (item.getItemId()) {
+//
+//            case R.id.action_notifications: {
+////                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+//                Intent inten = new Intent(MainActivity2.this,Notifikasi.class);
+//                startActivity(inten);
+//                return true;
+//            }
+//            case R.id.search: {
+////                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+//                Intent inten = new Intent(MainActivity2.this,Cari.class);
+//                startActivity(inten);
+//                return true;
+//            }
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+//
+//    private void setupBadge() {
+//
+//        if (smsCountTxt != null) {
+//            if (pendingSMSCount == 0) {
+//                if (smsCountTxt.getVisibility() != View.GONE) {
+//                    smsCountTxt.setVisibility(View.GONE);
+//                }
+//            } else {
+//                smsCountTxt.setText(String.valueOf(Math.min(pendingSMSCount, 99)));
+//                if (smsCountTxt.getVisibility() != View.VISIBLE) {
+//                    smsCountTxt.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        }
+//    }
 
 
 
@@ -223,9 +225,9 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
         backPrassedTime = System.currentTimeMillis();
 
     }
-    public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
-    }
+//    public void setActionBarTitle(String title) {
+//        getSupportActionBar().setTitle(title);
+//    }
 
 
     @Override

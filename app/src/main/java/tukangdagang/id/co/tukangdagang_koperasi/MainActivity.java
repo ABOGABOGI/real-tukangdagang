@@ -229,12 +229,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 startActivity(inten);
                 return true;
             }
-            case R.id.search: {
-//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
-                Intent inten = new Intent(MainActivity.this,Cari.class);
-                startActivity(inten);
-                return true;
-            }
+//            case R.id.search: {
+////                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+//                Intent inten = new Intent(MainActivity.this,Cari.class);
+//                startActivity(inten);
+//                return true;
+//            }
         }
         return super.onOptionsItemSelected(item);
     }

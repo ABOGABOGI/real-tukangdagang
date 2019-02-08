@@ -7,16 +7,24 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -62,8 +70,11 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     ImageView imLoading;
     Context mContext;
     String sukses ="0";
+    TextView smsCountTxt;
+    int pendingSMSCount = 10;
     private SwipeRefreshLayout swipeRefreshLayout;
-
+    private Toolbar toolbar;
+    private ImageView toolbarTitle;
 
     public Home2() {
         // Required empty public constructor
@@ -74,6 +85,17 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home2, container, false);
+        //bind view
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
+        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+        //set toolbar
+//        getActivity().setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //menghilangkan titlebar bawaan
+        if (toolbar != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
         // Inflate the layout for this fragment
         mDemoSlider = (SliderLayout)rootView.findViewById(R.id.slider);
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
@@ -88,7 +110,18 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
         getdata();
         getdata2();
+        tampilCari();
         return rootView;
+    }
+
+    private void tampilCari() {
+        toolbarTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),Cari.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getdata() {
@@ -334,10 +367,68 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        ((MainActivity2) getActivity()).setActionBarTitle("Koperatif");
+//    }
+@Override
+public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    // Confirm this fragment has menu items.
+    setHasOptionsMenu(true);
+}
+
     @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Koperatif");
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        smsCountTxt = (TextView) actionView.findViewById(R.id.notification_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_notifications: {
+//                Toast.makeText(this,"ini notifikasi",Toast.LENGTH_SHORT).show();
+                Intent inten = new Intent(getActivity(),Notifikasi.class);
+                startActivity(inten);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupBadge() {
+
+        if (smsCountTxt != null) {
+            if (pendingSMSCount == 0) {
+                if (smsCountTxt.getVisibility() != View.GONE) {
+                    smsCountTxt.setVisibility(View.GONE);
+                }
+            } else {
+                smsCountTxt.setText(String.valueOf(Math.min(pendingSMSCount, 99)));
+                if (smsCountTxt.getVisibility() != View.VISIBLE) {
+                    smsCountTxt.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }

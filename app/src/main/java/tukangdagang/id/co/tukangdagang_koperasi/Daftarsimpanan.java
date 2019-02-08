@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,8 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
     private SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout halamanSimpanan,halamanKosong;
     Button btn_cari_koperasi;
+    private Toolbar toolbar;
+    private ImageView toolbarTitle;
 
     public Daftarsimpanan() {
         // Required empty public constructor
@@ -78,6 +82,16 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         halamanSimpanan = rootView.findViewById(R.id.halaman_simpanan);
         halamanKosong = rootView.findViewById(R.id.datakosong);
         btn_cari_koperasi = rootView.findViewById(R.id.btn_cari_koperasi);
+        //bind view
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
+        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+        //set toolbar
+//        getActivity().setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //menghilangkan titlebar bawaan
+        if (toolbar != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         Carikoperasi();
 
         getdata();
@@ -183,10 +197,10 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Daftar Simpanan");
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        ((MainActivity2) getActivity()).setActionBarTitle("Daftar Simpanan");
+//    }
 
 }
