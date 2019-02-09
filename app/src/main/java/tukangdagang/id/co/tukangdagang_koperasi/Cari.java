@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.pagerAdapter;
 
-public class Cari extends AppCompatActivity implements Keranjang.OnFragmentInteractionListener,Favourite.OnFragmentInteractionListener,Simpanan.OnFragmentInteractionListener  {
+public class Cari extends AppCompatActivity implements Profile.OnFragmentInteractionListener,Pinjaman.OnFragmentInteractionListener,Simpanan.OnFragmentInteractionListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

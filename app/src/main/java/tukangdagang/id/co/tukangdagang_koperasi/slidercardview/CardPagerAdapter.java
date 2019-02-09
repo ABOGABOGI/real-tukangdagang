@@ -1,6 +1,7 @@
 package tukangdagang.id.co.tukangdagang_koperasi.slidercardview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -15,14 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
-
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 
 public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
 
     private List<CardView> mViews;
     private List<CardItem> mData;
+    List<CardItem> modellist;
     Context mContext;
     private float mBaseElevation;
 
@@ -30,6 +31,8 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         mData = new ArrayList<>();
         mViews = new ArrayList<>();
     }
+
+
 
     public void addCardItem(CardItem item) {
         mViews.add(null);
@@ -56,20 +59,24 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         final View view = LayoutInflater.from(container.getContext())
                 .inflate(R.layout.adapter, container, false);
         container.addView(view);
+
         bind(mData.get(position), view);
+
         CardView cardView = (CardView) view.findViewById(R.id.cardViewA);
         View.OnClickListener onClickListener = null;
 
                 onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Intent intent = new Intent(view.getContext(),UnitUsaha.class);
-//
-//                        view.getContext().startActivity(intent);
+//                        String mTitleTv = mData.get(position).getTitle();
+                        Intent intent = new Intent(view.getContext(),BeritaKoprasi.class);
+                        intent.putExtra("namakoperasi", mData.get(position).getTitle());
+                        intent.putExtra("idkoperasi", mData.get(position).getIdnilai().toString());
+                        view.getContext().startActivity(intent);
 
                     }
                 };
@@ -84,6 +91,10 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         mViews.set(position, cardView);
         return view;
     }
+    @Override
+    public float getPageWidth(final int position) {
+        return 0.6f;
+    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
@@ -94,6 +105,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
     private void bind(CardItem item, View view) {
         TextView titleTextView = (TextView) view.findViewById(R.id.titleTextView);
         ImageView img = (ImageView) view.findViewById(R.id.img);
+//        String idkoperasi = item.getIdnilai();
         titleTextView.setText(item.getTitle());
 //        Glide.with(view.getContext())
 //                .load("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg")

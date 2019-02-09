@@ -108,6 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 if(judul1.equals(marker.getTitle())){
                                                     Intent intent = new Intent(MapsActivity.this,BeritaKoprasi.class);
                                                     intent.putExtra("namakoperasi", String.valueOf(judul1));
+                                                    intent.putExtra("idkoperasi", String.valueOf(id1));
                                                     startActivity(intent);
 //                                                    Toast.makeText(getApplicationContext(), finalI1,Toast.LENGTH_SHORT).show();
                                                             }
@@ -147,7 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_LONG).show();
                     }
                 });
 

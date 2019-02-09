@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/l9" android:duration="100" />
+    <item android:drawable="@drawable/l10" android:duration="100" />
+    <item android:drawable="@drawable/l11" android:duration="100" />
+    <item android:drawable="@drawable/l12" android:duration="100" />
+    <item android:drawable="@drawable/l13" android:duration="100" />
+    <item android:drawable="@drawable/l14" android:duration="100" />
+    <item android:drawable="@drawable/l15" android:duration="100" />
+    <item android:drawable="@drawable/l16" android:duration="100" />
+    <item android:drawable="@drawable/l17" android:duration="100" />
+    <item android:drawable="@drawable/l18" android:duration="100" />
+    <item android:drawable="@drawable/l19" android:duration="100" />
+    <item android:drawable="@drawable/l20" android:duration="100" />
+    <item android:drawable="@drawable/l21" android:duration="100" />
+    <item android:drawable="@drawable/l22" android:duration="100" />
+    <item android:drawable="@drawable/l23" android:duration="100" />
+    <item android:drawable="@drawable/l24" android:duration="100" />
+    <item android:drawable="@drawable/l25" android:duration="100" />
+    <item android:drawable="@drawable/l26" android:duration="100" />
+    <item android:drawable="@drawable/l27" android:duration="100" />
+</animation-list>

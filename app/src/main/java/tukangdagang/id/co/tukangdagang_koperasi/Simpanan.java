@@ -3,15 +3,17 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,33 +28,54 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Simpanan extends Fragment implements OnChartGestureListener,
+public class Simpanan extends AppCompatActivity  implements OnChartGestureListener,
         OnChartValueSelectedListener {
-
     private LineChart mChart;
-    private Button btn_jadwal;
-
-    public Simpanan() {
-        // Required empty public constructor
-    }
-
-
+    ImageView avatar;
+    TextView nama_pendaftar,noAnggota,wajib,sukarela,pokok;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_simpanan, container, false);
-
-        mChart = (LineChart) rootView.findViewById(R.id.linechart);
-        btn_jadwal = (Button) rootView.findViewById(R.id.btn_jadwal);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_simpanan);
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Simpanan");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        mChart = (LineChart) findViewById(R.id.linechart);
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
+        avatar = findViewById(R.id.avatar);
+        nama_pendaftar = findViewById(R.id.nama);
+        noAnggota = findViewById(R.id.no_anggota);
+        wajib = findViewById(R.id.simpanan_wajib);
+        sukarela = findViewById(R.id.simpanan_sukarela);
+        pokok = findViewById(R.id.simpanan_pokok);
+
+        Intent intent = getIntent();
+        String Nnama = intent.getExtras().getString("nama");
+        String Navatar = intent.getExtras().getString("avatar");
+        String NnoAnggota = intent.getExtras().getString("noAnggota");
+        String Npokok = intent.getExtras().getString("pokok");
+        String Nsukarela = intent.getExtras().getString("sukarela");
+        String Nwajib = intent.getExtras().getString("wajib");
+
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+        nama_pendaftar.setText(Nnama);
+        Glide.with(this)
+                .load(Navatar)
+                .into(avatar);
+        noAnggota.setText(NnoAnggota);
+        pokok.setText(formatRupiah.format((double) Double.valueOf(Npokok)));
+        wajib.setText(formatRupiah.format((double) Double.valueOf(Nwajib)));
+        sukarela.setText(formatRupiah.format((double) Double.valueOf(Nsukarela)));
+
 
         // add data
         setData();
@@ -113,21 +136,7 @@ public class Simpanan extends Fragment implements OnChartGestureListener,
         mChart.invalidate();
 
 
-
-        //menampilkan kalender
-
-        btn_jadwal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(),CalendarActivity.class);
-                startActivity(i);
-            }
-        });
-
-        // Inflate the layout for this fragment
-        return rootView;
     }
-
     private ArrayList<String> setXAxisValues(){
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("10");
@@ -248,11 +257,8 @@ public class Simpanan extends Fragment implements OnChartGestureListener,
         void onFragmentInteraction(Uri uri);
     }
     @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Simpanan");
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
-
-
-

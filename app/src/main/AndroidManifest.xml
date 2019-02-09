@@ -80,8 +80,7 @@
             android:label="@string/jadwal"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".CariModal"
-            android:label="Cari Modal"
+            android:name=".CariPinjaman"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
@@ -128,17 +127,31 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/IntroTheme" />
-        <activity android:name=".Register"
+        <activity
+            android:name=".Register"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Uploadktp"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Refferal"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".DataNomor"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".MainActivity2"
+            android:theme="@style/IntroTheme"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Gantipwd"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Simpanan"
+            android:screenOrientation="sensorPortrait" />
+        <activity android:name=".Daftarpinjaman"
             android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Uploadktp"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Refferal"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".DataNomor"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".MainActivity2"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Gantipwd"
+        <activity android:name=".Tampilpinjaman"
             android:screenOrientation="sensorPortrait"></activity>
     </application>
 

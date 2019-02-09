@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="16dp"
     android:layout_height="match_parent"
-    >
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <TextView
@@ -20,15 +19,15 @@
             android:text="Nama Depan" />
 
         <EditText
-                android:id="@+id/etnama_depan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Nama Depan"
-                android:inputType="textPersonName"
-                android:layout_marginBottom="10dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="68dp" />
+            android:id="@+id/etnama_depan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:hint="Nama Depan"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="68dp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -37,15 +36,15 @@
             android:text="Nama Belakang" />
 
         <EditText
-                android:id="@+id/etnama_belakang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Nama Belakang"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="0dp"
-                android:layout_marginBottom="10dp"
-                tools:layout_editor_absoluteY="68dp" />
+            android:id="@+id/etnama_belakang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:hint="Nama Belakang"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="68dp" />
 
         <TextView
             android:id="@+id/textView3"
@@ -55,10 +54,10 @@
 
         <Spinner
             android:id="@+id/sp_jk"
-            android:entries="@array/jenis_kelamin"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
+            android:entries="@array/jenis_kelamin" />
 
 
         <TextView
@@ -68,15 +67,15 @@
             android:text="Alamat" />
 
         <EditText
-                android:id="@+id/etalamat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:layout_marginBottom="10dp"
-                android:hint="Alamat Lengkap"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="68dp" />
+            android:id="@+id/etalamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ems="10"
+            android:hint="Alamat Lengkap"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="68dp" />
 
 
         <TextView
@@ -86,15 +85,15 @@
             android:text="RT/RW" />
 
         <EditText
-                android:id="@+id/etRtRw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="RT/RW"
+            android:id="@+id/etRtRw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="68dp" />
+            android:ems="10"
+            android:hint="RT/RW"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="68dp" />
 
         <TextView
             android:id="@+id/textView6"
@@ -105,8 +104,8 @@
         <Spinner
             android:id="@+id/sp_provinsi"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/textView7"
@@ -117,8 +116,8 @@
         <Spinner
             android:id="@+id/sp_kota"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/textView8"
@@ -129,8 +128,8 @@
         <Spinner
             android:id="@+id/sp_kecamatan"
             android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/textView9"
@@ -142,17 +141,17 @@
             android:id="@+id/etKodepos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:ems="10"
             android:hint="Kode Pos"
-            android:layout_marginBottom="20dp"
             android:inputType="number" />
 
         <Button
-            android:layout_width="match_parent"
             android:id="@+id/btnsimpan"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Simpan"
             android:textColor="@color/white"
-            android:theme="@style/buttonstyle1"
-            android:text="Simpan"/>
+            android:theme="@style/buttonstyle1" />
     </LinearLayout>
 </ScrollView>

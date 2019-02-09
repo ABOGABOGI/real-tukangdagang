@@ -1,4 +1,4 @@
-package tukangdagang.id.co.tukangdagang_koperasi.carimodal;
+package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
 
 import android.content.Context;
 import android.content.Intent;
@@ -67,9 +67,9 @@ public class ListViewAdapter extends BaseAdapter{
         ViewHolder holder;
         if (view==null){
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.row_modal, null);
+            view = inflater.inflate(R.layout.row_cari_pinjaman, null);
 
-            //locate the views in row_modal.xml
+            //locate the views in row_cari_pinjaman.xmlaman.xml
             holder.btnDaftarKop = view.findViewById(R.id.btn_dafatar_koprasi);
             holder.mTitleTv = view.findViewById(R.id.mainTitle);
             holder.mDescTv = view.findViewById(R.id.mainDesc);

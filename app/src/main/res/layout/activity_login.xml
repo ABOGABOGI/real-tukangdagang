@@ -85,11 +85,11 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_centerVertical="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_toLeftOf="@id/tvText"
-                android:background="#FF0000"
-                />
+                android:background="#FF0000" />
 
             <View
                 android:layout_width="match_parent"

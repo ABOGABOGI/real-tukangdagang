@@ -1,4 +1,4 @@
-package tukangdagang.id.co.tukangdagang_koperasi.carimodal;
+package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
 public class Model {
 
     String title;

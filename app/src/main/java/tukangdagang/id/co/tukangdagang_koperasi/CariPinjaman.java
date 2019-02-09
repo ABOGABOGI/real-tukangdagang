@@ -1,15 +1,16 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
-import android.app.ProgressDialog;
+import android.graphics.drawable.AnimationDrawable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
 import android.widget.Toast;
@@ -27,60 +28,51 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.ModelMakanan;
-import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.RvMakananAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.ListViewAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.carimodal.Model;
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
+import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
-public class CariModal extends AppCompatActivity {
+public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     ListView listView;
     ListViewAdapter adapter;
     String[] title;
     String[] description;
     int[] icon;
     ArrayList<Model> arrayList = new ArrayList<Model>();
+    ImageView imLoading;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cari_modal);
-
+        setContentView(R.layout.activity_cari_pinjaman);
         ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Cari Pinjaman");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = findViewById(R.id.loadingView);
 
-//        title = new String[]{"Koprasi Bangun Bersama", "Koprasi Tanpa Riba", "Koprasi Tabungan Bersama", "Koprasi Suka Makmur", "Koprasi Milik Kita"};
-//        description = new String[]{"Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta", "Rp.1 Juta - Rp.200 Juta"};
-//        icon = new int[]{R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi, R.drawable.koprasi};
-//
-//        listView = findViewById(R.id.listKoprasi);
-//
-//        for (int i =0; i<title.length; i++){
-//            Model model = new Model(title[i], description[i], icon[i]);
-//            //bind all strings in an array
-//            arrayList.add(model);
-//        }
-//
-//        //pass results to listViewAdapter class
-//        adapter = new ListViewAdapter(this, arrayList);
-//
-//        //bind the adapter to the listview
-//        listView.setAdapter(adapter);
         getdata();
 
     }
 
     private void getdata(){
-        final ProgressDialog progressDialog = new ProgressDialog(CariModal.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -103,8 +95,7 @@ public class CariModal extends AppCompatActivity {
                                 arrayList.add(model);
                             }
                             listView = findViewById(R.id.listKoprasi);
-//                            myAdapter = new RvMakananAdapter(CariMakanan.this, lstMakanan);
-                            adapter = new ListViewAdapter(CariModal.this,arrayList);
+                            adapter = new ListViewAdapter(CariPinjaman.this,arrayList);
 
 
                             listView.setAdapter(adapter);
@@ -118,8 +109,9 @@ public class CariModal extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getApplicationContext(),"Tidak Ada Koneksi", Toast.LENGTH_LONG).show();
-                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_LONG).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
 
@@ -163,5 +155,16 @@ public class CariModal extends AppCompatActivity {
 //            return true;
 //        }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        getdata();
+
     }
 }

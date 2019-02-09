@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,8 +48,10 @@ import tukangdagang.id.co.tukangdagang_koperasi.carimakanan.RvMakananAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.Model;
 
+import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance;
@@ -63,12 +68,13 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nohp;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_nokk;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_noktp;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_provinsi;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_refferal;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_rtrw;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_nomor;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_upload;
 
-public class DaftarAnggota extends AppCompatActivity {
+public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     ListView listView;
     ListViewAdapter adapter;
     Button daftar,daftarnanti;
@@ -77,6 +83,10 @@ public class DaftarAnggota extends AppCompatActivity {
     String Idkoperasi;
     ArrayList < Model > arrayList = new ArrayList < Model > ();
     TextView spokok, swajib;
+    ImageView imLoading;
+    String pokok ="test";
+    String wajib ="";
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +101,9 @@ public class DaftarAnggota extends AppCompatActivity {
         daftarnanti = findViewById(R.id.daftarnanti);
         spokok = findViewById(R.id.spokok);
         swajib = findViewById(R.id.swajib);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = findViewById(R.id.loadingView);
         getdata();
         daftar();
         daftarnanti();
@@ -137,6 +150,7 @@ public class DaftarAnggota extends AppCompatActivity {
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Log.d("popok",pokok + wajib);
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 String info_status = sharedPreferences.getString(n_info_status, null);
                 String status_nomor = sharedPreferences.getString(n_status_nomor, null);
@@ -170,6 +184,7 @@ public class DaftarAnggota extends AppCompatActivity {
                                                     editor.putString(n_info_status, "0");
                                                     editor.putString(n_status_nomor, "0");
                                                     editor.commit();
+                                                    
 
                                                 }
                                             },
@@ -203,6 +218,8 @@ public class DaftarAnggota extends AppCompatActivity {
                                             String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
                                             String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
                                             String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+                                            String id_profile = sharedPreferences.getString(PROFILE_ID, "");
+                                            String info_refferal = sharedPreferences.getString(n_info_refferal, "");
                                             //Adding parameters to request
                                             params.put("nama_depan", info_nama_depan);
                                             params.put("nama_belakang", info_nama_belakang);
@@ -222,6 +239,10 @@ public class DaftarAnggota extends AppCompatActivity {
                                             params.put("email", email);
                                             params.put("idkoperasi", Idkoperasi);
                                             params.put("isdraft", "1");
+                                            params.put("simpanan_wajib", wajib);
+                                            params.put("simpanan_pokok", pokok);
+                                            params.put("id_profile", id_profile);
+                                            params.put("refferal", info_refferal);
 
                                             //returning parameter
                                             return params;
@@ -293,7 +314,7 @@ public class DaftarAnggota extends AppCompatActivity {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
                                                     //You can handle error here if you want
-                                                    Toast.makeText(getApplicationContext(), "Error : " + error.toString(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
                                                     Log.d("tee", error.toString());
                                                     progressDialog.dismiss();
                                                 }
@@ -319,6 +340,8 @@ public class DaftarAnggota extends AppCompatActivity {
                                             String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
                                             String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
                                             String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+                                            String id_profile = sharedPreferences.getString(PROFILE_ID, "");
+                                            String info_refferal = sharedPreferences.getString(n_info_refferal, "");
                                             //Adding parameters to request
                                             params.put("nama_depan", info_nama_depan);
                                             params.put("nama_belakang", info_nama_belakang);
@@ -338,6 +361,10 @@ public class DaftarAnggota extends AppCompatActivity {
                                             params.put("email", email);
                                             params.put("idkoperasi", Idkoperasi);
                                             params.put("isdraft", "0");
+                                            params.put("simpanan_wajib", wajib);
+                                            params.put("simpanan_pokok", pokok);
+                                            params.put("id_profile", id_profile);
+                                            params.put("refferal", info_refferal);
 
                                             //returning parameter
                                             return params;
@@ -360,23 +387,26 @@ public class DaftarAnggota extends AppCompatActivity {
         });
     }
     public void getdata() {
-        final ProgressDialog progressDialog = new ProgressDialog(DaftarAnggota.this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.show();
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ID_KOPERASI,
                 new Response.Listener < String > () {
                     @Override
                     public void onResponse(String response) {
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray makananArray = obj.getJSONArray("result");
-                            progressDialog.dismiss();
 
                             JSONObject makananobject = makananArray.getJSONObject(0);
-                            String pokok = makananobject.getString("simpanan_pokok");
-                            String wajib = makananobject.getString("simpanan_wajib");
+                            pokok = makananobject.getString("simpanan_pokok");
+                            wajib = makananobject.getString("simpanan_wajib");
                             Log.d("asd", pokok);
                             Log.d("nihil", response);
                             Locale localeID = new Locale("in", "ID");
@@ -386,14 +416,16 @@ public class DaftarAnggota extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            progressDialog.dismiss();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
+
                     }
                 }) {
             @Override
@@ -411,6 +443,8 @@ public class DaftarAnggota extends AppCompatActivity {
     }
 
 
-
-
+    @Override
+    public void onRefresh() {
+        getdata();
+    }
 }

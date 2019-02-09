@@ -5,10 +5,12 @@ public class CardItem {
 
     private String mImgResource;
     private String titleResorce;
+    private String idnilai;
 
-    public CardItem(String img,String title) {
+    public CardItem(String img,String title, String id) {
         mImgResource = img;
         titleResorce = title;
+        idnilai = id;
     }
 
     public String getImg() {
@@ -17,5 +19,8 @@ public class CardItem {
 
     public String getTitle() {
         return titleResorce;
+    }
+    public String getIdnilai() {
+        return idnilai;
     }
 }

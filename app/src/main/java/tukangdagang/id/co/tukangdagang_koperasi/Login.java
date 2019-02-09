@@ -46,14 +46,17 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
@@ -191,15 +194,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private void getdata(JSONObject object) {
         try{
             URI profile_picture = new URI("https://graph.facebook.com/"+object.getString("id")+"/picture?width=250&height=250");
-            Intent i = new Intent(Login.this, MainActivity2.class);
 //            nilai_email = object.getString("email");
             final String nilai_emailfb = object.getString("email");
             final String nilai_namafb = object.getString("first_name")+" "+object.getString("last_name");
             final String nilai_imgfb = profile_picture.toString();
             Log.d("gambarfb",nilai_imgfb);
-            i.putExtra("first_name",object.getString("first_name")+" "+object.getString("last_name"));
-            i.putExtra("emailfb",object.getString("email"));
-            i.putExtra("imgfb",profile_picture.toString());
 
 
             //////////////////////////////////////////////////////////////////////
@@ -210,7 +209,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         @Override
                         public void onResponse(String response) {
                             //If we are getting success from server
-                            if(response.equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                JSONArray profileArray = obj.getJSONArray("result");
+
+                                JSONObject profileobject = profileArray.getJSONObject(0);
+                                Log.d("nihil", profileobject.getString("username"));
+                                String id_profile = profileobject.getString("id");
                                 //Creating a shared preference
                                 SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -221,20 +226,22 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailfb);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namafb);
+                                editor.putString(Config.LOGINWITH_SHARED_PREF, "fb");
                                 editor.putString(Config.IMAGE_SHARED_PREF, nilai_imgfb);
+                                editor.putString(Config.PROFILE_ID, id_profile);
                                 editor.putString(n_status_nomor, "0");
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
 
-
                                 //Saving values to editor
                                 editor.commit();
-
-                            }else{
-                                //If the server response is not success
-                                //Displaying an error message on toast
-                                Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(Login.this, MainActivity2.class);
+                                startActivity(i);
+                                finish();
+                            }catch (JSONException e) {
+                                e.printStackTrace();
                             }
+
                         }
                     },
                     new Response.ErrorListener() {
@@ -261,7 +268,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
             /////////////////////////////////////////////////////////////////////
-            startActivity(i);
             finish();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -358,7 +364,16 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         @Override
                         public void onResponse(String response) {
                             //If we are getting success from server
-                            if(response.equalsIgnoreCase(Config.LOGIN_SUCCESS)){
+                            Log.d("tampildata",response);
+
+                            try {
+                                JSONObject obj = new JSONObject(response);
+                                JSONArray profileArray = obj.getJSONArray("result");
+
+                                JSONObject profileobject = profileArray.getJSONObject(0);
+                                Log.d("nihil", profileobject.getString("username"));
+                                String id_profile = profileobject.getString("id");
+
                                 //Creating a shared preference
                                 SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -370,18 +385,21 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailGg);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namaGg);
                                 editor.putString(Config.IMAGE_SHARED_PREF, nilai_imgGg);
+                                editor.putString(Config.LOGINWITH_SHARED_PREF, "google");
+                                editor.putString(Config.PROFILE_ID, id_profile);
+
                                 editor.putString(n_status_nomor, "0");
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
 
                                 //Saving values to editor
                                 editor.commit();
+                                goMainScreen();
 
-                            }else{
-                                //If the server response is not success
-                                //Displaying an error message on toast
-                                Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_LONG).show();
+                            }catch (JSONException e) {
+                                    e.printStackTrace();
                             }
+
                         }
                     },
                     new Response.ErrorListener() {
@@ -408,7 +426,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
             ///////////////////////////////////////////////////
-            goMainScreen();
+
         } else {
             Log.d("gagal","Login gagal");
         }
@@ -441,9 +459,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
         //If we will get true
         if(loggedIn){
-            //We will start the Simpanan Activity
+            //We will start the SimpananF Activity
             Intent intent = new Intent(Login.this, MainActivity2.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -454,7 +473,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (nilai_email.equals("")){
             Toast.makeText(getApplicationContext(),"Email harus diisi",Toast.LENGTH_SHORT).show();
         }else if (nilai_password.equals("")){
-            Toast.makeText(getApplicationContext(),"Password hasur diisi",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Password harus diisi",Toast.LENGTH_SHORT).show();
         } else {
             final ProgressDialog progressDialog = new ProgressDialog(Login.this);
             progressDialog.setMessage("Loading...");
@@ -467,31 +486,50 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+                            Log.d("tampildata",response);
                             //If we are getting success from server
-                            if (response.equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+                            if (!response.equalsIgnoreCase(Config.LOGIN_FAILURE)) {
                                 progressDialog.dismiss();
-                                //Creating a shared preference
-                                SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                try {
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray profileArray = obj.getJSONArray("result");
 
-                                //Creating editor to store values to shared preferences
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    JSONObject profileobject = profileArray.getJSONObject(0);
+                                    Log.d("nihil", profileobject.getString("username"));
+                                    String id_profile = profileobject.getString("id");
+
+                                    //Creating a shared preference
+                                    SharedPreferences sharedPreferences = Login.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                                    //Creating editor to store values to shared preferences
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
 
 
-                                //Adding values to editor
-                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                                editor.putString(Config.EMAIL_SHARED_PREF, nilai_email);
+                                    //Adding values to editor
+                                    editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                                    editor.putString(Config.EMAIL_SHARED_PREF, nilai_email);
+                                    editor.putString(Config.PROFILE_ID, id_profile);
+                                    editor.putString(Config.LOGINWITH_SHARED_PREF, "");
 
-                                editor.putString(n_status_nomor, "0");
-                                editor.putString(n_info_status, "0");
-                                editor.putString(n_status_upload, "0");
+                                    editor.putString(n_status_nomor, "0");
+                                    editor.putString(n_info_status, "0");
+                                    editor.putString(n_status_upload, "0");
 
 
-                                //Saving values to editor
-                                editor.commit();
+                                    //Saving values to editor
+                                    editor.commit();
 
-                                //Starting profile activity
-                                Intent intent = new Intent(Login.this, MainActivity2.class);
-                                startActivity(intent);
+                                    //Starting profile activity
+                                    Intent intent = new Intent(Login.this, MainActivity2.class);
+                                    startActivity(intent);
+                                    finish();
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
                             } else {
                                 //If the server response is not success
                                 //Displaying an error message on toast
@@ -504,6 +542,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data",Toast.LENGTH_LONG).show();
                             //You can handle error here if you want
                         }
                     }) {

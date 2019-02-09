@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,12 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayout;
-import android.view.View;
 //import android.widget.GridLayout;
 //import android.widget.GridView;
 import android.widget.ImageView;
@@ -38,15 +33,10 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import tukangdagang.id.co.tukangdagang_koperasi.slider.ChildAnimationExample;
-
-import static android.support.v4.content.ContextCompat.getSystemService;
 //
 //import id.tukangdagang.com.tukangdagangdevel._sliders.FragmentSlider;
 //import id.tukangdagang.com.tukangdagangdevel._sliders.SliderIndicator;
@@ -75,7 +65,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 
     ViewPager viewPager1;
 //    Adapter adapter;
-//    List<Model> models;
+//    List<ModelDaftarpinjaman> models;
     Integer[] colors = null;
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
@@ -104,22 +94,16 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
 // start coding cardview slide
 
 //        models = new ArrayList<>();
-//        models.add(new Model(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-//        models.add(new Model(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
-//        models.add(new Model(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarpinjaman(R.drawable.sticker,"Sticker","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarpinjaman(R.drawable.poster,"Poster","loream Ipsum Sticker donor Loerem Ipsum Donor"));
+//        models.add(new ModelDaftarpinjaman(R.drawable.namecard,"NameCard","loream Ipsum Sticker donor Loerem Ipsum Donor"));
 //
 //        adapter = new Adapter(models,this.getContext());
 //        viewPager1 = rootView.findViewById(R.id.viewPager1);
 //        viewPager1.setAdapter(adapter);
 //        viewPager1.setPadding(130,0,130,0);
 
-        Integer[] colors_temp = {
-                getResources().getColor(R.color.color1),
-                getResources().getColor(R.color.color2),
-                getResources().getColor(R.color.color3)
-        };
 
-        colors = colors_temp;
 
 //        viewPager1.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //            @Override
@@ -363,7 +347,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(),CariModal.class);
+                    Intent intent = new Intent(getActivity(),CariPinjaman.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
                     startActivity(intent);
 

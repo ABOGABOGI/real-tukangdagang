@@ -13,12 +13,13 @@ import android.widget.TextView;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter2;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 public class Ekoprasi extends AppCompatActivity {
     private ViewPager mViewPager;
     private TextView lihatBerita;
-    private CardPagerAdapter mCardAdapter;
+    private CardPagerAdapter2 mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
     private CardFragmentPagerAdapter mFragmentCardAdapter;
     private ShadowTransformer mFragmentCardShadowTransformer;
@@ -30,8 +31,8 @@ public class Ekoprasi extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.cardviewslider);
         lihatBerita =(TextView) findViewById(R.id.lihatBerita);
 
-        mCardAdapter = new CardPagerAdapter();
-        mCardAdapter.addCardItem(new CardItem("jkjkjkj","jhjhjh"));
+        mCardAdapter = new CardPagerAdapter2();
+        mCardAdapter.addCardItem(new CardItem("jkjkjkj","jhjhjh",""));
 //        mCardAdapter.addCardItem(new CardItem(R.string.title_2, R.string.text_1));
 //        mCardAdapter.addCardItem(new CardItem(R.string.title_3, R.string.text_1));
 //        mCardAdapter.addCardItem(new CardItem(R.string.title_4, R.string.text_1));

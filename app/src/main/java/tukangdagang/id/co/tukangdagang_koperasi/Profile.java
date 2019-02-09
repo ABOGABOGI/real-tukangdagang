@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,21 +48,25 @@ import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
+import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.NAME_SHARED_PREF;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.SHARED_PREF_NAME;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.LOGINWITH_SHARED_PREF;
+import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_PROFILE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_noktp;
 
-public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener{
+public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener,SwipeRefreshLayout.OnRefreshListener{
 
     Button btn_logout,btn_gantipwd;
     TextView scnama,info_email;
     ImageView avatar;
     private GoogleApiClient googleApiClient;
     String idprofile = "";
+    ImageView imLoading;
+    Context mContext;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private Toolbar toolbar;
+    private ImageView toolbarTitle;
     public Profile() {
         // Required empty public constructor
     }
@@ -67,8 +75,18 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        //bind view
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
+        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+        //set toolbar
+//        getActivity().setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //menghilangkan titlebar bawaan
+        if (toolbar != null) {
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -79,10 +97,12 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         scnama= rootView.findViewById(R.id.scnama);
         info_email= rootView.findViewById(R.id.info_email);
         avatar= rootView.findViewById(R.id.avatar);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        imLoading = rootView.findViewById(R.id.loadingView);
 
         getdata();
         gantipwd();
-
         logout();
         return rootView;
     }
@@ -92,12 +112,20 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     private void getdata() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
+        final String sLoginwith = sharedPreferences.getString(LOGINWITH_SHARED_PREF, "");
+        imLoading.setBackgroundResource(R.drawable.animasi_loading);
+        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
+                .getBackground();
+        //Menjalankan File Animasi
+        frameAnimation.start();
+        imLoading.setVisibility(VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PROFILE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
@@ -136,13 +164,16 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Tidak ada Koneksi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
+                        imLoading.setVisibility(View.GONE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 }) {
             @Override
             protected Map< String, String > getParams() throws AuthFailureError {
                 Map < String, String > params = new HashMap< >();
                 params.put("email", email);
+                params.put("loginwith", sLoginwith);
 
                 return params;
             }
@@ -228,16 +259,21 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
 
     }
 
+    @Override
+    public void onRefresh() {
+        getdata();
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        ((MainActivity2) getActivity()).setActionBarTitle("Profile");
-
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        ((MainActivity2) getActivity()).setActionBarTitle("Profile");
+//
+//    }
 
     @Override
     public void onStart() {
