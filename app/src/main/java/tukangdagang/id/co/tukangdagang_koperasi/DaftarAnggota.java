@@ -184,7 +184,10 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                                     editor.putString(n_info_status, "0");
                                                     editor.putString(n_status_nomor, "0");
                                                     editor.commit();
-                                                    
+                                                    Intent intent = new Intent(DaftarAnggota.this,MainActivity2.class);
+                                                    startActivity(intent);
+                                                    finish();
+
 
                                                 }
                                             },

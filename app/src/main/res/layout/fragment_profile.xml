@@ -151,15 +151,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_margin="5dp"
                                 android:orientation="vertical">
 
 
@@ -170,21 +168,22 @@
                                     android:layout_height="wrap_content"
                                     android:text="Terdaftar"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="13sp"
                                     android:textStyle="bold" />
                                 <TextView
+                                    android:id="@+id/jml_koperasi"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="3"
+                                    android:text="0"
                                     android:layout_gravity="center"
-                                    android:textSize="15sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Koperasi"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
 
@@ -210,7 +209,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
 
@@ -218,7 +216,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_margin="5dp"
                                 android:orientation="vertical">
 
 
@@ -229,21 +226,22 @@
                                     android:layout_height="wrap_content"
                                     android:text="Transaksi"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="13sp"
                                     android:textStyle="bold" />
                                 <TextView
+                                    android:id="@+id/jml_pinjaman"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="10"
+                                    android:text="0"
                                     android:layout_gravity="center"
-                                    android:textSize="15sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="pinjaman"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
 
@@ -271,7 +269,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
 
@@ -282,21 +279,23 @@
                                 android:layout_height="wrap_content"
                                 android:text="Jumlah"
                                 android:layout_gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
+
                             <TextView
+                                android:id="@+id/jml_usaha"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="10"
                                 android:layout_gravity="center"
-                                android:textSize="15sp"
+                                android:text="0"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Usaha"
                                 android:layout_gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
 
@@ -323,18 +322,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_margin="5dp"
                                 android:orientation="vertical">
-
-
 
 
                                 <TextView
@@ -342,21 +336,22 @@
                                     android:layout_height="wrap_content"
                                     android:text="Simpanan"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="13sp"
                                     android:textStyle="bold" />
                                 <TextView
+                                    android:id="@+id/simpanan_wajib"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="10JT"
+                                    android:text="Rp0"
                                     android:layout_gravity="center"
-                                    android:textSize="15sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Wajib"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
 
@@ -382,7 +377,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
 
@@ -390,10 +384,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_margin="5dp"
                                 android:orientation="vertical">
-
-
 
 
                                 <TextView
@@ -401,21 +392,22 @@
                                     android:layout_height="wrap_content"
                                     android:text="Simpanan"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="13sp"
                                     android:textStyle="bold" />
                                 <TextView
+                                    android:id="@+id/simpanan_sukarela"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="100JT"
+                                    android:text="Rp0"
                                     android:layout_gravity="center"
-                                    android:textSize="15sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Sukarela"
                                     android:layout_gravity="center"
-                                    android:textSize="10sp"
+                                    android:textSize="12sp"
                                     android:textStyle="bold" />
 
 
@@ -443,7 +435,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
-                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
 
@@ -454,21 +445,22 @@
                                 android:layout_height="wrap_content"
                                 android:text="Simpanan"
                                 android:layout_gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
                             <TextView
+                                android:id="@+id/simpanan_pokok"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="20JT"
+                                android:text="Rp0"
                                 android:layout_gravity="center"
-                                android:textSize="15sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Pokok"
                                 android:layout_gravity="center"
-                                android:textSize="10sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold" />
 
 

@@ -43,7 +43,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
@@ -58,7 +60,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_PROFILE;
 public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener,SwipeRefreshLayout.OnRefreshListener{
 
     Button btn_logout,btn_gantipwd;
-    TextView scnama,info_email;
+    TextView scnama,info_email,jml_koperasi,simpanan_wajib,jml_usaha,jml_pinjaman,simpanan_sukarela,simpanan_pokok;
     ImageView avatar;
     private GoogleApiClient googleApiClient;
     String idprofile = "";
@@ -94,6 +96,12 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
 
         btn_logout = rootView.findViewById(R.id.btn_logout);
         btn_gantipwd = rootView.findViewById(R.id.btn_gantipwd);
+        jml_koperasi = rootView.findViewById(R.id.jml_koperasi);
+        simpanan_wajib = rootView.findViewById(R.id.simpanan_wajib);
+        jml_usaha = rootView.findViewById(R.id.jml_usaha);
+        jml_pinjaman = rootView.findViewById(R.id.jml_pinjaman);
+        simpanan_sukarela = rootView.findViewById(R.id.simpanan_sukarela);
+        simpanan_pokok = rootView.findViewById(R.id.simpanan_pokok);
         scnama= rootView.findViewById(R.id.scnama);
         info_email= rootView.findViewById(R.id.info_email);
         avatar= rootView.findViewById(R.id.avatar);
@@ -113,6 +121,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
         final String sLoginwith = sharedPreferences.getString(LOGINWITH_SHARED_PREF, "");
+        final String idUser = sharedPreferences.getString(PROFILE_ID, "");
         imLoading.setBackgroundResource(R.drawable.animasi_loading);
         AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
                 .getBackground();
@@ -129,10 +138,16 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
 
                         try {
                             JSONObject obj = new JSONObject(response);
-                            JSONArray profileArray = obj.getJSONArray("result");
-                            Log.d("resul",response);
+                            JSONArray profileArray = obj.getJSONArray("profile");
+                           JSONArray jmlkoperasiArray = obj.getJSONArray("jmlKoperasi");
+                           JSONArray jmlpinjamanArray = obj.getJSONArray("jmlPinjaman");
+                            JSONArray jmlusahaArray = obj.getJSONArray("jmlUsaha");
+                            JSONArray simpananwajibArray = obj.getJSONArray("simpananWajib");
+                            JSONArray jmlpokoksukarelaArray = obj.getJSONArray("jmlpokoksukarela");
+                            Log.d("wajibar", String.valueOf(simpananwajibArray));
 
                                 JSONObject profileobject = profileArray.getJSONObject(0);
+
                                 String loginwith = profileobject.getString("loginwith");
                                 idprofile = profileobject.getString("id");
                                 String status = "";
@@ -154,7 +169,40 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
 
                             scnama.setText(profileobject.getString("first_name"));
                             info_email.setText(status+profileobject.getString("email"));
-//
+                            if(jmlkoperasiArray.length()!=0) {
+                                JSONObject jmlkoperasiobject = jmlkoperasiArray.getJSONObject(0);
+                                jml_koperasi.setText(jmlkoperasiobject.getString("jml_koperasi"));
+                            }
+                            if(jmlpinjamanArray.length()!=0) {
+                                JSONObject jmlpinjamanobject = jmlpinjamanArray.getJSONObject(0);
+                                jml_pinjaman.setText(jmlpinjamanobject.getString("jml_pinjaman"));
+
+                            }if(jmlusahaArray.length()!=0) {
+                                JSONObject jmlusahaobject = jmlusahaArray.getJSONObject(0);
+                                jml_usaha.setText(jmlusahaobject.getString("jml_usaha"));
+
+                            }
+                            if(simpananwajibArray.length()!=0) {
+                                JSONObject simpananwajibobject = simpananwajibArray.getJSONObject(0);
+                                Locale localeID = new Locale("in", "ID");
+                                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                                if(!simpananwajibobject.getString("total").equals("null")) {
+                                    simpanan_wajib.setText(formatRupiah.format((double) Double.valueOf(simpananwajibobject.getString("total"))));
+                                }
+                            }
+                            if(jmlpokoksukarelaArray.length()!=0) {
+                                JSONObject jmlpokoksukarelaobject = jmlpokoksukarelaArray.getJSONObject(0);
+                                Locale localeID = new Locale("in", "ID");
+                                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                                if(!jmlpokoksukarelaobject.getString("jml_pokok").equals("null")) {
+                                    simpanan_pokok.setText(formatRupiah.format((double) Double.valueOf(jmlpokoksukarelaobject.getString("jml_pokok"))));
+                                }
+                                if(!jmlpokoksukarelaobject.getString("jml_sukarela").equals("null")) {
+                                    simpanan_sukarela.setText(formatRupiah.format((double) Double.valueOf(jmlpokoksukarelaobject.getString("jml_sukarela"))));
+                                }
+                            }
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -174,6 +222,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                 Map < String, String > params = new HashMap< >();
                 params.put("email", email);
                 params.put("loginwith", sLoginwith);
+                params.put("idprofile", idUser);
 
                 return params;
             }
