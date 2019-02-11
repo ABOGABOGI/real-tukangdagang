@@ -2,16 +2,18 @@ package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
 public class Model {
 
     String title;
-    String desc;
+    String minimal;
+    String maximal;
     String icon;
     String id;
     String rating;
     String alamat;
 
     //constructor
-    public Model(String title, String desc, String icon, String id, String rating, String alamat) {
+    public Model(String title, String minimal, String maximal, String icon, String id, String rating, String alamat) {
         this.title = title;
-        this.desc = desc;
+        this.minimal = minimal;
+        this.maximal = maximal;
         this.icon = icon;
         this.id = id;
         this.rating = rating;
@@ -25,10 +27,12 @@ public class Model {
         return this.title;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getMinimal() {
+        return this.minimal;
     }
-
+    public String getMaximal() {
+        return this.maximal;
+    }
     public String getIcon() {
         return this.icon;
     }

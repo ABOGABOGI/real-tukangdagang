@@ -85,11 +85,12 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
 
 
                                 Model model = new Model(koperasiobject.getString("nama_koperasi"),
-                                        koperasiobject.getString("simpanan_pokok"),
+                                        koperasiobject.getString("pinjaman_min_koperasi"),
+                                        koperasiobject.getString("pinjaman_max_koperasi"),
                                         koperasiobject.getString("logo_koperasi"),
                                         koperasiobject.getString("id"),
                                         koperasiobject.getString("rating_koperasi"),
-                                        koperasiobject.getString("alamat_koperasi")
+                                        koperasiobject.getString("kota")
                                 );
 
                                 arrayList.add(model);
