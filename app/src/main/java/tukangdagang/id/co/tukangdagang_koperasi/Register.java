@@ -2,6 +2,7 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,10 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setTitle("Daftar Tukang Dagang");
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Buat Akun");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         linkLogin = (TextView)findViewById(R.id.linklogin);
         btnDaftar = (Button) findViewById(R.id.btnDaftar);
         noHp = (EditText)findViewById(R.id.noHp);
@@ -119,6 +123,11 @@ public class Register extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }
