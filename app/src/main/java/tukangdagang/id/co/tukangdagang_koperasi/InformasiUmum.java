@@ -107,42 +107,56 @@ public class InformasiUmum extends AppCompatActivity {
         btnsimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!etnama_depan.getText().toString().equals("") &&
-                        !etnama_depan.getText().toString().equals("") &&
-                        !etalamat.getText().toString().equals("") &&
-                        !etRtRw.getText().toString().equals("") &&
-                        !etKodepos.getText().toString().equals("") &&
-                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Provinsi") &&
-                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Kota") &&
-                        !provinsi_Spinner.getSelectedItem().toString().equals("Pilih Kecamatan") ) {
 
-                    SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    String n_nama_depan = etnama_depan.getText().toString();
-                    String n_nama_belakang = etnama_belakang.getText().toString();
-                    String n_jk = sp_jk.getSelectedItem().toString();
-                    String n_alamat = etalamat.getText().toString();
-                    String n_rtrw = etRtRw.getText().toString();
-                    String n_kodepos = etKodepos.getText().toString();
-                    String n_provinsi = provinsi_Spinner.getSelectedItem().toString();
-                    String n_kota = kota_Spinner.getSelectedItem().toString();
-                    String n_kecamatan = kecamatan_Spinner.getSelectedItem().toString();
-                    editor.putString(n_info_nama_depan, n_nama_depan);
-                    editor.putString(n_info_nama_belakang, n_nama_belakang);
-                    editor.putString(n_info_jk, n_jk);
-                    editor.putString(n_info_alamat, n_alamat);
-                    editor.putString(n_info_rtrw, n_rtrw);
-                    editor.putString(n_info_kodepos, n_kodepos);
-                    editor.putString(n_info_provinsi, n_provinsi);
-                    editor.putString(n_info_kota, n_kota);
-                    editor.putString(n_info_kecamatan, n_kecamatan);
-                    editor.putString(n_info_status, "1");
-                    editor.commit();
-                    onSupportNavigateUp();
+                   if(etnama_depan.getText().toString().equals("")){
+                       etnama_depan.setError( "Nama tidak boleh kosong" );
+                       etnama_depan.requestFocus();
+                   }else if(etalamat.getText().toString().equals("")){
+                       etalamat.setError("Alamat tidak boleh kosong");
+                       etalamat.requestFocus();
+                   }else if(etRtRw.getText().toString().equals("")){
+                       etRtRw.setError("RT/RW tidak boleh kosong");
+                       etRtRw.requestFocus();
+                   }else if(provinsi_Spinner.getSelectedItem().toString().equals("Pilih Provinsi")){
+                       ((TextView)provinsi_Spinner.getSelectedView()).setError("Provinsi belum dipilih");
+                       provinsi_Spinner.requestFocus();
+                   }else if(kota_Spinner.getSelectedItem().toString().equals("Pilih Kota")){
+                       ((TextView)kota_Spinner.getSelectedView()).setError("Kota belum dipilih");
+                       kota_Spinner.requestFocus();
+                   }else if(kecamatan_Spinner.getSelectedItem().toString().equals("Pilih Kecamatan")) {
+                       ((TextView) kecamatan_Spinner.getSelectedView()).setError("Kecamatan belum dipilih");
+                       kecamatan_Spinner.requestFocus();
 
-                }else{
-                    Toast.makeText(getApplicationContext(),"Data belum lengkap,Pastikan data di isi semua",Toast.LENGTH_LONG).show();
-                }
+                   }else if(etKodepos.getText().toString().equals("")){
+                           etKodepos.setError("Kode Pos tidak boleh kosong");
+                       etKodepos.requestFocus();
+                   }else{
+
+                       SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                       SharedPreferences.Editor editor = sharedPreferences.edit();
+                       String n_nama_depan = etnama_depan.getText().toString();
+                       String n_nama_belakang = etnama_belakang.getText().toString();
+                       String n_jk = sp_jk.getSelectedItem().toString();
+                       String n_alamat = etalamat.getText().toString();
+                       String n_rtrw = etRtRw.getText().toString();
+                       String n_kodepos = etKodepos.getText().toString();
+                       String n_provinsi = provinsi_Spinner.getSelectedItem().toString();
+                       String n_kota = kota_Spinner.getSelectedItem().toString();
+                       String n_kecamatan = kecamatan_Spinner.getSelectedItem().toString();
+                       editor.putString(n_info_nama_depan, n_nama_depan);
+                       editor.putString(n_info_nama_belakang, n_nama_belakang);
+                       editor.putString(n_info_jk, n_jk);
+                       editor.putString(n_info_alamat, n_alamat);
+                       editor.putString(n_info_rtrw, n_rtrw);
+                       editor.putString(n_info_kodepos, n_kodepos);
+                       editor.putString(n_info_provinsi, n_provinsi);
+                       editor.putString(n_info_kota, n_kota);
+                       editor.putString(n_info_kecamatan, n_kecamatan);
+                       editor.putString(n_info_status, "1");
+                       editor.commit();
+                       onSupportNavigateUp();
+                   }
+
             }
         });
     }
