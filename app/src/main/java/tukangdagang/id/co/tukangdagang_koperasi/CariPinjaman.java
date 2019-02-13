@@ -1,15 +1,21 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
@@ -27,7 +33,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.CaripinjamanAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 
@@ -35,14 +43,15 @@ import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
 public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
-    ListView listView;
-    ListViewAdapter adapter;
-    String[] title;
-    String[] description;
-    int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
+
+    List<Model> lstCaripinjaman ;
+    CaripinjamanAdapter myAdapter;
+    RecyclerView myrv ;
     ImageView imLoading;
     private SwipeRefreshLayout swipeRefreshLayout;
+    LinearLayoutManager  manager;
+    Boolean isScrolling = false;
+    int currentItems,totalItems,scrollOutItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         imLoading = findViewById(R.id.loadingView);
+        lstCaripinjaman = new ArrayList<>();
+        manager = new LinearLayoutManager(this);
 
         getdata();
 
@@ -78,6 +89,7 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                             JSONObject obj = new JSONObject(response);
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
+                            lstCaripinjaman.clear();
                             for (int i = 0; i < koperasiArray.length(); i++) {
 
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
@@ -93,13 +105,35 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                                         koperasiobject.getString("kota")
                                 );
 
-                                arrayList.add(model);
+                                lstCaripinjaman.add(model);
                             }
-                            listView = findViewById(R.id.listKoprasi);
-                            adapter = new ListViewAdapter(CariPinjaman.this,arrayList);
+                            myrv = findViewById(R.id.listKoprasi);
+                            myAdapter = new CaripinjamanAdapter(CariPinjaman.this,lstCaripinjaman);
 
+                            myrv.setLayoutManager(manager);
+                            //add ItemDecoration
+                            myrv.addItemDecoration(new DividerItemDecoration(CariPinjaman.this,1));
+                            myrv.setAdapter(myAdapter);
+                            myrv.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                                @Override
+                                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                                    super.onScrollStateChanged(recyclerView, newState);
+                                    if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                                        isScrolling=true;
+                                    }
+                                }
 
-                            listView.setAdapter(adapter);
+                                @Override
+                                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                                    super.onScrolled(recyclerView, dx, dy);
+                                    currentItems = manager.getChildCount();
+                                    totalItems = manager.getItemCount();
+                                    scrollOutItems = manager.findFirstVisibleItemPosition();
+                                    if(isScrolling && (currentItems+scrollOutItems == totalItems)){
+                                        isScrolling=false;
+                                    }
+                                }
+                            });
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -119,13 +153,13 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.list_koprasi, menu);
 
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search_koprasi);
         SearchView searchView = (SearchView)myActionMenuItem.getActionView();
+//        myActionMenuItem.expandActionView(); // Expand the search menu item in order to show by default the query
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -135,17 +169,17 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public boolean onQueryTextChange(String s) {
                 if (TextUtils.isEmpty(s)){
-                    adapter.filter("");
-                    listView.clearTextFilter();
+                    myAdapter.filter("");
                 }
                 else {
-                    adapter.filter(s);
+                    myAdapter.filter(s);
                 }
                 return true;
             }
         });
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
