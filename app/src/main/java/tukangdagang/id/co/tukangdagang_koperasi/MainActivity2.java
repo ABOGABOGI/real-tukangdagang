@@ -80,46 +80,77 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fm.beginTransaction().add(R.id.container, fragment4, "4").hide(fragment4).commit();
-        fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
-        fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
+//        fm.beginTransaction().add(R.id.container, fragment4, "4").hide(fragment4).commit();
+//        fm.beginTransaction().add(R.id.container, fragment3, "3").hide(fragment3).commit();
+//        fm.beginTransaction().add(R.id.container, fragment2, "2").hide(fragment2).commit();
         fm.beginTransaction().add(R.id.container,fragment1, "1").commit();
 
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+//
+//        @Override
+//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//            switch (item.getItemId()) {
+//                case R.id.navigation_apps:
+//                    fm.beginTransaction().hide(active).show(fragment1).commit();
+//                    active = fragment1;
+//                    return true;
+//
+//                case R.id.navigation_pinjaman:
+//                    fm.beginTransaction().hide(active).show(fragment2).commit();
+//                    active = fragment2;
+//                    return true;
+//
+//                case R.id.navigation_simpanan:
+//                    fm.beginTransaction().hide(active).show(fragment3).commit();
+//                    active = fragment3;
+//                    return true;
+//
+//
+//                case R.id.navigation_profile:
+//                    fm.beginTransaction().hide(active).show(fragment4).commit();
+//                    active = fragment4;
+//                    return true;
+//            }
+//            return false;
+//        }
+//    };
 
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+            Fragment selectedFragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_apps:
-                    fm.beginTransaction().hide(active).show(fragment1).commit();
-                    active = fragment1;
-                    return true;
-
-                case R.id.navigation_pinjaman:
-                    fm.beginTransaction().hide(active).show(fragment2).commit();
-                    active = fragment2;
-                    return true;
-
+                    selectedFragment = new Home2();
+                    break;
                 case R.id.navigation_simpanan:
-                    fm.beginTransaction().hide(active).show(fragment3).commit();
-                    active = fragment3;
-                    return true;
-
-
+                    selectedFragment = new Daftarsimpanan();
+                    break;
+                case R.id.navigation_pinjaman:
+                    selectedFragment = new Pinjaman();
+                    break;
                 case R.id.navigation_profile:
-                    fm.beginTransaction().hide(active).show(fragment4).commit();
-                    active = fragment4;
-                    return true;
+                    selectedFragment = new Profile();
+                    break;
             }
-            return false;
+            if (selectedFragment != null) {
+                FragmentTransaction transaction =
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                transaction.replace(R.id.container, selectedFragment, selectedFragment.getTag());
+                transaction.commit();
+            }
+            return true;
+
         }
     };
-
-
     @Override
     protected void onStart() {
         super.onStart();

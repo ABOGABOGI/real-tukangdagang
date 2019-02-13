@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -84,8 +85,10 @@ public class ListViewAdapter extends BaseAdapter{
             holder = (ViewHolder)view.getTag();
         }
         //set the results into textviews
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
         holder.mTitleTv.setText(modellist.get(postition).getTitle());
-        holder.mDescTv.setText(modellist.get(postition).getDesc());
+        holder.mDescTv.setText(formatRupiah.format((double) Double.valueOf(modellist.get(postition).getMinimal()))+" - "+formatRupiah.format((double) Double.valueOf(modellist.get(postition).getMaximal())));
         holder.ratingKoperasi.setRating(Float.valueOf(modellist.get(postition).getRating()));
         holder.cm_alamat.setText(String.valueOf(modellist.get(postition).getAlamat()));
         //set the result in imageview

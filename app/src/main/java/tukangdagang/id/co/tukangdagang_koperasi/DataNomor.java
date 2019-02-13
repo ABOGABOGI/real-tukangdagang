@@ -52,23 +52,39 @@ EditText etnoKTP,etKK,etHP;
         btn_simpan_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!etnoKTP.getText().toString().equals("") &&
-                        !etKK.getText().toString().equals("") &&
-                        !etHP.getText().toString().equals("")){
-                    SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    String n_noktp = etnoKTP.getText().toString();
-                    String n_nokk = etKK.getText().toString();
-                    String n_nohp = etHP.getText().toString();
-                    editor.putString("info_noktp", n_noktp);
-                    editor.putString("info_nokk", n_nokk);
-                    editor.putString("info_nohp", n_nohp);
-                    editor.putString("status_nomor", "1");
-                    editor.commit();
-                    onSupportNavigateUp();
-                }else{
-                    Toast.makeText(getApplicationContext(),"Data belum lengkap,Pastikan data di isi semua",Toast.LENGTH_LONG).show();
-                }
+                    if(etnoKTP.getText().toString().equals("")) {
+                        etnoKTP.setError("No KTP tidak boleh kosong");
+                        etnoKTP.requestFocus();
+                    }
+                    else if(etKK.getText().toString().equals("")) {
+                        etKK.setError("No KK tidak boleh kosong");
+                        etKK.requestFocus();
+                    }
+                    else if(etHP.getText().toString().equals("")) {
+                        etHP.setError("No HP tidak boleh kosong");
+                        etHP.requestFocus();
+                    }
+                    else if(etnoKTP.getText().length()<16 || etnoKTP.getText().length()>16) {
+//                        Toast.makeText(getApplicationContext(),"No KTP harus 16 digit",Toast.LENGTH_LONG).show();
+                        etnoKTP.setError( "No KTP harus 16 digit" );
+                        etnoKTP.requestFocus();
+                    }else if(etKK.getText().length()<16 || etKK.getText().length()>16){
+//                        Toast.makeText(getApplicationContext(),"No KK harus 16 digit",Toast.LENGTH_LONG).show();
+                        etKK.setError( "No KK harus 16 digit" );
+                        etKK.requestFocus();
+                    }else{
+                        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        String n_noktp = etnoKTP.getText().toString();
+                        String n_nokk = etKK.getText().toString();
+                        String n_nohp = etHP.getText().toString();
+                        editor.putString("info_noktp", n_noktp);
+                        editor.putString("info_nokk", n_nokk);
+                        editor.putString("info_nohp", n_nohp);
+                        editor.putString("status_nomor", "1");
+                        editor.commit();
+                        onSupportNavigateUp();
+                    }
 
             }
         });
