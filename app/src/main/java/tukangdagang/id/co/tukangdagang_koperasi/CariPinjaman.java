@@ -1,6 +1,7 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -19,6 +20,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.support.v7.widget.SearchView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -52,6 +54,10 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
     LinearLayoutManager  manager;
     Boolean isScrolling = false;
     int currentItems,totalItems,scrollOutItems;
+    ProgressBar progressBar;
+    int ival = 0;
+    int totaldata = 0;
+    int limit =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,7 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         imLoading = findViewById(R.id.loadingView);
+        progressBar = findViewById(R.id.progress);
         lstCaripinjaman = new ArrayList<>();
         manager = new LinearLayoutManager(this);
 
@@ -90,7 +97,8 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
                             lstCaripinjaman.clear();
-                            for (int i = 0; i < koperasiArray.length(); i++) {
+                            totaldata = koperasiArray.length();
+                            for (int i = ival; i <5; i++) {
 
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
                                 Log.d("asd", response);
@@ -106,6 +114,7 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                                 );
 
                                 lstCaripinjaman.add(model);
+                                ival++;
                             }
                             myrv = findViewById(R.id.listKoprasi);
                             myAdapter = new CaripinjamanAdapter(CariPinjaman.this,lstCaripinjaman);
@@ -131,6 +140,11 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                                     scrollOutItems = manager.findFirstVisibleItemPosition();
                                     if(isScrolling && (currentItems+scrollOutItems == totalItems)){
                                         isScrolling=false;
+                                        Log.d("ival", String.valueOf(totaldata));
+                                        if(ival< totaldata) {
+                                            fetchdata();
+
+                                        }
                                     }
                                 }
                             });
@@ -153,6 +167,90 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+    private void fetchdata() {
+if(ival<totaldata) {
+    progressBar.setVisibility(VISIBLE);
+}
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                try {
+                                    progressBar.setVisibility(View.GONE);
+                                    JSONObject obj = new JSONObject(response);
+                                    JSONArray koperasiArray = obj.getJSONArray("result");
+                                    Log.d("resul",response);
+                                    limit = ival +5;
+                                    for (int i = ival; i < limit; i++) {
+                                        JSONObject koperasiobject = koperasiArray.getJSONObject(i);
+                                        Log.d("asd", response);
+
+
+                                        Model model = new Model(koperasiobject.getString("nama_koperasi"),
+                                                koperasiobject.getString("pinjaman_min_koperasi"),
+                                                koperasiobject.getString("pinjaman_max_koperasi"),
+                                                koperasiobject.getString("logo_koperasi"),
+                                                koperasiobject.getString("id"),
+                                                koperasiobject.getString("rating_koperasi"),
+                                                koperasiobject.getString("kota")
+                                        );
+
+                                        lstCaripinjaman.add(model);
+                                        ival++;
+                                    }
+                                    myrv = findViewById(R.id.listKoprasi);
+                                    myAdapter = new CaripinjamanAdapter(CariPinjaman.this,lstCaripinjaman);
+
+                                    myrv.setLayoutManager(manager);
+                                    //add ItemDecoration
+                                    myrv.addItemDecoration(new DividerItemDecoration(CariPinjaman.this,1));
+                                    myrv.setAdapter(myAdapter);
+                                    myrv.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                                        @Override
+                                        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                                            super.onScrollStateChanged(recyclerView, newState);
+                                            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                                                isScrolling=true;
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                                            super.onScrolled(recyclerView, dx, dy);
+                                            currentItems = manager.getChildCount();
+                                            totalItems = manager.getItemCount();
+                                            scrollOutItems = manager.findFirstVisibleItemPosition();
+                                            if(isScrolling && (currentItems+scrollOutItems == totalItems)){
+                                                isScrolling=false;
+                                                fetchdata();
+                                            }
+                                        }
+                                    });
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                RequestQueue requestQueue = Volley.newRequestQueue(CariPinjaman.this);
+                requestQueue.add(stringRequest);
+                myAdapter.notifyDataSetChanged();
+            }
+        },2000);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.list_koprasi, menu);
@@ -200,6 +298,7 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         getdata();
+        ival=0;
 
     }
 }
