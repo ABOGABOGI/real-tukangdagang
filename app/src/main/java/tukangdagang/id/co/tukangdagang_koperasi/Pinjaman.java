@@ -151,9 +151,9 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 //                            for (int i = 0; i < pinjamanArray.length(); i++) {
                                 Log.d("nilaip", String.valueOf(pinjamanArray.length()));
                                 String dataPinjaman = String.valueOf(pinjamanArray.length());
-                                if(dataPinjaman.equals("0")){
-                                    halamanPinjaman.setVisibility(View.GONE);
-                                    halamankosong.setVisibility(VISIBLE);
+                                if(!dataPinjaman.equals("0")){
+                                    halamanPinjaman.setVisibility(View.VISIBLE);
+                                    halamankosong.setVisibility(View.GONE);
                                 }
                                 JSONObject pinjamanobject = pinjamanArray.getJSONObject(0);
                                 Log.d("asd", response);
