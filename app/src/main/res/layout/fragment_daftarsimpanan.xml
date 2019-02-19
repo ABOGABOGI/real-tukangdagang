@@ -38,24 +38,26 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swiperefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/halaman_simpanan"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <android.support.v4.widget.SwipeRefreshLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/swiperefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <ListView
                     android:id="@+id/listDaftarsimpanan"
                     android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </ListView>
+                </android.support.v4.widget.SwipeRefreshLayout>
             </RelativeLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
+
         <RelativeLayout
             android:id="@+id/datakosong"
             android:layout_width="match_parent"

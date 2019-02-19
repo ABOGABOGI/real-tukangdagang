@@ -37,11 +37,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -66,6 +61,11 @@
             app:arc_position="bottom"
             app:arc_height="20dp"
             >
+            <android.support.v4.widget.SwipeRefreshLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swiperefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider"
@@ -76,7 +76,7 @@
                 android:id="@+id/custom_indicator"
                 style="@style/AndroidImageSlider_Attractive_Rect_Blue"
                 />
-
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </com.github.florent37.arclayout.ArcLayout>
 
@@ -237,7 +237,9 @@
 
     </LinearLayout>
     </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
