@@ -124,32 +124,37 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            try {
 
-            Fragment selectedFragment = null;
 
-            switch (item.getItemId()) {
-                case R.id.navigation_apps:
-                    selectedFragment = new Home2();
-                    break;
-                case R.id.navigation_simpanan:
-                    selectedFragment = new Daftarsimpanan();
-                    break;
-                case R.id.navigation_pinjaman:
-                    selectedFragment = new Pinjaman();
-                    break;
-                case R.id.navigation_profile:
-                    selectedFragment = new Profile();
-                    break;
-            }
-            if (selectedFragment != null) {
-                FragmentTransaction transaction =
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                transaction.replace(R.id.container, selectedFragment, selectedFragment.getTag());
-                transaction.commit();
+                Fragment selectedFragment = null;
+
+                switch (item.getItemId()) {
+                    case R.id.navigation_apps:
+                        selectedFragment = new Home2();
+                        break;
+                    case R.id.navigation_simpanan:
+                        selectedFragment = new Daftarsimpanan();
+                        break;
+                    case R.id.navigation_pinjaman:
+                        selectedFragment = new Pinjaman();
+                        break;
+                    case R.id.navigation_profile:
+                        selectedFragment = new Profile();
+                        break;
+                }
+                if (selectedFragment != null) {
+                    FragmentTransaction transaction =
+                            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                    transaction.replace(R.id.container, selectedFragment, selectedFragment.getTag());
+                    transaction.commit();
+                }
+
+            }catch(Exception err){
+                Toast.makeText(MainActivity2.this, err.toString(), Toast.LENGTH_SHORT).show();
             }
             return true;
-
-        }
+            }
     };
     @Override
     protected void onStart() {

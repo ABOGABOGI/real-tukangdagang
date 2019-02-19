@@ -297,8 +297,8 @@ if(ival<totaldata) {
 
     @Override
     public void onRefresh() {
-        getdata();
         ival=0;
+        getdata();
 
     }
 }

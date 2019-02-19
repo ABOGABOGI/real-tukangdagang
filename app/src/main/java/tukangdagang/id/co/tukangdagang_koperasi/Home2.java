@@ -317,13 +317,17 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     }
 
     private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init recyclerview");
+        try {
+            Log.d(TAG, "initRecyclerView: init recyclerview");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-        HomeAdapter adapter = new HomeAdapter(getContext(), mNames, mImageUrls,mIdkoperasi);
-        recyclerView.setAdapter(adapter);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+            RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(layoutManager);
+            HomeAdapter adapter = new HomeAdapter(getContext(), mNames, mImageUrls, mIdkoperasi);
+            recyclerView.setAdapter(adapter);
+        }catch (Exception err){
+            Toast.makeText(getActivity(), err.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
