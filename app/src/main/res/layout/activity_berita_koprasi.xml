@@ -84,7 +84,7 @@
         android:textFontWeight="bold"
         android:paddingLeft="16dp"
         android:textColor="@color/design_default_color_primary_dark"
-        android:text="Unit Bisnis Koprasi"/>
+        android:text="Gallery"/>
         <android.support.v4.view.ViewPager
             android:id="@+id/cardviewslider2"
             android:layout_width="match_parent"

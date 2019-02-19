@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:ems="10"
+            android:maxLength="5"
             android:hint="RT/RW"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="0dp"
@@ -142,6 +143,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:maxLength="5"
             android:ems="10"
             android:hint="Kode Pos"
             android:inputType="number" />
