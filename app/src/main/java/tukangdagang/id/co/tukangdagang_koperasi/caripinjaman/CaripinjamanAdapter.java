@@ -2,6 +2,7 @@ package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,10 @@ import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
+import tukangdagang.id.co.tukangdagang_koperasi.Login;
+import tukangdagang.id.co.tukangdagang_koperasi.MainActivity2;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
@@ -30,6 +34,7 @@ public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapte
     private Context mContext ;
     private List<Model> mData ;
     ArrayList<Model> arrayList;
+    private boolean loggedIn = false;
 
     public CaripinjamanAdapter(Context mContext, List<Model> mData) {
         this.mContext = mContext;
@@ -68,9 +73,19 @@ public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapte
         holder.btnDaftarKop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(mContext, DaftarAnggota.class);
-                i.putExtra("idkoperasi", mData.get(position).getId());
-                mContext.startActivity(i);
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+
+                //Fetching the boolean value form sharedpreferences
+                loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+                if(!loggedIn) {
+                    //We will start the SimpananF Activity
+                    Intent intent = new Intent(mContext, Login.class);
+                    mContext.startActivity(intent);
+                }else {
+                    Intent i = new Intent(mContext, DaftarAnggota.class);
+                    i.putExtra("idkoperasi", mData.get(position).getId());
+                    mContext.startActivity(i);
+                }
             }
         });
 

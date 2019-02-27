@@ -2,6 +2,7 @@ package tukangdagang.id.co.tukangdagang_koperasi;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -50,6 +51,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.home2.HomeAdapter;
@@ -88,6 +90,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mIdkoperasi = new ArrayList<>();
     private static final String TAG = "Home";
+    boolean loggedIn = false;
 
     public Home2() {
         // Required empty public constructor
@@ -394,10 +397,18 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
                 @Override
                 public void onClick(View view) {
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
 
-                    Intent intent = new Intent(getActivity(),Daganganku.class);
-                    startActivity(intent);
-
+                    //Fetching the boolean value form sharedpreferences
+                    loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+                    if(!loggedIn){
+                        //We will start the SimpananF Activity
+                        Intent intent = new Intent(getActivity(), Login.class);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(getActivity(), Daganganku.class);
+                        startActivity(intent);
+                    }
                 }
             });
         }
@@ -448,23 +459,28 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
 
-        // TODO Add your menu entries here
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-        final MenuItem menuItem = menu.findItem(R.id.action_notifications);
+        //Fetching the boolean value form sharedpreferences
+        loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+        if(loggedIn){
+            // TODO Add your menu entries here
+            inflater.inflate(R.menu.main_menu, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+            final MenuItem menuItem = menu.findItem(R.id.action_notifications);
 
-        View actionView = MenuItemCompat.getActionView(menuItem);
-        smsCountTxt = (TextView) actionView.findViewById(R.id.notification_badge);
+            View actionView = MenuItemCompat.getActionView(menuItem);
+            smsCountTxt = (TextView) actionView.findViewById(R.id.notification_badge);
 
-        setupBadge();
+            setupBadge();
 
-        actionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onOptionsItemSelected(menuItem);
-            }
-        });
+            actionView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onOptionsItemSelected(menuItem);
+                }
+            });
+        }
     }
 
     @Override

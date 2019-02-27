@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="buttonstyle2" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#00BCD4</item>
+        <item name="android:textColor">#ffff</item>
+        <item name="colorButtonNormal">#009688</item>
+        <item name="android:buttonCornerRadius">20dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+</resources>

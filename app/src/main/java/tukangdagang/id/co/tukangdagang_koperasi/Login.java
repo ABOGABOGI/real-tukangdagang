@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -85,6 +86,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setTitle("Login");
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         btnlogin = findViewById(R.id.btnLogin);
         btnGoogle = findViewById(R.id.btnGoogle);
         btnfb = findViewById(R.id.btnFb);
@@ -444,6 +451,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             public void onClick(View view) {
                 Intent i = new Intent(Login.this,Register.class);
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -562,6 +570,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = getIntent();
+        String Ndari = intent.getExtras().getString("dari");
+            onBackPressed();
+        return true;
     }
 
 }

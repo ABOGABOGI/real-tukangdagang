@@ -67,5 +67,11 @@
     <string name="facebook_app_id">341458563247565</string>
     <string name="facebook_login_protocol_scheme">fb341458563247565</string>
 
+    <string name="title_login1">Nikmati kemudahan untuk mengakses koperasi anda dengan memiliki akun</string>
+    <string name="title_login2">Anda dapat membuat akun menggunakan Google dan Facebook</string>
+    <string name="lupa_sandi">Lupa kata sandi ?</string>
+    <string name="baru_akses">Baru akses Koperatif ?</string>
+    <string name="sudah_punya">Sudah punya akun ?</string>
+
 
 </resources>

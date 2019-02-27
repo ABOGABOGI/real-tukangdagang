@@ -49,6 +49,7 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private TextView tv_email,tv_nama;
+    private boolean loggedIn = false;
 
     private GoogleApiClient googleApiClient;
 
@@ -118,7 +119,9 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
 //            return false;
 //        }
 //    };
+public void statuslogin(){
 
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -126,22 +129,44 @@ public class MainActivity2 extends AppCompatActivity implements  GoogleApiClient
 
             try {
 
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+
+                //Fetching the boolean value form sharedpreferences
+                loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
 
                 Fragment selectedFragment = null;
-
                 switch (item.getItemId()) {
                     case R.id.navigation_apps:
-                        selectedFragment = new Home2();
+                            selectedFragment = new Home2();
                         break;
                     case R.id.navigation_simpanan:
-                        selectedFragment = new Daftarsimpanan();
+                        if(!loggedIn) {
+                            //We will start the SimpananF Activity
+                            Intent intent = new Intent(MainActivity2.this, Login.class);
+                            startActivity(intent);
+                        }else {
+                            selectedFragment = new Daftarsimpanan();
+                        }
                         break;
                     case R.id.navigation_pinjaman:
-                        selectedFragment = new Pinjaman();
+                        if(!loggedIn) {
+                            //We will start the SimpananF Activity
+                            Intent intent = new Intent(MainActivity2.this, Login.class);
+                            startActivity(intent);
+                        }else {
+                            selectedFragment = new Pinjaman();
+                        }
                         break;
                     case R.id.navigation_profile:
-                        selectedFragment = new Profile();
+                        if(!loggedIn) {
+                            //We will start the SimpananF Activity
+                            Intent intent = new Intent(MainActivity2.this, Login.class);
+                            startActivity(intent);
+                        }else {
+                            selectedFragment = new Profile();
+                        }
                         break;
+
                 }
                 if (selectedFragment != null) {
                     FragmentTransaction transaction =

@@ -69,6 +69,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
     private ImageView toolbarTitle;
+    private boolean loggedIn = false;
     public Profile() {
         // Required empty public constructor
     }
@@ -108,10 +109,22 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
         imLoading = rootView.findViewById(R.id.loadingView);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(Config.SHARED_PREF_NAME,Context.MODE_PRIVATE);
+
+        //Fetching the boolean value form sharedpreferences
+        loggedIn = sharedPreferences.getBoolean(Config.LOGGEDIN_SHARED_PREF, false);
+
+        //If we will get true
+        if(!loggedIn){
+            //We will start the SimpananF Activity
+            Intent intent = new Intent(getActivity(), Login.class);
+            startActivity(intent);
+        }else if(loggedIn){
 
         getdata();
         gantipwd();
         logout();
+        }
         return rootView;
     }
 
@@ -273,7 +286,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                                 editor.commit();
 
                                 LoginManager.getInstance().logOut();
-                                Intent i = new Intent(getActivity(),Login.class);
+                                Intent i = new Intent(getActivity(),MainActivity2.class);
                                 startActivity(i);
                                 getActivity().finish();
 
@@ -281,7 +294,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                                     @Override
                                     public void onResult(@NonNull Status status) {
                                         if (status.isSuccess()) {
-                                            Intent i = new Intent(getApplicationContext(),Login.class);
+                                            Intent i = new Intent(getApplicationContext(),MainActivity2.class);
                                             startActivity(i);
                                             getActivity().finish();
                                         } else {

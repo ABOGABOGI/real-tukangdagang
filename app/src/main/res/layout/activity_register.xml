@@ -11,15 +11,89 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="16dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="350dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/logo"/>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="9pt"
+                android:textStyle="bold"
+                android:text="@string/title_login1"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/title_login2"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <com.shaishavgandhi.loginbuttons.FacebookButton
+                    android:text="Facebook"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    style="@style/buttonstyle2"
+                    android:theme="@style/buttonstyle2"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnFb"
+                    />
+                <com.shaishavgandhi.loginbuttons.GooglePlusButton
+                    android:text="Google"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnGoogle"
+                    />
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tvText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Sudah Punya Akun ?"
+                    android:textColor="#000000"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_toLeftOf="@id/tvText"
+                    android:background="#FF0000"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_toRightOf="@id/tvText"
+                    android:background="#FF0000"
+                    />
+
+            </RelativeLayout>
+
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_marginBottom="10dp"
@@ -114,59 +188,29 @@
                 android:id="@+id/btnDaftar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:layout_marginBottom="50dp"
+                android:theme="@style/buttonstyle2"
+                android:layout_marginBottom="10dp"
                 android:text="Daftar"
                 android:textColor="#ffff" />
 
-
-            <RelativeLayout
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true">
-
+                android:orientation="horizontal"
+                android:gravity="center">
                 <TextView
-                    android:id="@+id/tvText"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/baru_akses" />
+                <TextView
+                    android:id="@+id/linklogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="Sudah Punya Akun ?"
-                    android:textColor="#000000"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="16dp"
-                    android:layout_toLeftOf="@id/tvText"
-                    android:background="#FF0000"
-                    />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/tvText"
-                    android:background="#FF0000"
-                    />
-
-            </RelativeLayout>
-
-
-
-
-            <TextView
-                android:layout_height="30dp"
-                android:layout_width="match_parent"
-                android:id="@+id/linklogin"
-                android:text="Login Disini"
-                android:layout_marginBottom="16dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="50dp"
-                android:textAlignment="center" />
+                    android:text="Login"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
