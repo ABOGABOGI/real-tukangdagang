@@ -71,7 +71,19 @@ Button btnKirimUlang,btnSelesai;
         @Override
         public void onClick(View view) {
             kirimUlang();
+            new CountDownTimer(50000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    hitungMundur.setText("(" + millisUntilFinished / 1000 +" detik)");
+                }
+
+                public void onFinish() {
+                    hitungMundur.setText("(0 detik)");
+                    btnKirimUlang.setEnabled(true);
+                }
+            }.start();
         }
+
     });
     }
 

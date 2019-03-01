@@ -18,7 +18,7 @@
 
     <TextView
     android:layout_width="wrap_content"
-    android:text="Kami telah email verifikasi ke"
+    android:text="Kami telah mengirim email verifikasi ke"
     android:layout_gravity="center"
     android:layout_height="wrap_content" />
 
