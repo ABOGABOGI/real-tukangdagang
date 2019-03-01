@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -59,6 +61,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import tukangdagang.id.co.tukangdagang_koperasi.app.AppController;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
@@ -75,6 +78,13 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
     private boolean loggedIn = false;
     ProgressDialog mDialog;
     CallbackManager callbackManager;
+
+    private static final String TAG = "yeye";
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
+    int success;
+    String tag_json_obj = "json_obj_req";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +104,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
         nama = (EditText)findViewById(R.id.nama);
         email = (EditText)findViewById(R.id.email);
         pwd = (EditText)findViewById(R.id.password);
-        ulangpwd = (EditText)findViewById(R.id.password);
+        ulangpwd = (EditText)findViewById(R.id.ulangPassword);
         masuk();
         daftar();
 
@@ -282,74 +292,122 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
         }
     }
 
-
-    public void daftar(){
+    public void daftar() {
         btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("respo", "1: ");
-                String n_username  = noHp.getText().toString();
-                String n_email = email.getText().toString();
-                String n_nama = nama.getText().toString();
-                String n_pwd = pwd.getText().toString();
-                String n_pwd_ulang = ulangpwd.getText().toString();
-                if(n_username.equals("") || n_email.equals("") || n_nama.equals("") || n_pwd.equals("")|| n_pwd_ulang.equals("")){
-                    Toast.makeText(getApplicationContext(),"Data Belum Lengkap",Toast.LENGTH_SHORT).show();
-                }else {
-                    if (validate()) {
-                        final ProgressDialog progressDialog = new ProgressDialog(Register.this);
-                        progressDialog.setMessage("Loading...");
-                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                        progressDialog.show();
 
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLDaftar, new Response.Listener<String>() {
+                if(validate()){
+                final ProgressDialog progressDialog = new ProgressDialog(Register.this);
+                progressDialog.setMessage("Loading...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+
+                RequestQueue queue = Volley.newRequestQueue(Register.this);
+//                String URL = EndPoints.BASE_URL + "/call";
+                StringRequest request = new StringRequest(Request.Method.POST, URLDaftar,
+                        new Response.Listener<String>()
+                        {
                             @Override
                             public void onResponse(String response) {
-                                Log.d("respo",response);
-                                if (response.contains("success")) {
-                                    progressDialog.dismiss();
-                                    onBackPressed();
-                                    Toast.makeText(getApplicationContext(), "Silahkan Konfirmasi Email Anda", Toast.LENGTH_SHORT).show();
-                                }else if(response.contains("already")){
-                                    Toast.makeText(getApplicationContext(), "Email sudah digunakan", Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss();
+                                progressDialog.hide();
+
+                                try {
+                                    JSONObject jObj = new JSONObject(response);
+                                    success = jObj.getInt(TAG_SUCCESS);
+
+                                    // Check for error node in json
+                                    if (success == 1) {
+                                        Toast.makeText(getApplicationContext(),
+                                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(Register.this, AfterRegister.class);
+                                        intent.putExtra("email",String.valueOf(email.getText()));
+                                        intent.putExtra("nama",String.valueOf(nama.getText()));
+                                        startActivity(intent);
+                                        finish();
+
+
+                                    } else {
+                                        Toast.makeText(getApplicationContext(),
+                                                jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+
+                                    }
+                                } catch (JSONException e) {
+                                    // JSON error
+                                    e.printStackTrace();
                                 }
+
+
                             }
-                        }, new Response.ErrorListener() {
+                        },
+                        new Response.ErrorListener()
+                        {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
-                            }
-                        }) {
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String, String> params = new HashMap<>();
-                                params.put("username", String.valueOf(noHp.getText()));
-                                params.put("email", String.valueOf(email.getText()));
-                                params.put("first_name", String.valueOf(nama.getText()));
-                                params.put("password", String.valueOf(pwd.getText()));
-                                return params;
-                            }
-                        };
+                                progressDialog.hide();
 
-                        RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
-                        requestQueue.add(stringRequest);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Password Yang anda Input Tidak sama", Toast.LENGTH_SHORT).show();
+                                NetworkResponse response = error.networkResponse;
+                                String errorMsg = "";
+                                if(response != null && response.data != null){
+                                    String errorString = new String(response.data);
+                                    Log.i("log error", errorString);
+                                }
+                            }
+                        }
+                ) {
+                    @Override
+                    protected Map<String, String> getParams()
+                    {
+
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("username", String.valueOf(noHp.getText()));
+                            params.put("email", String.valueOf(email.getText()));
+                            params.put("first_name", String.valueOf(nama.getText()));
+                            params.put("password", String.valueOf(pwd.getText()));
+//                        Log.i("sending ", params.toString());
+
+                        return params;
                     }
-                }
 
+                };
+
+
+                // Add the realibility on the connection.
+                request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+
+                // Start the request immediately
+                queue.add(request);
+                }
             }
         });
     }
-    public boolean validate() {
+        public boolean validate() {
         boolean temp=true;
 
         String pass=pwd.getText().toString();
         String cpass=ulangpwd.getText().toString();
+        String hp=noHp.getText().toString();
+        String Nemail= email.getText().toString();
+        String Nnama= nama.getText().toString();
         if(!pass.equals(cpass)){
-            Toast.makeText(Register.this,"Password tidak sama",Toast.LENGTH_SHORT).show();
+            ulangpwd.setError( "Password tidak sama" );
+            ulangpwd.requestFocus();
+            temp=false;
+        }else if(hp.equals("")){
+            noHp.setError( "No Handphone masih kosong" );
+            noHp.requestFocus();
+            temp=false;
+        }else if(Nnama.equals("")){
+            nama.setError( "Nama Lengkap masih kosong" );
+            nama.requestFocus();
+            temp=false;
+        }else if(Nemail.equals("")){
+            email.setError( "Email masih kosong" );
+            email.requestFocus();
+            temp=false;
+        }else if(pass.equals("")){
+            pwd.setError( "Password masih kosong" );
+            pwd.requestFocus();
             temp=false;
         }
         return temp;

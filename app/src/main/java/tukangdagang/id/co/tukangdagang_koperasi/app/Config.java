@@ -11,6 +11,7 @@ public class Config {
     public static final String path_slider = "https://35utech.com/td/public/upload/slide/";
     public static final String pathKoperasi = "https://35utech.com/td/public/upload/gambarkoperasi/";
     public static final String URLDaftar = "http://35utech.com/td/public/register";
+    public static final String URLKirimUlang = "http://35utech.com/td/public/kirimUlang";
     public static final String URLLoginWith = "http://35utech.com/td/public/loginwith";
     public static final String URLUpload = "http://35utech.com/td/public/uploadktp";
     public static final String URLGantipwd = "http://35utech.com/td/public/Gantipwd";

@@ -49,7 +49,10 @@
 
         </style>
 
-
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/bg_screen3</item>
+        <item name="colorControlHighlight">@color/bg_screen4</item>
+    </style>
         <!--<style name="buttonstyle3" parent="Theme.AppCompat.Light">-->
             <!--<item name="colorControlHighlight">@color/orange</item>-->
             <!--<item name="colorButtonNormal">@color/green</item>-->

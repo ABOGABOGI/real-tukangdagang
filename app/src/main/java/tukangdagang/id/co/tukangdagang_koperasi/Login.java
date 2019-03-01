@@ -116,6 +116,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog = new ProgressDialog(Login.this);
+                mDialog.setMessage("Menerima data..");
+                mDialog.show();
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                 startActivityForResult(intent, SIGN_IN_CODE);
 
@@ -158,9 +161,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         mDialog.dismiss();
-
                         Log.d("response",response.toString());
-
                         getdata(object);
                     }
 
@@ -330,7 +331,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
-
         if (requestCode == SIGN_IN_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
@@ -345,11 +345,13 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         if (opr.isDone()) {
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
+
         } else {
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
                     handleSignInResult(googleSignInResult);
+
                 }
             });
         }
@@ -445,6 +447,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         startActivity(intent);
         finish();
     }
+
     private void daftar(){
         linkDaftar.setOnClickListener(new View.OnClickListener() {
             @Override

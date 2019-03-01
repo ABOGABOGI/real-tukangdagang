@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="tukangdagang.id.co.tukangdagang_koperasi">
-
     <!-- if you want to load images from the internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -23,7 +20,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <!-- Facebook API Key -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -141,18 +137,24 @@
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".MainActivity2"
-            android:theme="@style/IntroTheme"
-            android:screenOrientation="sensorPortrait" />
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/IntroTheme" />
         <activity
             android:name=".Gantipwd"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".Simpanan"
             android:screenOrientation="sensorPortrait" />
-        <activity android:name=".Daftarpinjaman"
-            android:screenOrientation="sensorPortrait"/>
-        <activity android:name=".Tampilpinjaman"
-            android:screenOrientation="sensorPortrait"></activity>
+        <activity
+            android:name=".Daftarpinjaman"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".Tampilpinjaman"
+            android:screenOrientation="sensorPortrait" />
+        <activity
+            android:name=".AfterRegister"
+            android:screenOrientation="sensorPortrait" />
+
     </application>
 
 </manifest>

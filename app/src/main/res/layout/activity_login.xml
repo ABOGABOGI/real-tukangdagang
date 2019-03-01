@@ -119,22 +119,35 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
-            <com.shaishavgandhi.loginbuttons.FacebookButton
-                android:text="Facebook"
-                android:layout_marginRight="5dp"
+            <com.andexert.library.RippleView
                 android:layout_width="wrap_content"
-                style="@style/buttonstyle2"
-                android:theme="@style/buttonstyle2"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnFb"
-                />
+                android:layout_height="wrap_content">
+
+                <com.shaishavgandhi.loginbuttons.FacebookButton
+                    android:text="Facebook"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    style="@style/buttonstyle2"
+                    app:roundedCorner="true"
+                    app:roundedCornerRadius="10dp"
+                    android:theme="@style/buttonstyle2"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnFb"
+                    />
+            </com.andexert.library.RippleView>
+            <com.andexert.library.RippleView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <com.shaishavgandhi.loginbuttons.GooglePlusButton
                 android:text="Google"
                 android:layout_marginLeft="5dp"
+                app:roundedCorner="true"
+                app:roundedCornerRadius="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnGoogle"
                 />
+            </com.andexert.library.RippleView>
 
         </LinearLayout>
 
@@ -165,7 +178,7 @@
                 android:id="@+id/linkDaftar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daftar"
+                android:text=" DAFTAR"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
