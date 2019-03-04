@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:layout_height="match_parent"
+    tools:context=".UpdateSosmed">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="@string/title_updatesosmed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@string/title_updatesosmed2"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/noHp"
+        android:maxLength="15"
+        android:inputType="number"
+        android:hint="No Handphone"
+        android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/nama"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:hint="Nama Lengkap"
+        android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/email"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:hint="Email"
+        android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        app:passwordToggleDrawable="@drawable/password_selector"
+        app:passwordToggleEnabled="true">
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/pwd"
+        android:layout_width="match_parent"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        app:passwordToggleDrawable="@drawable/password_selector"
+        app:passwordToggleEnabled="true">
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/ulangpwd"
+        android:layout_width="match_parent"
+        android:hint="Konfirmasi Password"
+        android:inputType="textPassword"
+        android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnDaftar"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/PrimaryButton"
+        android:text="Daftar"/>
+</LinearLayout>

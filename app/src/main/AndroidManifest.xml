@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UpdateSosmed"></activity>
         <!-- Facebook API Key -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -154,7 +155,6 @@
         <activity
             android:name=".AfterRegister"
             android:screenOrientation="sensorPortrait" />
-
     </application>
 
 </manifest>

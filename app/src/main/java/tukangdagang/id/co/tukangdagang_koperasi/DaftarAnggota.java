@@ -77,7 +77,7 @@ import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_uploa
 public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     ListView listView;
     ListViewAdapter adapter;
-    Button daftar,daftarnanti;
+    Button daftar;
     String[] title, desc;
     int[] icon;
     String Idkoperasi;
@@ -98,7 +98,6 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
         Intent intent = getIntent();
         Idkoperasi = intent.getExtras().getString("idkoperasi");
         daftar = findViewById(R.id.daftar);
-        daftarnanti = findViewById(R.id.daftarnanti);
         spokok = findViewById(R.id.spokok);
         swajib = findViewById(R.id.swajib);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
@@ -106,7 +105,6 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
         imLoading = findViewById(R.id.loadingView);
         getdata();
         daftar();
-        daftarnanti();
 
         title = new String[] {
                 "Informasi Umum",
@@ -269,118 +267,6 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                             });
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "data belum lengkap mohon periksa kembali", Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-        });
-    }
-    public void daftarnanti() {
-        daftarnanti.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                String info_status = sharedPreferences.getString(n_info_status, null);
-                String status_nomor = sharedPreferences.getString(n_status_nomor, null);
-                String status_upload = sharedPreferences.getString(n_status_upload, null);
-                if (info_status.equals("1") && status_nomor.equals("1")&& status_upload.equals("1")) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DaftarAnggota.this);
-
-
-                                    final ProgressDialog progressDialog = new ProgressDialog(DaftarAnggota.this);
-                                    progressDialog.setMessage("Loading...");
-                                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                    progressDialog.show();
-
-                                    //post image to server
-                                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLUpload,
-                                            new Response.Listener < String > () {
-                                                @Override
-                                                public void onResponse(String response) {
-                                                    //If we are getting success from server
-                                                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-                                                    progressDialog.dismiss();
-                                                    SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                    editor.putString(n_imagePreferance, null);
-                                                    editor.putString(n_imagePreferance2, null);
-                                                    editor.putString(n_imagePreferance3, null);
-                                                    editor.putString(n_info_status, "0");
-                                                    editor.putString(n_status_nomor, "0");
-                                                    editor.commit();
-
-                                                }
-                                            },
-                                            new Response.ErrorListener() {
-                                                @Override
-                                                public void onErrorResponse(VolleyError error) {
-                                                    //You can handle error here if you want
-                                                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
-                                                    Log.d("tee", error.toString());
-                                                    progressDialog.dismiss();
-                                                }
-                                            }) {
-                                        @Override
-                                        protected Map < String, String > getParams() throws AuthFailureError {
-                                            Map < String, String > params = new HashMap < > ();
-
-                                            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                                            String info_nama_depan = sharedPreferences.getString(n_info_nama_depan, "");
-                                            String info_nama_belakang = sharedPreferences.getString(n_info_nama_belakang, "");
-                                            String info_jk = sharedPreferences.getString(n_info_jk, "");
-                                            String info_alamat = sharedPreferences.getString(n_info_alamat, "");
-                                            String info_rtrw = sharedPreferences.getString(n_info_rtrw, "");
-                                            String info_kodepos = sharedPreferences.getString(n_info_kodepos, "");
-                                            String info_provinsi = sharedPreferences.getString(n_info_provinsi, "");
-                                            String info_kota = sharedPreferences.getString(n_info_kota, "");
-                                            String info_kecamatan = sharedPreferences.getString(n_info_kecamatan, "");
-                                            String info_noktp = sharedPreferences.getString(n_info_noktp, "");
-                                            String info_nokk = sharedPreferences.getString(n_info_nokk, "");
-                                            String info_nohp = sharedPreferences.getString(n_info_nohp, "");
-                                            String photo = sharedPreferences.getString(n_imagePreferance, "photo");
-                                            String photo2 = sharedPreferences.getString(n_imagePreferance2, "photo");
-                                            String photo3 = sharedPreferences.getString(n_imagePreferance3, "photo");
-                                            String email = sharedPreferences.getString(EMAIL_SHARED_PREF, "");
-                                            String id_profile = sharedPreferences.getString(PROFILE_ID, "");
-                                            String info_refferal = sharedPreferences.getString(n_info_refferal, "");
-                                            //Adding parameters to request
-                                            params.put("nama_depan", info_nama_depan);
-                                            params.put("nama_belakang", info_nama_belakang);
-                                            params.put("jk", info_jk);
-                                            params.put("alamat", info_alamat);
-                                            params.put("rtrw", info_rtrw);
-                                            params.put("kodepos", info_kodepos);
-                                            params.put("provinsi", info_provinsi);
-                                            params.put("kota", info_kota);
-                                            params.put("kecamatan", info_kecamatan);
-                                            params.put("noktp", info_noktp);
-                                            params.put("nokk", info_nokk);
-                                            params.put("nohp", info_nohp);
-                                            params.put("image", photo);
-                                            params.put("image2", photo2);
-                                            params.put("image3", photo3);
-                                            params.put("email", email);
-                                            params.put("idkoperasi", Idkoperasi);
-                                            params.put("isdraft", "0");
-                                            params.put("simpanan_wajib", wajib);
-                                            params.put("simpanan_pokok", pokok);
-                                            params.put("id_profile", id_profile);
-                                            params.put("refferal", info_refferal);
-
-                                            //returning parameter
-                                            return params;
-                                        }
-                                    };
-                                    //Adding the string request to the queue
-                                    RequestQueue requestQueue = Volley.newRequestQueue(DaftarAnggota.this);
-                                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                                            10000,
-                                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                                    requestQueue.add(stringRequest);
-
                 } else {
                     Toast.makeText(getApplicationContext(), "data belum lengkap mohon periksa kembali", Toast.LENGTH_LONG).show();
                 }

@@ -169,21 +169,6 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                                 sisaBayar.setText(formatRupiah.format((double) Double.valueOf(pinjamanobject.getString("jumlah_sisa"))));
 
 
-//                                ModelDaftarpinjaman model = new ModelDaftarpinjaman(pinjamanobject.getString("nama_koperasi"),
-//                                        pinjamanobject.getString("jumlah"),
-//                                        pinjamanobject.getString("logo_koperasi"),
-//                                        pinjamanobject.getString("no_anggota"),
-//                                        pinjamanobject.getString("hari")
-//                                );
-
-//                                arrayList.add(model);
-//                            }
-//                            listView = getActivity().findViewById(R.id.listDaftarsimpanan);
-//                            adapter = new AdapterDaftarpinjaman(getContext(),arrayList);
-//
-//
-//                            listView.setAdapter(adapter);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

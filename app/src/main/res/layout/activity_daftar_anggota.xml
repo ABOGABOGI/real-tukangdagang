@@ -21,11 +21,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/list_daftar_anggota"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        <ListView
+            android:id="@+id/list_daftar_anggota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,25 +94,18 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:id="@+id/daftar"
-            android:padding="5dp"
-            android:theme="@style/buttonstyle1"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:drawableLeft="@drawable/touch"
+            android:theme="@style/PrimaryButton"
             android:text="Daftar"/>
-        <Button
-            android:id="@+id/daftarnanti"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/white"
-            android:theme="@style/buttonstyle1"
-            android:text="Daftar Nanti"/>
 
     </LinearLayout>
 

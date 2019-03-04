@@ -216,6 +216,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 JSONObject profileobject = profileArray.getJSONObject(0);
                                 Log.d("nihil", profileobject.getString("username"));
                                 String id_profile = profileobject.getString("id");
+                                String aktif_status = profileobject.getString("active");
                                 //Creating a shared preference
                                 SharedPreferences sharedPreferences = Register.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -223,7 +224,6 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
                                 //Adding values to editor
-                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailfb);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namafb);
                                 editor.putString(Config.LOGINWITH_SHARED_PREF, "fb");
@@ -233,11 +233,21 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
 
+                                if (aktif_status.equals("1")) {
+                                    editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                                    Intent i = new Intent(Register.this, MainActivity2.class);
+                                    startActivity(i);
+                                    finish();
+                                }else{
+                                    Intent intent = new Intent(Register.this,UpdateSosmed.class);
+                                    intent.putExtra("nama",nilai_namafb);
+                                    intent.putExtra("email",nilai_emailfb);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
                                 //Saving values to editor
                                 editor.commit();
-                                Intent i = new Intent(Register.this, MainActivity2.class);
-                                startActivity(i);
-                                finish();
                             }catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -465,23 +475,23 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if (opr.isDone()) {
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
-                    handleSignInResult(googleSignInResult);
-                }
-            });
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+//        if (opr.isDone()) {
+//            GoogleSignInResult result = opr.get();
+//            handleSignInResult(result);
+//        } else {
+//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                @Override
+//                public void onResult(@NonNull GoogleSignInResult googleSignInResult) {
+//                    handleSignInResult(googleSignInResult);
+//                }
+//            });
+//        }
+//    }
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
@@ -508,6 +518,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 JSONObject profileobject = profileArray.getJSONObject(0);
                                 Log.d("nihil", profileobject.getString("username"));
                                 String id_profile = profileobject.getString("id");
+                                String aktif_status = profileobject.getString("active");
 
                                 //Creating a shared preference
                                 SharedPreferences sharedPreferences = Register.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -516,7 +527,6 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
                                 //Adding values to editor
-                                editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
                                 editor.putString(Config.EMAIL_SHARED_PREF, nilai_emailGg);
                                 editor.putString(Config.NAME_SHARED_PREF, nilai_namaGg);
                                 editor.putString(Config.IMAGE_SHARED_PREF, nilai_imgGg);
@@ -527,9 +537,20 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
                                 editor.putString(n_info_status, "0");
                                 editor.putString(n_status_upload, "0");
 
+                                if (aktif_status.equals("1")) {
+                                    editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
+                                    goMainScreen();
+                                }else{
+                                    Intent intent = new Intent(Register.this,UpdateSosmed.class);
+                                    intent.putExtra("nama",nilai_namaGg);
+                                    intent.putExtra("email",nilai_emailGg);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
                                 //Saving values to editor
                                 editor.commit();
-                                goMainScreen();
+
 
                             }catch (JSONException e) {
                                 e.printStackTrace();

@@ -72,6 +72,8 @@
     <string name="lupa_sandi">Lupa kata sandi ?</string>
     <string name="baru_akses">Baru akses Koperatif ?</string>
     <string name="sudah_punya">Sudah punya akun ?</string>
+    <string name="title_updatesosmed">Untuk keamanan tambahan, silahkan masukan informasi berikut ini</string>
+    <string name="title_updatesosmed2">Anda dapat membuat akun menggunakan Google dan Facebook</string>
 
 
 </resources>
