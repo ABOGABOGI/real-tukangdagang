@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Password Lama"
+                android:hint="Password Saat ini"
 
                 android:inputType="textPassword" />
 
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Ulangi Password"
+            android:hint="Konfirmasi Password"
 
             android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
@@ -66,8 +66,8 @@
             android:layout_width="match_parent"
             android:id="@+id/btn_gantipwd"
             android:layout_height="wrap_content"
-            android:theme="@style/buttonstyle1"
-            android:text="Ganti Password"/>
+            android:theme="@style/PrimaryButton"
+            android:text="Simpan"/>
 
     </LinearLayout>
 

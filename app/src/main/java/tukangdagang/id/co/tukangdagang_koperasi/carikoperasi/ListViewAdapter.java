@@ -1,4 +1,4 @@
-package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
+package tukangdagang.id.co.tukangdagang_koperasi.carikoperasi;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,8 +21,8 @@ import java.util.Locale;
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class ListViewAdapter extends BaseAdapter{
 
@@ -31,6 +31,7 @@ public class ListViewAdapter extends BaseAdapter{
     LayoutInflater inflater;
     List<Model> modellist;
     ArrayList<Model> arrayList;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
     //constructor
     public ListViewAdapter(Context context, List<Model> modellist) {
@@ -68,9 +69,9 @@ public class ListViewAdapter extends BaseAdapter{
         ViewHolder holder;
         if (view==null){
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.row_cari_pinjaman, null);
+            view = inflater.inflate(R.layout.row_cari_koperasi, null);
 
-            //locate the views in row_cari_pinjaman.xmlaman.xml
+            //locate the views in row_cari_koperasi.xmlaman.xml
             holder.btnDaftarKop = view.findViewById(R.id.btn_dafatar_koprasi);
             holder.mTitleTv = view.findViewById(R.id.mainTitle);
             holder.mDescTv = view.findViewById(R.id.mainDesc);
@@ -95,7 +96,7 @@ public class ListViewAdapter extends BaseAdapter{
 //        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
 
         Glide.with(mContext)
-                .load(path + modellist.get(postition).getIcon())
+                .load(path_gambar + modellist.get(postition).getIcon())
 
                 .into(holder.mIconIv);
 

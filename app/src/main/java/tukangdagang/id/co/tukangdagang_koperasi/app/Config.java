@@ -1,28 +1,32 @@
 package tukangdagang.id.co.tukangdagang_koperasi.app;
 
 public class Config {
-    public static final String JSON_URL = "https://35utech.com/td/public/product";
-    public static final String URL_KOPERASI = "https://35utech.com/td/public/koperasi";
-    public static final String URL_DAFTAR_SIMPANAN = "https://35utech.com/td/public/daftarsimpanan";
-    public static final String URL_DAFTAR_PINJAMAN = "https://35utech.com/td/public/daftarpinjaman";
-    public static final String URL_SLIDER = "https://35utech.com/td/public/slide";
-    public static final String JSON_URL_STORES = "https://35utech.com/td/public/stores";
-    public static final String path = "https://35utech.com/td/public/upload/logokoperasi/";
-    public static final String path_slider = "https://35utech.com/td/public/upload/slide/";
-    public static final String pathKoperasi = "https://35utech.com/td/public/upload/gambarkoperasi/";
-    public static final String URLDaftar = "http://35utech.com/td/public/register";
-    public static final String URLDaftar_sosmed = "http://35utech.com/td/public/updateDaftar";
-    public static final String URLKirimUlang = "http://35utech.com/td/public/kirimUlang";
-    public static final String URLLoginWith = "http://35utech.com/td/public/loginwith";
-    public static final String URLUpload = "http://35utech.com/td/public/uploadktp";
-    public static final String URLGantipwd = "http://35utech.com/td/public/Gantipwd";
-    public static final String URL_ID_KOPERASI = "http://35utech.com/td/public/IdKoperasi";
-    public static final String URL_IMG_KOPERASI = "http://35utech.com/td/public/ImgKoperasi";
-    public static final String URL_TAMPIL_ANGGOTA = "http://35utech.com/td/public/tampilanggota";
-    public static final String URL_PROFILE = "http://35utech.com/td/public/getProfile";
+    public static final String URL = "http://35utech.com/td/public/api/";
+    public static final String Fkirimulang = "kirimUlang";
+    public static final String FImgKoperasi = "ImgKoperasi";
+    public static final String Ftampilanggota = "tampilanggota";
+    public static final String Fproduct = "product";
+    public static final String Fkoperasi = "koperasi";
+    public static final String FIdKoperasi = "IdKoperasi";
+    public static final String Fuploadktp = "uploadktp";
+    public static final String Fdaftarpinjaman = "daftarpinjaman";
+    public static final String Fdaftarsimpanan = "daftarsimpanan";
+    public static final String FGantipwd = "Gantipwd";
+    public static final String Fslide = "slide";
+    public static final String Floginwith = "loginwith";
+    public static final String Flogin = "login";
+    public static final String FgetProfile = "getProfile";
+    public static final String Fregister = "register";
+    public static final String FupdateDaftar = "updateDaftar";
 
-    //URL to our login.php file
-    public static final String LOGIN_URL = "http://35utech.com/td/public/login";
+
+    public static final String path = "http://35utech.com/td/public/upload/";
+    public static final String logokoperasi = "logokoperasi/";
+    public static final String Slide = "slide/";
+    public static final String Gambarkoperasi = "gambarkoperasi/";
+
+
+
 
     //Keys for email and password as defined in our $_POST['key'] in login.php
     public static final String KEY_EMAIL = "email";

@@ -17,13 +17,15 @@ import com.bumptech.glide.Glide;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+
 
 public class Tampilpinjaman extends AppCompatActivity{
     ImageView imLoading, logoKoperasi;
     TextView namaKoperasi,totalPinjaman,totalBayar,tenor,jatuhTempo,tagihan,sisaBayar;
     Button btnDaftarPinjaman,btnCariPinjaman;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String path_gambar = Config.path+Config.logokoperasi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class Tampilpinjaman extends AppCompatActivity{
         tagihan.setText(formatRupiah.format((double) Double.valueOf(Ntagihan)));
         sisaBayar.setText(formatRupiah.format((double) Double.valueOf(Nsisabayar)));
         Glide.with(this)
-                .load(path+Nlogokoperasi)
+                .load(path_gambar+Nlogokoperasi)
                 .into(logoKoperasi);
 
     }

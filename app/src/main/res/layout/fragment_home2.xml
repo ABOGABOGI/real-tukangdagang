@@ -23,13 +23,13 @@
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:src="@drawable/logo_warna"/>
-            <ImageView
-                android:id="@+id/toolbar_title"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-                android:src="@drawable/cari"
-                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="Koperatif"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -173,7 +173,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Cari Pinjaman"
+                            android:text="Cari Koperasi"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="12sp"
@@ -211,7 +211,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Usahaku"
+                            android:text="Cari Pinjaman"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
                             android:textSize="12sp"
@@ -225,10 +225,13 @@
             </android.support.v7.widget.GridLayout>
             </com.andexert.library.RippleView>
 
+
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
 
 
-
+            android:layout_height="wrap_content">
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -236,13 +239,25 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="70dp"
             android:orientation="horizontal">
-
         </android.support.v7.widget.RecyclerView>
-
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/simmer_home" />
+                    <include layout="@layout/simmer_home" />
+                    <include layout="@layout/simmer_home" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </RelativeLayout>
 
     </LinearLayout>
     </ScrollView>
-
 
 
     <ImageView

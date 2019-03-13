@@ -22,8 +22,8 @@ import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.Simpanan;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class AdapterDaftarsimpanan extends BaseAdapter{
 
@@ -32,7 +32,7 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
     LayoutInflater inflater;
     List<ModelDaftarsimpanan> modellist;
     ArrayList<ModelDaftarsimpanan> arrayList;
-
+    private String path_gambar = Config.path+Config.logokoperasi;
     //constructor
     public AdapterDaftarsimpanan(Context context, List<ModelDaftarsimpanan> modellist) {
         mContext = context;
@@ -40,6 +40,7 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
         inflater = LayoutInflater.from(mContext);
         this.arrayList = new ArrayList<ModelDaftarsimpanan>();
         this.arrayList.addAll(modellist);
+
     }
 
     public class ViewHolder{
@@ -95,7 +96,7 @@ public class AdapterDaftarsimpanan extends BaseAdapter{
 //        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
 
         Glide.with(mContext)
-                .load(path + modellist.get(postition).getIcon())
+                .load(path_gambar + modellist.get(postition).getIcon())
 
                 .into(holder.mIconIv);
 

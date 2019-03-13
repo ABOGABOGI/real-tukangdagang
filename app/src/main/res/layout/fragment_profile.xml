@@ -471,9 +471,15 @@
                     android:layout_width="match_parent"
                     android:text="Ganti Password"
                     android:id="@+id/btn_gantipwd"
-                    android:visibility="gone"
                     android:drawableLeft="@android:drawable/ic_lock_idle_lock"
-                    android:theme="@style/buttonstyle1"
+                    android:theme="@style/PrimaryButton"
+                    android:layout_height="wrap_content" />
+                 <Button
+                    android:layout_width="match_parent"
+                    android:text="Ganti Password"
+                    android:id="@+id/btn_histori"
+                    android:drawableLeft="@android:drawable/ic_menu_upload"
+                    android:theme="@style/PrimaryButton"
                     android:layout_height="wrap_content" />
 
                 <Button
@@ -482,7 +488,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/logout"
                     android:text="Logout"
-                    android:theme="@style/buttonstyle1" />
+                    android:theme="@style/PrimaryButton" />
 
             </LinearLayout>
         </ScrollView>

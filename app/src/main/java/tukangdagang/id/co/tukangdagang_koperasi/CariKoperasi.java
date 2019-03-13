@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.support.v7.widget.SearchView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -29,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,19 +36,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.CaripinjamanAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+import tukangdagang.id.co.tukangdagang_koperasi.carikoperasi.CaripinjamanAdapter;
+import tukangdagang.id.co.tukangdagang_koperasi.carikoperasi.Model;
 
 import static android.view.View.VISIBLE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
 
-public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
-
+public class CariKoperasi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+    private ShimmerFrameLayout mShimmerViewContainer;
     List<Model> lstCaripinjaman ;
     CaripinjamanAdapter myAdapter;
     RecyclerView myrv ;
-    ImageView imLoading;
     private SwipeRefreshLayout swipeRefreshLayout;
     LinearLayoutManager  manager;
     Boolean isScrolling = false;
@@ -58,18 +55,20 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
     int ival = 0;
     int totaldata = 0;
     int limit =0;
+    private String url = Config.URL+Config.Fkoperasi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cari_pinjaman);
+        setContentView(R.layout.activity_cari_koperasi);
         ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setTitle("Cari Pinjaman");
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
         swipeRefreshLayout.setOnRefreshListener(this);
-        imLoading = findViewById(R.id.loadingView);
         progressBar = findViewById(R.id.progress);
         lstCaripinjaman = new ArrayList<>();
         manager = new LinearLayoutManager(this);
@@ -79,23 +78,20 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void getdata(){
-        imLoading.setBackgroundResource(R.drawable.animasi_loading);
-        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
-                .getBackground();
-        //Menjalankan File Animasi
-        frameAnimation.start();
-        imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        imLoading.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
 
                         try {
                             JSONObject obj = new JSONObject(response);
                             JSONArray koperasiArray = obj.getJSONArray("result");
                             Log.d("resul",response);
+                            // stop animating Shimmer and hide the layout
+                            mShimmerViewContainer.stopShimmerAnimation();
+                            mShimmerViewContainer.setVisibility(View.GONE);
                             lstCaripinjaman.clear();
                             totaldata = koperasiArray.length();
                             for (int i = ival; i <5; i++) {
@@ -110,18 +106,18 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                                         koperasiobject.getString("logo_koperasi"),
                                         koperasiobject.getString("id"),
                                         koperasiobject.getString("rating_koperasi"),
-                                        koperasiobject.getString("kota")
+                                        koperasiobject.getString("alamat_koperasi")
                                 );
 
                                 lstCaripinjaman.add(model);
                                 ival++;
                             }
                             myrv = findViewById(R.id.listKoprasi);
-                            myAdapter = new CaripinjamanAdapter(CariPinjaman.this,lstCaripinjaman);
+                            myAdapter = new CaripinjamanAdapter(CariKoperasi.this,lstCaripinjaman);
 
                             myrv.setLayoutManager(manager);
                             //add ItemDecoration
-                            myrv.addItemDecoration(new DividerItemDecoration(CariPinjaman.this,1));
+                            myrv.addItemDecoration(new DividerItemDecoration(CariKoperasi.this,1));
                             myrv.setAdapter(myAdapter);
                             myrv.setOnScrollListener(new RecyclerView.OnScrollListener() {
                                 @Override
@@ -159,7 +155,6 @@ public class CariPinjaman extends AppCompatActivity implements SwipeRefreshLayou
                     public void onErrorResponse(VolleyError error) {
 //                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(getApplicationContext(),"Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_LONG).show();
-                        imLoading.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
@@ -175,7 +170,7 @@ if(ival<totaldata) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -197,18 +192,18 @@ if(ival<totaldata) {
                                                 koperasiobject.getString("logo_koperasi"),
                                                 koperasiobject.getString("id"),
                                                 koperasiobject.getString("rating_koperasi"),
-                                                koperasiobject.getString("kota")
+                                                koperasiobject.getString("alamat_koperasi")
                                         );
 
                                         lstCaripinjaman.add(model);
                                         ival++;
                                     }
                                     myrv = findViewById(R.id.listKoprasi);
-                                    myAdapter = new CaripinjamanAdapter(CariPinjaman.this,lstCaripinjaman);
+                                    myAdapter = new CaripinjamanAdapter(CariKoperasi.this,lstCaripinjaman);
 
                                     myrv.setLayoutManager(manager);
                                     //add ItemDecoration
-                                    myrv.addItemDecoration(new DividerItemDecoration(CariPinjaman.this,1));
+                                    myrv.addItemDecoration(new DividerItemDecoration(CariKoperasi.this,1));
                                     myrv.setAdapter(myAdapter);
                                     myrv.setOnScrollListener(new RecyclerView.OnScrollListener() {
                                         @Override
@@ -244,7 +239,7 @@ if(ival<totaldata) {
                             }
                         });
 
-                RequestQueue requestQueue = Volley.newRequestQueue(CariPinjaman.this);
+                RequestQueue requestQueue = Volley.newRequestQueue(CariKoperasi.this);
                 requestQueue.add(stringRequest);
                 myAdapter.notifyDataSetChanged();
             }
@@ -301,4 +296,16 @@ if(ival<totaldata) {
         getdata();
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mShimmerViewContainer.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        mShimmerViewContainer.stopShimmerAnimation();
+        super.onPause();
+    }
+
 }

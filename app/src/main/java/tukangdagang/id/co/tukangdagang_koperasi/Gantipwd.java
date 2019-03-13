@@ -31,6 +31,7 @@ public class Gantipwd extends AppCompatActivity {
 Button btn_gantipwd;
 EditText pwd,pwdbaru,ulangpwd;
 String idprofile ="";
+    private String url_gantipwd = Config.URL+Config.FGantipwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +76,7 @@ String idprofile ="";
                                     progressDialog.show();
 
 
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLGantipwd,
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST,url_gantipwd ,
                             new Response.Listener < String > () {
                                 @Override
                                 public void onResponse(String response) {

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 /**
  * Created by User on 2/12/2018.
@@ -34,6 +34,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mIdkoperasi = new ArrayList<>();
     private Context mContext;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
     public HomeAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls, ArrayList<String> idKoperasi) {
         mNames = names;
@@ -59,7 +60,7 @@ if (mImageUrls.get(position).equals("")) {
 }else{
     Glide.with(mContext)
             .asBitmap()
-            .load(path+mImageUrls.get(position))
+            .load(path_gambar+mImageUrls.get(position))
             .into(holder.image);
 }
 

@@ -1,4 +1,4 @@
-package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
+package tukangdagang.id.co.tukangdagang_koperasi.carikoperasi;
 public class Model {
 
     String title;

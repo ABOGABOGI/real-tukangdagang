@@ -26,10 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 import tukangdagang.id.co.tukangdagang_koperasi.caribarang.ModelBarang;
 import tukangdagang.id.co.tukangdagang_koperasi.caribarang.RvBarangAdapter;
-
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
 
 public class CariBarang extends AppCompatActivity {
 
@@ -37,6 +36,7 @@ public class CariBarang extends AppCompatActivity {
     List<ModelBarang> lstBarang ;
     RvBarangAdapter myAdapter;
     RecyclerView myrv ;
+    private String url_produk = Config.URL+Config.Fproduct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class CariBarang extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_produk,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -30,15 +30,13 @@ import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar_sosmed;
-
 public class UpdateSosmed extends AppCompatActivity {
 EditText email,nama_lengkap,noHp,pwd,ulang_pwd;
 Button btnDaftar;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     int success;
+    private String url_update = Config.URL+Config.FupdateDaftar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +75,7 @@ Button btnDaftar;
 
                 RequestQueue queue = Volley.newRequestQueue(UpdateSosmed.this);
 //                String URL = EndPoints.BASE_URL + "/call";
-                StringRequest request = new StringRequest(Request.Method.POST, URLDaftar_sosmed,
+                StringRequest request = new StringRequest(Request.Method.POST, url_update,
                         new Response.Listener<String>()
                         {
                             @Override

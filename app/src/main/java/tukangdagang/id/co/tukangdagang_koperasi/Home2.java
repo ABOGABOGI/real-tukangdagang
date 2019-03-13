@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,6 +40,7 @@ import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,28 +48,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import tukangdagang.id.co.tukangdagang_koperasi.Recycler.RecyclerViewAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
-import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.ListViewAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.Model;
 import tukangdagang.id.co.tukangdagang_koperasi.home2.HomeAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slider.CustomSliderView;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardFragmentPagerAdapter;
-import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardItem;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter;
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 import static android.view.View.VISIBLE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_SLIDER;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_TAMPIL_ANGGOTA;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path_slider;
 
 public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener,SwipeRefreshLayout.OnRefreshListener {
-
+    private ShimmerFrameLayout mShimmerViewContainer;
     private SliderLayout mDemoSlider;
     GridLayout mainGrid;
     private ViewPager mViewPager;
@@ -84,13 +74,16 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     int pendingSMSCount = 10;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private ImageView toolbarTitle;
+//    private ImageView toolbarTitle;
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
     private ArrayList<String> mIdkoperasi = new ArrayList<>();
     private static final String TAG = "Home";
     boolean loggedIn = false;
+    private String url_koperasi = Config.URL+Config.Fkoperasi;
+    private String url_slider = Config.URL+Config.Fslide;
+    private String path_gambar = Config.path+Config.Slide;
 
     public Home2() {
         // Required empty public constructor
@@ -103,7 +96,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         View rootView = inflater.inflate(R.layout.fragment_home2, container, false);
         //bind view
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
-        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+//        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
         //set toolbar
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         //menghilangkan titlebar bawaan
@@ -113,6 +106,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
         // Inflate the layout for this fragment
         mDemoSlider = (SliderLayout)rootView.findViewById(R.id.slider);
+        mShimmerViewContainer = rootView.findViewById(R.id.shimmer_view_container);
         mainGrid = (GridLayout) rootView.findViewById(R.id.mainGrid);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -123,86 +117,11 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.cardviewslider2);
         getSlider();
-        tampilCari();
+//        tampilCari();
         getCardSlider();
         return rootView;
     }
 
-    private void tampilCari() {
-        toolbarTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),Cari.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-//    private void getdata() {
-//
-//
-//        imLoading.setBackgroundResource(R.drawable.animasi_loading);
-//        AnimationDrawable frameAnimation = (AnimationDrawable) imLoading
-//                .getBackground();
-//        //Menjalankan File Animasi
-//        frameAnimation.start();
-//        imLoading.setVisibility(VISIBLE);
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        imLoading.setVisibility(View.GONE);
-//                        swipeRefreshLayout.setRefreshing(false);
-//
-//                        try {
-//                            JSONObject obj = new JSONObject(response);
-//                            JSONArray koperasiArray = obj.getJSONArray("result");
-//                            Log.d("resul",response);
-//                            mCardAdapter = new CardPagerAdapter();
-//                            for (int i = 0; i < koperasiArray.length(); i++) {
-//                                JSONObject koperasiobject = koperasiArray.getJSONObject(i);
-////                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-//                                mCardAdapter.addCardItem(new CardItem(path + koperasiobject.getString("logo_koperasi"),koperasiobject.getString("nama_koperasi"),koperasiobject.getString("id")));
-//                            }
-//                            try {
-//                                mFragmentCardAdapter = new CardFragmentPagerAdapter(getActivity().getSupportFragmentManager(),
-//                                        dpToPixels(2, getActivity()));
-//                            }catch (Error e){
-//                                Toast.makeText(getContext(),e.toString(),Toast.LENGTH_LONG).show();
-//                            }
-//
-//                            mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-//                            mFragmentCardShadowTransformer = new ShadowTransformer(mViewPager, mFragmentCardAdapter);
-//
-//                            mViewPager.setAdapter(mCardAdapter);
-//                            mViewPager.setPageTransformer(false, mCardShadowTransformer);
-//                            mViewPager.setOffscreenPageLimit(3);
-//                            mViewPager.setClipToPadding(false);
-//                            mViewPager.setPadding(0,0,0,0);
-//                            mViewPager.setPageMargin(5);
-//
-//
-//
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        imLoading.setVisibility(View.GONE);
-//                        swipeRefreshLayout.setRefreshing(false);
-//                        Toast.makeText(getContext(), "Terjadi kesalahan pada saat melakukan permintaan data", Toast.LENGTH_SHORT).show();
-//                    }
-//                }) {
-//        };
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//        requestQueue.add(stringRequest);
-//
-//    }
 
     private void getSlider() {
         imLoading.setBackgroundResource(R.drawable.animasi_loading);
@@ -213,7 +132,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
         imLoading.setVisibility(VISIBLE);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_SLIDER,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_slider,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -226,7 +145,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                             HashMap<String,String> url_maps = new HashMap<String, String>();
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
-                                url_maps.put(koperasiobject.getString("id"), path_slider+koperasiobject.getString("gambar_utama"));
+                                url_maps.put(koperasiobject.getString("id"), path_gambar+koperasiobject.getString("gambar_utama"));
                             }
                                 if(sukses.equals("0")) {
                                     for (String name : url_maps.keySet()) {
@@ -278,7 +197,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
     //coding recycler Koperasi
     private void getCardSlider(){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_koperasi,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -288,6 +207,8 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                             JSONObject obj = new JSONObject(response);
                             JSONArray anggotaArray = obj.getJSONArray("result");
                             Log.d("resultanggota",response);
+                            mShimmerViewContainer.stopShimmerAnimation();
+                            mShimmerViewContainer.setVisibility(View.GONE);
                             mImageUrls.clear();
                             mNames.clear();
                             for (int i = 0; i < anggotaArray.length(); i++) {
@@ -386,7 +307,7 @@ public class Home2 extends Fragment implements  BaseSliderView.OnSliderClickList
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                    Intent intent = new Intent(getActivity(), CariKoperasi.class);
                     startActivity(intent);
 
                 }
@@ -513,5 +434,17 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
             }
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mShimmerViewContainer.startShimmerAnimation();
+    }
+
+    @Override
+    public void onPause() {
+        mShimmerViewContainer.stopShimmerAnimation();
+        super.onPause();
+    }
+
 
 }

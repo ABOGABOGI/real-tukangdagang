@@ -50,10 +50,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.daftaranggota.Model;
 
 import static android.view.View.VISIBLE;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_ID_KOPERASI;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance2;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_imagePreferance3;
@@ -86,7 +83,9 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
     ImageView imLoading;
     String pokok ="test";
     String wajib ="";
+    private String url_idkoperasi = Config.URL+Config.FIdKoperasi;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String url_upload = Config.URL+Config.Fuploadktp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +166,7 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
                                     progressDialog.show();
 
                                     //post image to server
-                                    StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLUpload,
+                                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url_upload,
                                             new Response.Listener < String > () {
                                                 @Override
                                                 public void onResponse(String response) {
@@ -282,7 +281,7 @@ public class DaftarAnggota extends AppCompatActivity implements SwipeRefreshLayo
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ID_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_idkoperasi,
                 new Response.Listener < String > () {
                     @Override
                     public void onResponse(String response) {

@@ -40,7 +40,7 @@ import tukangdagang.id.co.tukangdagang_koperasi.daftarpinjaman.ModelDaftarpinjam
 import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+
 
 public class Daftarpinjaman extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     ListView listView;
@@ -53,6 +53,7 @@ public class Daftarpinjaman extends AppCompatActivity implements SwipeRefreshLay
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     RelativeLayout halamanPinjaman,halamanKosong;
+    private String url_pinjaman = Config.URL+Config.Fdaftarpinjaman;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class Daftarpinjaman extends AppCompatActivity implements SwipeRefreshLay
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_DAFTAR_PINJAMAN,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_pinjaman,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

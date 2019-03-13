@@ -1,9 +1,8 @@
-package tukangdagang.id.co.tukangdagang_koperasi.caripinjaman;
+package tukangdagang.id.co.tukangdagang_koperasi.carikoperasi;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +22,9 @@ import java.util.Locale;
 import tukangdagang.id.co.tukangdagang_koperasi.BeritaKoprasi;
 import tukangdagang.id.co.tukangdagang_koperasi.DaftarAnggota;
 import tukangdagang.id.co.tukangdagang_koperasi.Login;
-import tukangdagang.id.co.tukangdagang_koperasi.MainActivity2;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapter.MyViewHolder> {
 
@@ -35,6 +32,7 @@ public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapte
     private List<Model> mData ;
     ArrayList<Model> arrayList;
     private boolean loggedIn = false;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
     public CaripinjamanAdapter(Context mContext, List<Model> mData) {
         this.mContext = mContext;
@@ -44,12 +42,12 @@ public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapte
     }
 
     @Override
-    public tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.CaripinjamanAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public tukangdagang.id.co.tukangdagang_koperasi.carikoperasi.CaripinjamanAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view ;
         LayoutInflater mInflater = LayoutInflater.from(mContext);
-        view = mInflater.inflate(R.layout.row_cari_pinjaman,parent,false);
-        return new tukangdagang.id.co.tukangdagang_koperasi.caripinjaman.CaripinjamanAdapter.MyViewHolder(view);
+        view = mInflater.inflate(R.layout.row_cari_koperasi,parent,false);
+        return new tukangdagang.id.co.tukangdagang_koperasi.carikoperasi.CaripinjamanAdapter.MyViewHolder(view);
     }
 
     @Override
@@ -66,7 +64,7 @@ public class CaripinjamanAdapter extends RecyclerView.Adapter<CaripinjamanAdapte
 //        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
 
         Glide.with(mContext)
-                .load(path + mData.get(position).getIcon())
+                .load(path_gambar + mData.get(position).getIcon())
 
                 .into(holder.mIconIv);
 

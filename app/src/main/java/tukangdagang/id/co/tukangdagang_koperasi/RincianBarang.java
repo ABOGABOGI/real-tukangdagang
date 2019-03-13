@@ -8,11 +8,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+
 
 public class RincianBarang extends AppCompatActivity {
     private TextView tampilHarga,tampilAlamat,tampilKategori,tampilBerat,tampilDeskripsi;
     private ImageView img;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class RincianBarang extends AppCompatActivity {
         tampilDeskripsi.setText(Deskripsi);
 //        img.setImageResource(image);
         Glide.with(this)
-                .load(path + image)
+                .load(path_gambar + image)
 //                .crossFade()
 //                .placeholder(R.mipmap.ic_launcher)
                 .into(img);

@@ -19,8 +19,7 @@ import java.util.Locale;
 
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.RincianBarang;
-
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
 
 public class RvMakananAdapter extends RecyclerView.Adapter<RvMakananAdapter.MyViewHolder> {
@@ -28,6 +27,7 @@ public class RvMakananAdapter extends RecyclerView.Adapter<RvMakananAdapter.MyVi
     private Context mContext ;
     private List<ModelMakanan> mData ;
     ArrayList<ModelMakanan> arrayList;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
 
     public RvMakananAdapter(Context mContext, List<ModelMakanan> mData) {
@@ -56,7 +56,7 @@ public class RvMakananAdapter extends RecyclerView.Adapter<RvMakananAdapter.MyVi
         holder.harga.setText(Harga);
         holder.alamat.setText(mData.get(position).getAlamat());
         Glide.with(mContext)
-                .load(path + mData.get(position).getThumbnail())
+                .load(path_gambar + mData.get(position).getThumbnail())
 
                 .into(holder.gambar);
 

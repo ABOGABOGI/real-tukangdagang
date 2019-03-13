@@ -78,6 +78,8 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     private GoogleApiClient googleApiClient;
     public static final int SIGN_IN_CODE = 777;
     private boolean loggedIn = false;
+    private String url_loginwith = Config.URL+Config.Floginwith;
+    private String url_login = Config.URL+Config.Flogin;
 
 
     @Override
@@ -212,7 +214,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             //////////////////////////////////////////////////////////////////////
 
             //Creating a string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url_loginwith,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -380,7 +382,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             ////////////////////////////////////////////////////
 
             //Creating a string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url_loginwith,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -516,7 +518,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
 
             //Creating a string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url_login,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

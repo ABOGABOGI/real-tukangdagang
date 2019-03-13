@@ -19,8 +19,8 @@ import java.util.Locale;
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 import tukangdagang.id.co.tukangdagang_koperasi.Simpanan;
 import tukangdagang.id.co.tukangdagang_koperasi.Tampilpinjaman;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
 
 public class AdapterDaftarpinjaman extends BaseAdapter{
 
@@ -29,6 +29,7 @@ public class AdapterDaftarpinjaman extends BaseAdapter{
     LayoutInflater inflater;
     List<ModelDaftarpinjaman> modellist;
     ArrayList<ModelDaftarpinjaman> arrayList;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
     //constructor
     public AdapterDaftarpinjaman(Context context, List<ModelDaftarpinjaman> modellist) {
@@ -88,7 +89,7 @@ public class AdapterDaftarpinjaman extends BaseAdapter{
 //        holder.mIconIv.setImageResource(modellist.get(postition).getIcon());
 
         Glide.with(mContext)
-                .load(path + modellist.get(postition).getIcon())
+                .load(path_gambar + modellist.get(postition).getIcon())
 
                 .into(holder.mIconIv);
 

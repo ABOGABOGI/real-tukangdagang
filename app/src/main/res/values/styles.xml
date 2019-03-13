@@ -38,9 +38,9 @@
 
         </style>
  <style name="buttonstyle2" parent="Theme.AppCompat.Light">
-            <item name="colorControlHighlight">#00BCD4</item>
+            <item name="colorControlHighlight">#10479a</item>
             <item name="android:textColor">#ffff</item>
-            <item name="colorButtonNormal">#009688</item>
+            <item name="colorButtonNormal">#1e94cf</item>
             <item name="android:background">@drawable/round</item>
             <item name="android:textSize">15sp</item>
             <item name="android:padding">10dp</item>
@@ -50,8 +50,8 @@
         </style>
 
     <style name="PrimaryButton" parent="Theme.AppCompat">
-        <item name="colorButtonNormal">@color/bg_screen3</item>
-        <item name="colorControlHighlight">@color/bg_screen4</item>
+        <item name="colorButtonNormal">#1e94cf</item>
+        <item name="colorControlHighlight">#10479a</item>
     </style>
         <!--<style name="buttonstyle3" parent="Theme.AppCompat.Light">-->
             <!--<item name="colorControlHighlight">@color/orange</item>-->

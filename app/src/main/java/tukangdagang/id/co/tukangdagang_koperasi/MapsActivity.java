@@ -39,8 +39,8 @@ import org.json.JSONObject;
 
 import java.security.PublicKey;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.JSON_URL_STORES;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_KOPERASI;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LatLng center, latLng;
     public String judul,judul1,id1;
 
-
+    private String url_koperasi = Config.URL+Config.Fkoperasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url_koperasi,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import com.squareup.picasso.Picasso;
@@ -17,7 +16,6 @@ import java.util.List;
 
 import tukangdagang.id.co.tukangdagang_koperasi.R;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
 
 public class CardPagerAdapter2 extends PagerAdapter implements CardAdapter {
 

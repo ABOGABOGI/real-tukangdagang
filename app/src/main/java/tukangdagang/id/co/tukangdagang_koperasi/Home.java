@@ -347,7 +347,7 @@ public class Home extends Fragment implements BaseSliderView.OnSliderClickListen
                 @Override
                 public void onClick(View view) {
 
-                    Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                    Intent intent = new Intent(getActivity(), CariKoperasi.class);
                     intent.putExtra("info","This is activity from card item index  "+finalI);
                     startActivity(intent);
 

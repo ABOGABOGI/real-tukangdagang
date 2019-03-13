@@ -40,8 +40,6 @@ import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.CardPagerAdapter2
 import tukangdagang.id.co.tukangdagang_koperasi.slidercardview.ShadowTransformer;
 
 import static android.view.View.VISIBLE;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_IMG_KOPERASI;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_TAMPIL_ANGGOTA;
 
 public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     private ViewPager mViewPager;
@@ -51,10 +49,13 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     private ShadowTransformer mFragmentCardShadowTransformer;
     private TextView namakoperasi;
     String Idkoperasi;
+    private String url_imgkoperasi = Config.URL+Config.FImgKoperasi;
+    private String url_anggota = Config.URL+Config.Ftampilanggota;
 
     private static final String TAG = "BeritaKoprasi";
     ImageView imLoading;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private String path_gambar = Config.path+Config.Gambarkoperasi;
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
@@ -90,7 +91,7 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_IMG_KOPERASI,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_imgkoperasi,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -106,7 +107,7 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
                             for (int i = 0; i < koperasiArray.length(); i++) {
                                 JSONObject koperasiobject = koperasiArray.getJSONObject(i);
 //                                Log.d("asdf", koperasiobject.getString("logo_koperasi"));
-                                mCardAdapter.addCardItem(new CardItem(Config.pathKoperasi + koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi"),koperasiobject.getString("id"),""));
+                                mCardAdapter.addCardItem(new CardItem(path_gambar + koperasiobject.getString("id_koperasi")+"/"+koperasiobject.getString("gambar_koperasi"),koperasiobject.getString("id"),""));
                             }
                             mFragmentCardAdapter = new CardFragmentPagerAdapter(getSupportFragmentManager(),
                                     dpToPixels(2, BeritaKoprasi.this));
@@ -157,7 +158,7 @@ public class BeritaKoprasi extends AppCompatActivity implements SwipeRefreshLayo
     //coding recycler Angota
     private void getAnggota(){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_TAMPIL_ANGGOTA,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_anggota,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

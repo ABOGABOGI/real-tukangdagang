@@ -29,7 +29,7 @@ public class Cari extends AppCompatActivity implements Profile.OnFragmentInterac
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
         final pagerAdapter adapter = new pagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

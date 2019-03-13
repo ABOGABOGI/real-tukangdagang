@@ -55,7 +55,6 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.LOGINWITH_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URL_PROFILE;
 
 public class Profile extends Fragment implements GoogleApiClient.OnConnectionFailedListener,SwipeRefreshLayout.OnRefreshListener{
 
@@ -68,8 +67,9 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private ImageView toolbarTitle;
+//    private ImageView toolbarTitle;
     private boolean loggedIn = false;
+    private String url_profile = Config.URL+Config.FgetProfile;
     public Profile() {
         // Required empty public constructor
     }
@@ -82,7 +82,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         //bind view
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
-        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+//        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
         //set toolbar
 //        getActivity().setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -142,7 +142,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_PROFILE,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_profile,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -150,16 +150,48 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                         swipeRefreshLayout.setRefreshing(false);
 
                         try {
-                            JSONObject obj = new JSONObject(response);
-                            JSONArray profileArray = obj.getJSONArray("profile");
+                           JSONObject obj = new JSONObject(response);
+                           JSONArray profileArray = obj.getJSONArray("profile");
                            JSONArray jmlkoperasiArray = obj.getJSONArray("jmlKoperasi");
                            JSONArray jmlpinjamanArray = obj.getJSONArray("jmlPinjaman");
-                            JSONArray jmlusahaArray = obj.getJSONArray("jmlUsaha");
-                            JSONArray simpananwajibArray = obj.getJSONArray("simpananWajib");
-                            JSONArray jmlpokoksukarelaArray = obj.getJSONArray("jmlpokoksukarela");
-                            Log.d("wajibar", String.valueOf(simpananwajibArray));
+                           JSONArray simpananwajibArray = obj.getJSONArray("simpananWajib");
+                           JSONArray simpananpokokArray = obj.getJSONArray("simpananPokok");
+                           JSONArray simpanansukarelaArray = obj.getJSONArray("simpananSukarela");
+//
+                            JSONObject simpananwajibobject = simpananwajibArray.getJSONObject(0);
+                            JSONObject simpananpokokobject = simpananpokokArray.getJSONObject(0);
+                            JSONObject simpanansukarelaobject = simpanansukarelaArray.getJSONObject(0);
 
-                                JSONObject profileobject = profileArray.getJSONObject(0);
+                            Locale localeID = new Locale("in", "ID");
+                            NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+                            if(simpananwajibArray.length()!=0) {
+                                if(!simpananwajibobject.getString("total").equals("null")) {
+                                    simpanan_wajib.setText(formatRupiah.format((double) Double.valueOf(simpananwajibobject.getString("total"))));
+                                }
+                            }if(simpananpokokArray.length()!=0) {
+                                if(!simpananpokokobject.getString("total").equals("null")) {
+                                    simpanan_pokok.setText(formatRupiah.format((double) Double.valueOf(simpananpokokobject.getString("total"))));
+                                }
+                            }if(simpanansukarelaArray.length()!=0) {
+                                if(!simpanansukarelaobject.getString("total").equals("null")) {
+                                    simpanan_sukarela.setText(formatRupiah.format((double) Double.valueOf(simpanansukarelaobject.getString("total"))));
+                                }
+                            }
+                            if(jmlkoperasiArray.length()!=0) {
+                                JSONObject jmlkoperasiobject = jmlkoperasiArray.getJSONObject(0);
+                                if(!jmlkoperasiobject.getString("jml_koperasi").equals("null")) {
+                                    jml_koperasi.setText(jmlkoperasiobject.getString("jml_koperasi"));
+                                }
+                            }
+                            if(jmlpinjamanArray.length()!=0) {
+                                JSONObject jmlpinjamanobject = jmlpinjamanArray.getJSONObject(0);
+                                if(!jmlpinjamanobject.getString("jumlah_pinjaman").equals("null")) {
+                                    jml_pinjaman.setText(jmlpinjamanobject.getString("jumlah_pinjaman"));
+                                }
+                            }
+
+
+                            JSONObject profileobject = profileArray.getJSONObject(0);
 
                                 String loginwith = profileobject.getString("loginwith");
                                 idprofile = profileobject.getString("id");
@@ -181,41 +213,7 @@ public class Profile extends Fragment implements GoogleApiClient.OnConnectionFai
                                 }
 
                             scnama.setText(profileobject.getString("first_name"));
-                            info_email.setText(status+profileobject.getString("email"));
-                            if(jmlkoperasiArray.length()!=0) {
-                                JSONObject jmlkoperasiobject = jmlkoperasiArray.getJSONObject(0);
-                                jml_koperasi.setText(jmlkoperasiobject.getString("jml_koperasi"));
-                            }
-                            if(jmlpinjamanArray.length()!=0) {
-                                JSONObject jmlpinjamanobject = jmlpinjamanArray.getJSONObject(0);
-                                jml_pinjaman.setText(jmlpinjamanobject.getString("jml_pinjaman"));
-
-                            }if(jmlusahaArray.length()!=0) {
-                                JSONObject jmlusahaobject = jmlusahaArray.getJSONObject(0);
-                                jml_usaha.setText(jmlusahaobject.getString("jml_usaha"));
-
-                            }
-                            if(simpananwajibArray.length()!=0) {
-                                JSONObject simpananwajibobject = simpananwajibArray.getJSONObject(0);
-                                Locale localeID = new Locale("in", "ID");
-                                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-                                if(!simpananwajibobject.getString("total").equals("null")) {
-                                    simpanan_wajib.setText(formatRupiah.format((double) Double.valueOf(simpananwajibobject.getString("total"))));
-                                }
-                            }
-                            if(jmlpokoksukarelaArray.length()!=0) {
-                                JSONObject jmlpokoksukarelaobject = jmlpokoksukarelaArray.getJSONObject(0);
-                                Locale localeID = new Locale("in", "ID");
-                                NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
-                                if(!jmlpokoksukarelaobject.getString("jml_pokok").equals("null")) {
-                                    simpanan_pokok.setText(formatRupiah.format((double) Double.valueOf(jmlpokoksukarelaobject.getString("jml_pokok"))));
-                                }
-                                if(!jmlpokoksukarelaobject.getString("jml_sukarela").equals("null")) {
-                                    simpanan_sukarela.setText(formatRupiah.format((double) Double.valueOf(jmlpokoksukarelaobject.getString("jml_sukarela"))));
-                                }
-                            }
-
-
+                            info_email.setText(profileobject.getString("email"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

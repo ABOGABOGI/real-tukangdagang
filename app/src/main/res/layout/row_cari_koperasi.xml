@@ -54,7 +54,7 @@
             android:id="@+id/btn_dafatar_koprasi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/buttonstyle1"
+            android:theme="@style/PrimaryButton"
             android:textColor="@color/white"
             android:padding="10dp"
             android:drawableLeft="@drawable/touch"

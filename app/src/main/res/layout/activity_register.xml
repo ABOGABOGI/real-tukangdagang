@@ -38,13 +38,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
+
+                <com.andexert.library.RippleView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <com.shaishavgandhi.loginbuttons.GooglePlusButton
+                        android:text="Google"
+                        android:layout_marginRight="5dp"
+                        app:roundedCorner="true"
+                        app:roundedCornerRadius="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnGoogle"
+                        />
+                </com.andexert.library.RippleView>
+
                 <com.andexert.library.RippleView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <com.shaishavgandhi.loginbuttons.FacebookButton
                         android:text="Facebook"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         style="@style/buttonstyle2"
                         app:roundedCorner="true"
@@ -52,19 +67,6 @@
                         android:theme="@style/buttonstyle2"
                         android:layout_height="wrap_content"
                         android:id="@+id/btnFb"
-                        />
-                </com.andexert.library.RippleView>
-                <com.andexert.library.RippleView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <com.shaishavgandhi.loginbuttons.GooglePlusButton
-                        android:text="Google"
-                        android:layout_marginLeft="5dp"
-                        app:roundedCorner="true"
-                        app:roundedCornerRadius="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btnGoogle"
                         />
                 </com.andexert.library.RippleView>
             </LinearLayout>
@@ -188,7 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Ulangi Password"
+                    android:hint="Konfirmasi Password"
 
                     android:inputType="textPassword" />
 

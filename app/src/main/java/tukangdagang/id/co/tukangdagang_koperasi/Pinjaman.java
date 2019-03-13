@@ -40,14 +40,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
-import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.AdapterDaftarsimpanan;
-import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.ModelDaftarsimpanan;
 
 import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.path;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.pathKoperasi;
+
 
 
 /**
@@ -62,7 +59,9 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Toolbar toolbar;
-    private ImageView toolbarTitle;
+//    private ImageView toolbarTitle;
+    private String url_pinjaman = Config.URL+Config.Fdaftarpinjaman;
+    private String path_gambar = Config.path+Config.logokoperasi;
 
 
     public Pinjaman() {
@@ -76,7 +75,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         View rootView = inflater.inflate(R.layout.fragment_pinjaman, container, false);
         //bind view
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
-        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+//        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
         //set toolbar
 //        getActivity().setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -120,7 +119,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         btnCariPinjaman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                Intent intent = new Intent(getActivity(), CariKoperasi.class);
                 startActivity(intent);
             }
         });
@@ -134,7 +133,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_DAFTAR_PINJAMAN,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_pinjaman,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -159,7 +158,7 @@ public class Pinjaman extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                                 Log.d("asd", response);
                                namaKoperasi.setText(pinjamanobject.getString("nama_koperasi"));
                                Glide.with(getActivity())
-                                    .load(path+pinjamanobject.getString("logo_koperasi"))
+                                    .load(path_gambar+pinjamanobject.getString("logo_koperasi"))
                                     .into(logoKoperasi);
                                 totalPinjaman.setText(formatRupiah.format((double) Double.valueOf(pinjamanobject.getString("jumlah_pinjaman"))));
                                 totalBayar.setText(formatRupiah.format((double) Double.valueOf(pinjamanobject.getString("jumlah_harus_bayar"))));

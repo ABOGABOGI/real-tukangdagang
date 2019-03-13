@@ -64,7 +64,6 @@ import java.util.Map;
 import tukangdagang.id.co.tukangdagang_koperasi.app.AppController;
 import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_info_status;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_nomor;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.n_status_upload;
@@ -83,7 +82,8 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
     int success;
-    String tag_json_obj = "json_obj_req";
+    private String url_loginwith = Config.URL+Config.Floginwith;
+    private String url_register = Config.URL+Config.Fregister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +204,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
             //////////////////////////////////////////////////////////////////////
 
             //Creating a string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url_loginwith,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -315,7 +315,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
 
                 RequestQueue queue = Volley.newRequestQueue(Register.this);
 //                String URL = EndPoints.BASE_URL + "/call";
-                StringRequest request = new StringRequest(Request.Method.POST, URLDaftar,
+                StringRequest request = new StringRequest(Request.Method.POST, url_register,
                         new Response.Listener<String>()
                         {
                             @Override
@@ -504,7 +504,7 @@ public class Register extends AppCompatActivity implements GoogleApiClient.OnCon
             ////////////////////////////////////////////////////
 
             //Creating a string request
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URLLoginWith,
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url_loginwith,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

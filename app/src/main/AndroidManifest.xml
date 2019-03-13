@@ -20,8 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateSosmed"></activity>
-        <!-- Facebook API Key -->
+
+        <activity android:name=".UpdateSosmed" /> <!-- Facebook API Key -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
@@ -32,12 +32,20 @@
             android:label="@string/app_name"
             android:screenOrientation="sensorPortrait"
             android:theme="@style/IntroTheme">
+        </activity>
+
+        <activity
+            android:name=".Splash"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/IntroTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorPortrait" />
@@ -77,7 +85,7 @@
             android:label="@string/jadwal"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".CariPinjaman"
+            android:name=".CariKoperasi"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
         <activity

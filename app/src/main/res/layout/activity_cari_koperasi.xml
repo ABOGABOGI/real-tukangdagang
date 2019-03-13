@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#ffff"
     android:layout_height="match_parent"
-    tools:context=".CariPinjaman">
+    tools:context=".CariKoperasi">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -27,13 +27,6 @@
 
         </android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loadingView"
-            android:background="@drawable/animasi_loading"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +34,25 @@
             android:layout_centerHorizontal="true"
             android:visibility="gone"
             android:id="@+id/progress"/>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/shimmer_cari_koperasi" />
+                <include layout="@layout/shimmer_cari_koperasi" />
+                <include layout="@layout/shimmer_cari_koperasi" />
+                <include layout="@layout/shimmer_cari_koperasi" />
+                <include layout="@layout/shimmer_cari_koperasi" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>

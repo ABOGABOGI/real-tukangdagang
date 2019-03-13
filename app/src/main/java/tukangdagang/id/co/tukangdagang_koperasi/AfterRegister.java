@@ -26,8 +26,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLDaftar;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.URLKirimUlang;
+import tukangdagang.id.co.tukangdagang_koperasi.app.Config;
+
 
 public class AfterRegister extends AppCompatActivity {
 TextView hitungMundur,tvEmail;
@@ -36,6 +36,7 @@ Button btnKirimUlang,btnSelesai;
     private static final String TAG_MESSAGE = "message";
     int success;
     String Nemail,Nnama;
+    private String url_kirimUlang = Config.URL+Config.Fkirimulang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +107,7 @@ Button btnKirimUlang,btnSelesai;
 
         RequestQueue queue = Volley.newRequestQueue(AfterRegister.this);
 //                String URL = EndPoints.BASE_URL + "/call";
-        StringRequest request = new StringRequest(Request.Method.POST, URLKirimUlang,
+        StringRequest request = new StringRequest(Request.Method.POST, url_kirimUlang,
                 new Response.Listener<String>()
                 {
                     @Override

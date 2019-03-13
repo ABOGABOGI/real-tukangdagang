@@ -1,6 +1,5 @@
 package tukangdagang.id.co.tukangdagang_koperasi;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +42,6 @@ import tukangdagang.id.co.tukangdagang_koperasi.daftarsimpanan.ModelDaftarsimpan
 
 import static android.view.View.VISIBLE;
 import static com.facebook.FacebookSdk.getApplicationContext;
-import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.EMAIL_SHARED_PREF;
 import static tukangdagang.id.co.tukangdagang_koperasi.app.Config.PROFILE_ID;
 
 
@@ -66,6 +64,8 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
     private Toolbar toolbar;
     private ImageView toolbarTitle;
 
+    private String url_simpanan = Config.URL+Config.Fdaftarsimpanan;
+
     public Daftarsimpanan() {
         // Required empty public constructor
     }
@@ -84,7 +84,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         btn_cari_koperasi = rootView.findViewById(R.id.btn_cari_koperasi);
         //bind view
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar_main);
-        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
+//        toolbarTitle = (ImageView) rootView.findViewById(R.id.toolbar_title);
         //set toolbar
 //        getActivity().setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -103,7 +103,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         btn_cari_koperasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),CariPinjaman.class);
+                Intent intent = new Intent(getActivity(), CariKoperasi.class);
                 startActivity(intent);
             }
         });
@@ -116,7 +116,7 @@ public class Daftarsimpanan extends Fragment implements SwipeRefreshLayout.OnRef
         //Menjalankan File Animasi
         frameAnimation.start();
         imLoading.setVisibility(VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_DAFTAR_SIMPANAN,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url_simpanan,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
